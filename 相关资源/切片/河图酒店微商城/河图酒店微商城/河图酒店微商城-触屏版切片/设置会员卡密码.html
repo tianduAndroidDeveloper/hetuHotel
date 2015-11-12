@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>设置会员卡密码</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(){
+  searchTextClear(".cipher1","请输入密码至少6位，不含空格","#999","#333");
+  searchTextClear(".cipher2","请再次输入密码","#999","#333");
+
+});
+</script>
+</head>
+
+<body>
+<div class="h40"></div>
+<div id=""class="logint">
+
+      
+	<section class="logintext">
+      <dl>
+        <dt style="width: 31%;;color:#393939;padding-left: 10%;border-bottom: 1px solid #d9d9d9;border-right: 1px solid #d9d9d9;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</dt>
+        <dd style="padding-left: 5%;"><input type="text" class="text cipher1"></dd>
+      </dl>
+    </section>
+      
+	<section class="logintext">
+      <dl>
+        <dt style="width: 31%;;color:#393939;padding-left: 9%;border-bottom: 1px solid #d9d9d9;border-right: 1px solid #d9d9d9;">确认密码</dt>
+        <dd style="padding-left: 5%;"><input type="text" class="text cipher2"></dd>
+      </dl>
+    </section>
+
+</div>
+
+    <div class="clear h40"></div>
+
+<footer class="comfoot h50">
+<input type="text"  class="yesbtn" value="确定">
+</footer>
+
+
+</body>
+</html>

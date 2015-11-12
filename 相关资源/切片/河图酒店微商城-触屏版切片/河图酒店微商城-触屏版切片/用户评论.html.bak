@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>用户评论</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(){
+  searchTextClear(".cipher3","请输入评论内容","#999","#333");
+
+});
+</script>
+
+</head>
+
+<body>
+
+<div class="mainbox">
+
+
+
+
+  <div id="" class="details5 mt30">
+      <div id="" class="details_nex4 lh50">
+	    <a class="" href="javascript:void(0);" onclick="topNavMenu()"> <i class="order_number"></i><span class="congcent">订单号：12316432132</span></a>
+	    <a href="javascript:void(0);" class="a1 sel" onclick="checkBoxClick(this)"></a>
+	  </div>
+	  <div class="clear"></div>   
+	  <div id="" class="carlist center">
+        <a class="b1" href="#"><img src="images/img01.png"></a>
+        <a class="b2" href="#"><span class="pr5">项目:</span>头颈肩推拿 45分钟</a>
+        <a class="b2" href="#"><span class="pr5">推拿师:</span>李云娇</a>
+        <a class="b2" href="#"><span class="pr5">项目数量:</span>1</a>
+        <a class="b2" href="#"><span class="pr5">时间:</span>07月30日 16:30</a>
+       <div class="clear"></div>   
+	  </div>
+	   <div class="clear"></div>
+      <div id="" class="discuss w93 pa10 pt10 ta-c">
+	    		   
+           <div id="" class="w80" style="display: table;width: 100%;table-layout: fixed; ">
+			<div id="" class="criticism ">
+			<p><input type="radio" name="feedbacktype" checked="1" value="feedback" id="dcmp-stand-neu" class="mr10">好评</p>
+           <p><input type="radio" name="feedbacktype" checked="1" value="feedback" id="dcmp-stand-neu" class="mr10">中评</p>
+           <p><input type="radio" name="feedbacktype" checked="1" value="feedback" id="dcmp-stand-neu" class="mr10">差评</p>
+           </div>
+           </div>
+
+           <div class="clear h20"></div>   
+           <textarea name="Text" cols="40" rows="5" class="input-text cipher3" id="Text" style="width:98%; height:200px;"></textarea>
+		   <section class="buybot"><input type="submit" value="提交评论" class="sub fr"></section>
+		   <div class="clear"></div>
+	  </div>
+	  <div class="clear"></div>
+  </div>
+
+
+
+</div>
+<div id="" class="h80"></div>
+
+
+
+
+
+
+
+</body>
+</html>

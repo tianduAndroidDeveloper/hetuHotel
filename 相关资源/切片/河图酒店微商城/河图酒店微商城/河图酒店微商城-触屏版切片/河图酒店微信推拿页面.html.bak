@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>河图酒店微信推拿页面</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+  indexBanner("box","sum",300,5000,"num");
+});
+
+</script>
+</head>
+<body>
+
+<header class="comhead mb20">
+  <div class="mainbox">
+  		   
+		     <style type="text/css">
+             .mainbox ol.active {display: block;}
+             .mainbox ol {display: none;}
+             </style>
+             <script type="text/javascript"> 
+             function tab(id){
+             for(i=1;i<=4;i++){
+             if(id == i){
+             document.getElementById("co_"+i).className="active";
+             document.getElementById("tb_"+i).className="active jodo";
+             }else{
+
+             document.getElementById("co_"+i).className="";
+             document.getElementById("tb_"+i).className="";
+
+             }
+
+             }
+
+             }
+             </script> 
+<div class="countcheck fl">
+    <div class="tablefixed">
+      <menu class="qieis">
+       <a class="active jodo"   href="javascript:void(0);" onclick="tab(1)" id="tb_1">推拿</a>
+       <a href="javascript:void(0);" onclick="tab(2)" id="tb_2">足疗</a>
+       <a href="javascript:void(0);" onclick="tab(3)" id="tb_3">订制</a>
+       <a href="javascript:void(0);" onclick="tab(4)" id="tb_4">推拿师</a> 
+      </menu>
+    </div>
+  </div>
+    <div class=" mainbox_loc">
+        <a class="a1" href="#">昆明</a>
+    </div>
+	 
+	 <div class="clear"></div>
+  </div>
+
+</header>
+
+
+<section id="box">
+  <ul id="sum">
+    <li><img src="images/banner01.jpg" /></li>
+    <li><img src="images/banner02.jpg" /></li>
+    <li><img src="images/banner03.jpg" /></li>
+  </ul>
+  <div class="clear"></div>
+</section><!--我是banner-->
+ <div class="h20"></div>
+<div class="mainbox mb20">
+
+     <div class="carbox mb20" style="padding: 10px 3%;background: #fff;border-radius: 10px;">
+        <a class="b1" href="#" style="width:40%;"><img src="images/anli1.jpg" style="border-radius:0;height: 100px;"></a>
+        <a class="b2 " href="#" style="margin-top: 13px;width: 57%;"><span class="fw-b fl mr10">头颈肩推拿</span><span class="ifews fl"> 45分钟</span></a>
+        <a class="b2 red" href="#" style="margin-top: 8px;width: 57%;"><span class="ifews2" style="color:red;">￥128</span>（一人起订）</a>
+		<input type="submit" class="manipulationbtn fr mt10" value="立即预约">
+        <div class="clear"></div>
+    </div>
+     <div class="carbox mb20" style="padding: 10px 3%;background: #fff;border-radius: 10px;">
+        <a class="b1" href="#" style="width:40%;"><img src="images/anli1.jpg" style="border-radius:0;height: 100px;"></a>
+        <a class="b2 " href="#" style="margin-top: 13px;width: 57%;"><span class="fw-b fl mr10">头颈肩推拿</span><span class="ifews fl"> 45分钟</span></a>
+        <a class="b2 red" href="#" style="margin-top: 8px;width: 57%;"><span class="ifews2" style="color:red;">￥128</span>（一人起订）</a>
+		<input type="submit" class="manipulationbtn fr mt10" value="立即预约">
+        <div class="clear"></div>
+    </div>
+     <div class="carbox mb20" style="padding: 10px 3%;background: #fff;border-radius: 10px;">
+        <a class="b1" href="#" style="width:40%;"><img src="images/anli1.jpg" style="border-radius:0;height: 100px;"></a>
+        <a class="b2 " href="#" style="margin-top: 13px;width: 57%;"><span class="fw-b fl mr10">头颈肩推拿</span><span class="ifews fl"> 45分钟</span></a>
+        <a class="b2 red" href="#" style="margin-top: 8px;width: 57%;"><span class="ifews2" style="color:red;">￥128</span>（一人起订）</a>
+		<input type="submit" class="manipulationbtn fr mt10" value="立即预约">
+        <div class="clear"></div>
+    </div>
+     <div class="carbox mb20" style="padding: 10px 3%;background: #fff;border-radius: 10px;">
+        <a class="b1" href="#" style="width:40%;"><img src="images/anli1.jpg" style="border-radius:0;height: 100px;"></a>
+        <a class="b2 " href="#" style="margin-top: 13px;width: 57%;"><span class="fw-b fl mr10">头颈肩推拿</span><span class="ifews fl"> 45分钟</span></a>
+        <a class="b2 red" href="#" style="margin-top: 8px;width: 57%;"><span class="ifews2" style="color:red;">￥128</span>（一人起订）</a>
+		<input type="submit" class="manipulationbtn fr mt10" value="立即预约">
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+
+
+<div id="" class="h70"></div>
+<div class="comfooter">
+    <section class="tablefixed">
+      <menu>
+        <a class="a1 sel" href="#">预约</a>
+        <a class="a2" href="#">个人</a>
+        <a class="a3" href="#">合作</a>
+        <a class="a4" href="#">更多</a>
+      </menu>
+    </section>
+</div>
+
+
+
+</body>
+</html>

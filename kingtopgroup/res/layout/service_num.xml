@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+ <ScrollView 
+             android:id="@+id/scrollView1"
+             android:layout_weight="8"
+             android:layout_width="match_parent"
+             android:layout_height="0dp" >
+  
+  <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all"
+    android:orientation="vertical" >
+    
+     <LinearLayout
+        android:id="@+id/manipulations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/fragment_cycle_viewpager_content"
+            android:name="cn.androiddevelop.cycleviewpager.lib.CycleViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="180dip" />
+    </LinearLayout>
+    
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="80dip"
+         android:layout_margin="10dip"
+         android:padding="10dip"
+         android:background="@color/white"
+         android:orientation="horizontal" >
+        
+        <ImageView android:id="@+id/product_item_image"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/order1_1"
+            android:layout_width="0dp"/>
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="0dp"
+             android:layout_weight="1.5"
+            android:layout_margin="10dip"
+             android:background="@color/white"
+            android:orientation="vertical">
+            <TextView android:id="@+id/product_item_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="肩颈推拿体验"/>
+            
+             <TextView android:id="@+id/product_item_price"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/red"
+                android:text="￥39.00"/>
+            </LinearLayout>
+            
+         <LinearLayout android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dip"
+             android:layout_weight="1.5"
+             android:background="@color/white"
+            android:orientation="vertical">
+            <TextView android:id="@+id/product_item_time"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/red"
+                android:text="20分钟"/>
+            
+             <TextView android:id="@+id/product_item_num"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/red"
+                android:text="（两人起订）"/>
+            </LinearLayout>
+        
+     </LinearLayout>
+     
+     <ProgressBar  style="?android:attr/progressBarStyleLarge"
+         android:id="@+id/service_progressbar"
+          android:max="100"
+        android:progress="50"
+        android:secondaryProgress="70" 
+        android:visibility="invisible"
+         android:layout_gravity="center"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"/>
+     
+     <!-- 套餐内容 -->
+     <LinearLayout android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:background="@color/white"
+          android:layout_marginTop="10dip"
+          android:layout_margin="10dip"
+          android:paddingLeft="5dip"
+          android:orientation="vertical">
+         
+         <ImageView android:layout_height="50dp"
+             android:src="@drawable/service_title"
+             android:layout_width="50dip"/>
+         
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="50dip"
+             android:orientation="horizontal" >
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:padding="10dip"
+                 android:text="推拿师等级" />
+
+             <Button
+                 android:layout_width="35dip"
+                 android:layout_height="30dip"
+                 android:layout_weight="0.36"
+                 android:background="@drawable/btn_bg"
+                 android:text="高级"
+                 android:textSize="12sp"
+                 android:textColor="@color/white" />
+         </LinearLayout>
+
+         </LinearLayout>
+         
+         <ImageView 
+             android:layout_height="2dip"
+             android:background="@color/gray"
+             android:layout_width="fill_parent"/>
+         
+      <LinearLayout android:layout_height="wrap_content"
+           android:padding="10dip"
+            android:layout_margin="10dip"
+           android:background="@color/white"
+           android:layout_width="fill_parent"
+           android:orientation="horizontal">
+             
+           <TextView android:text="购买数量"
+               android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:layout_width="0dp"
+           />  
+           
+           <Button android:layout_height="wrap_content"
+               android:layout_width="0dp"
+               android:id="@+id/service_reduce_button"
+               android:paddingLeft="10dip"
+               android:layout_weight="1"
+               android:background="@drawable/shape_rb_pop"
+               android:text="-"/>
+            <Button android:layout_height="wrap_content"
+                android:id="@+id/service_num_button"
+               android:layout_width="0dp"
+               android:layout_weight="2"
+               android:background="@drawable/shape_rb_pop"
+               android:text="1"/>
+             <Button android:layout_height="wrap_content"
+                 android:id="@+id/service_add_button"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:background="@drawable/shape_rb_pop"
+               android:text="+"/>
+             </LinearLayout>
+             
+      <LinearLayout android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+           android:layout_marginTop="10dip"
+             android:layout_marginLeft="10dip"
+             android:layout_marginRight="10dip"
+          android:background="@color/white"
+          android:orientation="vertical">
+           <RadioGroup android:layout_height="wrap_content"
+               android:padding="10dip"
+               android:layout_width="fill_parent"
+               android:orientation="horizontal">
+             <RadioButton android:layout_height="wrap_content"
+                 android:id="@+id/service_content"
+                 android:layout_width="wrap_content"
+                 android:layout_weight="1"
+                 android:checked="true"
+                 android:textColor="@drawable/color_radiobutton"
+                 android:button="@null"
+                 android:text="服务内容    |"/>
+              <RadioButton android:layout_height="wrap_content"
+                  android:id="@+id/service_scope"
+                 android:layout_width="wrap_content"
+                 android:layout_weight="1"
+                 android:textColor="@drawable/color_radiobutton"
+                 android:button="@null"
+                 android:text="适用范围     |"/>
+               <RadioButton android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:id="@+id/you_must_know"
+                 android:layout_weight="1"
+                 android:textColor="@drawable/color_radiobutton"
+                 android:button="@null"
+                 android:text="下单须知 "/>
+             </RadioGroup>
+             
+            <ImageView 
+             android:layout_height="2dip"
+             android:background="@color/gray"
+             android:layout_width="fill_parent"/>
+           </LinearLayout>
+           <LinearLayout android:layout_height="wrap_content"
+               android:layout_marginLeft="10dip"
+               android:layout_marginRight="10dip"
+               android:layout_marginBottom="10dip"
+               android:layout_width="fill_parent"
+               android:background="@drawable/linear_boder">
+             <TextView android:id="@+id/service_item_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dip"
+                 android:layout_marginRight="10dip"
+                 android:background="@color/white"
+                 android:textColor="@color/huise"
+                 android:layout_width="fill_parent"/>
+      </LinearLayout>
+     <LinearLayout android:layout_height="wrap_content"
+          android:background="@drawable/linear_boder"
+          android:layout_margin="10dip"
+          android:layout_gravity="center"
+          android:layout_width="fill_parent"
+          android:orientation="vertical"
+         >
+            <TextView android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="足疗"/>
+            
+           <TextView android:layout_height="wrap_content"
+               android:id="@+id/service_num_text"
+               android:background="@color/white"
+               android:padding="10dip"
+               android:textColor="@color/huise"
+               android:layout_width="match_parent"/>
+           </LinearLayout>
+</LinearLayout>
+</ScrollView>
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:gravity="right"
+    android:layout_height="50dp" 
+    android:orientation="horizontal" >
+  
+    <TextView android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/service_sub_price"
+        android:layout_weight="1"
+        android:text="合计：￥456"
+         android:layout_margin="2dp"
+        android:layout_gravity="left|bottom"
+        android:textColor="@color/holo_red_dark"/>
+
+  <Button
+      android:layout_width="124dp"
+      android:id="@+id/service_num_next_button"
+      android:layout_weight="1"
+      android:layout_height="32dp"
+      android:layout_gravity="right|bottom"
+      android:background="@drawable/btn_bg"
+      android:textColor="@color/white"
+      android:layout_margin="2dp"
+      android:gravity="center"
+      android:text="下一步" />
+
+  </LinearLayout>
+  </LinearLayout>

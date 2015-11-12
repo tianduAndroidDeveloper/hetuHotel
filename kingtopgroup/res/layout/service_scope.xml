@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  
+        <TextView android:background="@color/holo_red_light"
+            android:gravity="center"
+            android:layout_height="40dip"
+            android:textColor="@color/white"
+            android:layout_width="fill_parent"
+            android:text="《服务范围》"/>
+        
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/gray"
+            android:padding="10dip"
+            android:text="服务范围如下图红圈范围内,绿色覆盖部分可能需要加时"/>
+        
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:padding="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/service_scope" />
+
+</LinearLayout>
