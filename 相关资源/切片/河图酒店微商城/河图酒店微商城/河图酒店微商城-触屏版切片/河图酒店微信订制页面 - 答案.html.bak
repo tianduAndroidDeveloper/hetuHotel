@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>河图酒店微信订制页面 - 答案</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  searchTextClear(".tinge1","您的名字","#999","#333");
+  searchTextClear(".tinge2","您的手机号","#999","#333");
+  searchTextClear(".tinge3","选择所在或相近的道路/小区名","#999","#333");
+});
+</script>
+</head>
+
+<body>
+
+<header class="comhead">
+  <div class="mainbox">
+  		   
+		     <style type="text/css">
+             .mainbox ol.active {display: block;}
+             .mainbox ol {display: none;}
+             </style>
+             <script type="text/javascript"> 
+             function tab(id){
+             for(i=1;i<=4;i++){
+             if(id == i){
+             document.getElementById("co_"+i).className="active";
+             document.getElementById("tb_"+i).className="active jodo";
+             }else{
+
+             document.getElementById("co_"+i).className="";
+             document.getElementById("tb_"+i).className="";
+
+             }
+
+             }
+
+             }
+             </script> 
+    <nav>
+       <a class="active jodo" href="javascript:void(0);" onclick="tab(1)" id="tb_1">推拿</a>
+       <a href="javascript:void(0);" onclick="tab(2)" id="tb_2">足疗</a>
+       <a href="javascript:void(0);" onclick="tab(3)" id="tb_3">定制</a>
+       <a href="javascript:void(0);" onclick="tab(4)" id="tb_4">推拿师</a> 
+      <div class="clear"></div>
+    </nav>
+    <div class=" mainbox_loc">
+        <a class="a1" href="#">昆明</a>
+    </div>
+	 
+	 <div class="clear"></div>
+  </div>
+
+</header>
+<div id="" class="h70"></div>
+<div class="mainbox pt20">
+ <ol class="active" id="co_1">
+  <div id="" class="details4">
+      <div id="" class="details_nex4">
+	   <p class="fc fs10 pb10 ta-l spec">添加新地址</p>
+	    <li>
+		<span class="fontb">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+		<input type="text" class="text tinge1" value="">
+		</li>
+        <li>
+		  <span class="fontb">手机号码：</span>
+		  <input type="text" class="text tinge2" value="">
+		</li>
+        <li class="bader">
+		   <span class="fontb">详细地址：</span>
+		   <input type="text" class="text tinge3" value="">
+		</li>
+      </div>
+  </div>
+   </ol>
+
+ <ol  id="co_2">
+  <div id="" class="details4">
+      <div id="" class="details_nex4">
+fdgdhg
+      </div>
+  </div>
+   </ol>
+ <ol  id="co_3">
+  <div id="" class="details4">
+      <div id="" class="details_nex4"><p class="congraul">恭喜您!</p></div>
+	  <div id="" class="details_ctent">
+		<p class="ctent">万里同志病重期间和逝世后，习近平、李克强、张德江、俞正声、刘云山、王岐山、张高丽、江泽民、胡锦涛等同志，前往医院看望或通过各种形式对万里同志逝世表示沉痛哀悼并向其亲属表示深切慰问.</p>
+	  </div>
+	  <div class="clear"></div>
+  </div>
+   </ol>
+ <ol  id="co_4">
+  <div id="" class="details4">
+      <div id="" class="details_nex4 lh18">
+	   <p class="fc fs10 pb10 ta-l spec">添加新地址</p>
+	    <li>
+		<span class="fontb">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+		<input type="text" class="text tinge1" value="">
+		</li>
+      </div>
+  </div>
+   </ol>
+</div>
+
+<div id="" class="h70"></div>
+
+<div id="mallfoot" class="comfooter" style="height: 56px; width: 100%; position: absolute; left: 0px; bottom: 0px; z-index: 99;">
+    <section class="tablefixed">
+      <menu>
+        <a class="a1 sel" href="#">预约</a>
+        <a class="a2" href="#">个人</a>
+        <a class="a3" href="#">合作</a>
+        <a class="a4" href="#">更多</a>
+      </menu>
+    </section>
+</div>
+
+
+
+</body>
+</html>

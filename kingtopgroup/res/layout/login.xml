@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@color/gray1" >
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:orientation="vertical">
+        
+      <LinearLayout android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:layout_margin="5dp"
+          android:orientation="horizontal"
+          android:background="@drawable/linear_boder">
+          
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:hint="邮箱/用户名/已验证手机" >
+
+            <requestFocus />
+        </EditText>
+        
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingTop="20dip" />
+        
+       
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/auto_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="自动登录" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dip"
+                android:text="忘记密码" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/loginsubmit"
+            android:layout_width="180dip"
+            android:layout_height="50dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dip"
+            android:background="@color/green"
+            android:text="登录" />
+        
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="注册"
+            android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:textColor="@color/red"
+            android:id="@+id/register_button"/>
+    </LinearLayout>
+
+</LinearLayout>

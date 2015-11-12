@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>地址管理01</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="mallout" class="main" style="height: 662px; overflow: hidden;">
+  
+  <div id="mallbox" style="overflow-y: auto; overflow-x: hidden; position: relative; height: 565px; width: 100%;">
+    <div class="clear h20"></div>
+	<a class="whitebtn mga mb15" href="#"><span class="ml20 add">地址管理</span></a>
+
+    <a class="whitebtn mga mb15" href="#"><span class="ml20">添加</span></a>
+
+    <a class="addresslist">
+      <p>姓名：张小可</p>
+      <p>手机号码：183******12151</p>
+      <p>省市：云南省昆明市</p>
+      <p>详细地址：环城南路122号</p>
+    </a>
+    <a class="addresslist">
+      <p>姓名：张小可</p>
+      <p>手机号码：183******12151</p>
+      <p>省市：云南省昆明市</p>
+      <p>详细地址：环城南路122号</p>
+    </a>
+    <a class="addresslist">
+      <p>姓名：张小可</p>
+      <p>手机号码：183******12151</p>
+      <p>省市：云南省昆明市</p>
+      <p>详细地址：环城南路122号</p>
+    </a>
+  </div><!--mallbox END-->
+  
+
+</div>
+
+
+
+</body>
+</html>

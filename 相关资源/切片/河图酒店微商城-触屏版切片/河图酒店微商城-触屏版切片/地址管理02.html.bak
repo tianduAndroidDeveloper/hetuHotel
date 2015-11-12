@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>地址管理02</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="mallout" class="main" style="height: 662px; overflow: hidden;">  
+  <div id="mallbox" style="overflow-y: auto; overflow-x: hidden; position: relative; height: 565px; width: 100%;">
+    <div class="clear h20"></div>
+    <div id=""class="logint">
+		<section class="logintext">
+      <dl>
+        <dt style="width:50px;color:#393939;">姓名：</dt>
+        <dd>李先生</dd>
+      </dl>
+    </section>
+    <section class="logintext">
+      <dl>
+        <dt style="width:80px;color:#393939;">电话号码：</dt>
+        <dd>136****4888</dd>
+      </dl>
+    </section>
+
+    <section class="logintext">
+      <dl style="padding-bottom: 20px;">
+        <dt style="width:80px;color:#393939;">详细地址：</dt>
+        <dd style="padding-top: 21px; height: 67px;"  class="bader">云纺商厦A座云纺商厦A座云纺商厦A座云纺商</dd>
+      </dl>
+    </section>
+    </div>
+
+    <div class="clear h40"></div>
+    <input type="submit" class="sub redbtn fr" style="width:40%; margin-right:6%;" value="保存地址">
+    <input type="submit" class="sub greybtn fl" style="width:40%; margin-left:6%;" value="删除当前地址">
+    <div class="clear h20"></div>
+  </div><!--mallbox END-->
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
