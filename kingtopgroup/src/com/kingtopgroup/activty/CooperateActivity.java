@@ -21,7 +21,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class CooperateActivty extends FragmentActivity  implements BackHandledInterface{
+public class CooperateActivity extends FragmentActivity  implements BackHandledInterface{
 	private WebView cooper_webview;
 	private SwipeRefreshLayout my_fresh;
 	private BackHandledFragment backHandled;
@@ -40,7 +40,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	 this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 		     WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	 
-	if(SystemConntection.checkNetworkAvailable(CooperateActivty.this)){
+	if(SystemConntection.checkNetworkAvailable(CooperateActivity.this)){
 		//返回true说明联网
 	my_fresh=(SwipeRefreshLayout) findViewById(R.id.cooper_fresh);
 	cooper_webview=(WebView) findViewById(R.id.cooper_webview);
@@ -194,9 +194,9 @@ private void stopProgressDialog(){
 
 
 public class MainFrameTask extends AsyncTask<Integer, String, Integer>{
-    private CooperateActivty mainFrame = null;
+    private CooperateActivity mainFrame = null;
      
-    public MainFrameTask(CooperateActivty mainFrame){
+    public MainFrameTask(CooperateActivity mainFrame){
         this.mainFrame = mainFrame;
     }
      
