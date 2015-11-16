@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>河图酒店微信个人菜单</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  searchTextClear(".tinge1","您的名字","#999","#333");
+  searchTextClear(".tinge2","您的手机号","#999","#333");
+  searchTextClear(".tinge3","选择所在或相近的道路/小区名","#999","#333");
+});
+</script>
+</head>
+
+<body>
+<div class="mainbox pt20">
+  <div id="" class="white_setting"><div id="" class="gfjhngfr"><a href="#"><img src="images/fdhg.jpg"></a></div></div>
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_order"><p>我的订单</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_prefer"><p>优惠卷</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_membership_card"><p>会员卡</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_text"><p>地址管理</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_about_us"><p>关于我们</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+
+  <div id="" class="white">
+     <a class="fl w80" href="#"><div id="" class="white_agreement"><p>服务协议</p></div></a>
+     <a class="fr w20"href="#"><div id="" class="white_born">&nbsp;</div></a>
+ </div>
+</div>
+<div id="" class="clear h10"></div>
+<a class="redbtndn2015/7/24 fs11" style="width:90%;">联系客服</a>
+<p class="word_time lh50"><span class="">工作时间:</span>09:30--22:00 </p>
+<div id="" class="clear h10"></div>
+<div id="" class="clear h10"></div>
+<div id="" class="clear h10"></div>
+<div id="" class="clear h70"></div>
+
+
+
+
+<div id="mallfoot" class="comfooter" style="height: 56px; width: 100%; position: absolute; left: 0px; bottom: 0px; z-index: 99;">
+    <section class="tablefixed">
+      <menu>
+        <a class="a1 sel" href="#">预约</a>
+        <a class="a2" href="#">个人</a>
+        <a class="a3" href="#">合作</a>
+        <a class="a4" href="#">更多</a>
+      </menu>
+    </section>
+  </div>
+
+</body>
+</html>

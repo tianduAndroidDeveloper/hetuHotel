@@ -1,0 +1,61 @@
+
+<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN">
+<title>地址管理03</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  searchTextClear(".bonnt","******","#999","#333");
+});
+</script>
+</head>
+
+<body>
+<div class="mainbox pt20">
+
+<div id="mallout" class="main" style=" overflow: hidden;">  
+  <div id="mallbox" style="overflow-y: auto; overflow-x: hidden; position: relative; height: 565px; width: 100%;">
+
+
+    <div id=""class="logint">
+       <div class="clear h20"></div>
+	   <section class="logintext">
+         <p class="h30"> 请输入您的会员卡支付密码</p>
+       </section>
+    <section class="logintext lh50 hp100">
+          <p class="zhifu1 fs08 h40"> 河图酒店</p>
+          <p class="zhifu1 fs18" style="color:#e43a3d;"> ￥128.00</p>
+    </section>
+
+    <section class="logintext ta-c ">
+      <input type="text" class="bonnt h40 w90 mb20 mga">
+    </section>
+	  <div class=" h40"></div>
+	  <div class=" h40"></div>
+    </div>
+
+    <div class="clear h40"></div>
+  </div><!--mallbox END-->
+
+</div>
+<footer class="comfoot h50">
+<input type="text"  class="yesbtn" value="确定">
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <color name="abc_search_url_text_normal">#7fa87f</color>
+    <color name="abc_search_url_text_selected">@android:color/black</color>
+    <color name="abc_search_url_text_pressed">@android:color/black</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF3030</color>
+    <color name="gray">#C2C2C2</color>
+    <color name="gray1">#FDF5E6</color>
+    <color name="gray2">#EECFA1</color>
+    <color name="zi">#BA55D3</color>
+    <color name="qin">#AEEEEE</color>
+    <color name="lan">#B3EE3A</color>
+    <color name="hui"> #8B4C39</color>
+    <color name="green">#008B00</color>
+     <color name="huise">#4D4D4D</color>
+     <color name="back"> #F5FFFA</color>
+     
+     
+     <color name="all">#ededed</color> 
+    
+    
+    
+    
+        <!-- A light Holo shade of blue -->  
+    <color name="holo_blue_light">#ff33b5e5</color>  
+    <!-- A light Holo shade of green -->  
+    <color name="holo_green_light">#ff99cc00</color>  
+    <!-- A light Holo shade of red -->  
+    <color name="holo_red_light">#ffff4444</color>  
+    <!-- A dark Holo shade of blue -->  
+    <color name="holo_blue_dark">#ff0099cc</color>  
+    <!-- A dark Holo shade of green -->  
+    <color name="holo_green_dark">#ff669900</color>  
+    <!-- A dark Holo shade of red -->  
+    <color name="holo_red_dark">#ffcc0000</color>  
+    <!-- A Holo shade of purple -->  
+    <color name="holo_purple">#ffaa66cc</color>  
+    <!-- A light Holo shade of orange -->  
+    <color name="holo_orange_light">#ffffbb33</color>  
+    <!-- A dark Holo shade of orange -->  
+    <color name="holo_orange_dark">#ffff8800</color>  
+    <!-- A really bright Holo shade of blue -->  
+   <color name="holo_blue_bright">#ff00ddff</color>  
+    
+    
+</resources>
