@@ -10,11 +10,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -30,25 +33,41 @@ import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class ManageAddressActivity extends Activity {
-	private static final String TAG = "ManageAddressActivity";
+public class ManageAddressActivity extends MainActionBarActivity implements OnClickListener {
 	MyListView lv;
+	TextView tv_add;
 	MyListViewAdapter adapter;
 	List<ShipAddress> addresses = new ArrayList<ShipAddress>();
+	View progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_address);
+		
+		titleButton.setText("地址管理");
+		
 		init();
 	}
 
 	void init() {
 		lv = (MyListView) findViewById(R.id.lv);
+		tv_add = (TextView) findViewById(R.id.tv_add);
+		progress = findViewById(R.id.progress);
+		
+		tv_add.setOnClickListener(this);
+		lv.setOnItemClickListener(new MyListViewItemClickListner());
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		addresses.clear();
 		requestData();
 	}
 
 	void requestData() {
+		progress.setVisibility(View.VISIBLE);
 		UserBean userBean = UserBean.getUSerBean();
 		String uid = userBean.getUid();
 		if (TextUtils.isEmpty(uid))
@@ -62,7 +81,6 @@ public class ManageAddressActivity extends Activity {
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				if (arg0 == 200) {
 					String data = new String(arg2);
-					Log.i(TAG, data);
 					parseToEntity(data);
 				}
 			}
@@ -111,7 +129,7 @@ public class ManageAddressActivity extends Activity {
 
 				@Override
 				public void onComplete(Object parseResult) {
-					if(parseResult != null)
+					if (parseResult != null)
 						fillData();
 				}
 			}).execute();
@@ -129,6 +147,19 @@ public class ManageAddressActivity extends Activity {
 		} else {
 			adapter.notifyDataSetChanged();
 		}
+		progress.setVisibility(View.GONE);
+	}
+	
+	class MyListViewItemClickListner implements OnItemClickListener{
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent intent = new Intent(ManageAddressActivity.this, EditAddressActivity.class);
+			intent.putExtra("Address", addresses.get(arg2));
+			ManageAddressActivity.this.startActivity(intent);
+		}
+		
 	}
 
 	class ViewHolder {
@@ -156,23 +187,62 @@ public class ManageAddressActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
-			if(convertView == null)
-				convertView = View.inflate(ManageAddressActivity.this, R.layout.item_address, null);
+			if (convertView == null)
+				convertView = View.inflate(ManageAddressActivity.this,
+						R.layout.item_address, null);
 			ViewHolder holder = (ViewHolder) convertView.getTag();
-			if(holder == null){
+			if (holder == null) {
 				holder = new ViewHolder();
-				holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
-				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-				holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_phone);
+				holder.tv_address = (TextView) convertView
+						.findViewById(R.id.tv_address);
+				holder.tv_name = (TextView) convertView
+						.findViewById(R.id.tv_name);
+				holder.tv_phone = (TextView) convertView
+						.findViewById(R.id.tv_phone);
 				convertView.setTag(holder);
 			}
 			ShipAddress address = addresses.get(position);
 			holder.tv_address.setText("详细地址：" + address.Address);
-			holder.tv_name.setText("姓  名：" + address.Mobile);
-			holder.tv_phone.setText("联系电话：" + address.Phone);
-			
+			holder.tv_name.setText("姓        名：" + address.Consignee);
+			holder.tv_phone.setText("联系电话：" + address.Mobile);
+
 			return convertView;
 		}
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tv_add:
+			Intent intent = new Intent(this, AddAddressActivity.class);
+			this.startActivity(intent);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 }

@@ -1,6 +1,10 @@
 package com.kingtogroup.domain;
 
-public class ShipAddress {
+import java.io.Serializable;
+
+public class ShipAddress implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	public int ProvinceId;
 	public String ProvinceName;
 	public int CityId;

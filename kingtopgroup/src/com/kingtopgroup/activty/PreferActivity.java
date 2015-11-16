@@ -8,10 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,8 +24,7 @@ import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class PreferActivity extends Activity {
-	private static final String TAG = "PreferActivity";
+public class PreferActivity extends MainActionBarActivity {
 	ListView lv;
 	MyListViewAdapter adapter;
 	List<CouponEntity> coupons = new ArrayList<CouponEntity>();
@@ -36,6 +33,7 @@ public class PreferActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_prefer);
+		titleButton.setText("”≈ª›»Ø");
 		init();
 	}
 
@@ -61,14 +59,14 @@ public class PreferActivity extends Activity {
 					String data = new String(arg2);
 					parseToEntity(data);
 				} else {
-					toastMsg("’à«Û ßî°£¨’à÷ÿ‘á");
+					toastMsg("«Î«Û ß∞‹£¨«Î÷ÿ ‘");
 				}
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-				toastMsg("’à«Û ßî°£¨’à÷ÿ‘á");
+				toastMsg("«Î«Û ß∞‹£¨«Î÷ÿ ‘");
 			}
 		});
 	}
@@ -156,7 +154,6 @@ public class PreferActivity extends Activity {
 				convertView.setTag(holder);
 			}
 			CouponEntity couponEntity = coupons.get(position);
-			Log.i(TAG, couponEntity.toString());
 			switch (couponEntity.getState()) {
 			case 1:
 			case 3:
@@ -178,5 +175,27 @@ public class PreferActivity extends Activity {
 			return convertView;
 		}
 
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 }

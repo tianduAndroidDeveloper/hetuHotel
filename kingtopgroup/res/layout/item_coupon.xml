@@ -19,26 +19,28 @@
             android:text="100"
             android:layout_marginRight="5dp"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="50sp"
             android:textStyle="bold" />
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_points"
-            android:text="新用户福利"
-            android:textSize="12sp"
-            android:textColor="@color/white" />
-
         <TextView
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/tv_points"
             android:layout_toRightOf="@id/tv_points"
+            android:textStyle="bold"
             android:text="优惠券"
-            android:textSize="20sp"
             android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tv_points"
+            android:text="新用户福利"
+            android:textSize="12sp"
+            android:textColor="@color/white" />
+
+        
 
         
     </RelativeLayout>

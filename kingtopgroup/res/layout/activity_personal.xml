@@ -34,6 +34,12 @@
             style="@style/Personal_TextView"
             android:drawableLeft="@drawable/membership_card"
             android:text="会员卡" />
+        
+        <TextView
+            android:id="@+id/tv_share"
+            style="@style/Personal_TextView"
+            android:drawableLeft="@drawable/order_status"
+            android:text="我的分享" />
 
         <TextView
             android:id="@+id/tv_address"
