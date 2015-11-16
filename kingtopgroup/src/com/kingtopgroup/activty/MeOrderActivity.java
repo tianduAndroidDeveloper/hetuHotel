@@ -1,8 +1,12 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -14,6 +18,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +30,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +103,6 @@ public class MeOrderActivity extends MainActionBarActivity implements
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-				Log.i(TAG, new String(arg2));
 				toastMsg("请求失败，请重试！", 1);
 			}
 		});
@@ -152,7 +158,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 							for (int j = 0; j < orders.size(); j++) {
 								Order order = orders.get(j);
 								if (order.oid == product.Oid)
-									order.orderProduct = product;
+									order.orderProducts.add(product);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -171,7 +177,6 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				@Override
 				public void onComplete(Object parseResult) {
 					if (parseResult != null) {
-						Log.i(TAG, orders.toString());
 						fillData();
 					}
 
@@ -184,18 +189,26 @@ public class MeOrderActivity extends MainActionBarActivity implements
 	}
 
 	void fillData() {
+		progress.setVisibility(View.VISIBLE);
+		tv_total.setText("合计：￥0");
+		boolean flag = false;
+		for (int i = 0; i < orders.size(); i++) {
+			Order order = orders.get(i);
+			if (order.checked) {
+				tv_total.setText("合计：￥" + order.orderamount);
+				checkedPosition = i;
+				flag = true;
+				break;
+			}
+		}
+		if (!flag) {
+			checkedPosition = -1;
+		}
 		if (adapter == null) {
 			adapter = new MyListViewAdapter();
 			lv.setAdapter(adapter);
 		} else {
 			adapter.notifyDataSetChanged();
-		}
-		if (checkedPosition != -1) {
-			Order order = orders.get(checkedPosition);
-			OrderProduct product = order.orderProduct;
-			tv_total.setText("合计：￥" + product.ShopPrice);
-		} else {
-			tv_total.setText("合计：￥0");
 		}
 		progress.setVisibility(View.GONE);
 	}
@@ -205,19 +218,16 @@ public class MeOrderActivity extends MainActionBarActivity implements
 	}
 
 	class ViewHolder {
+
 		TextView tv_order_num;
 		TextView tv_order_status;
-		TextView tv_type;
-		TextView tv_people;
-		TextView tv_count;
-		TextView tv_time;
-		TextView tv_sum;
-		TextView tv_money;
 		TextView tv_address;
 		TextView tv_phone;
 		TextView tv_name;
 		ImageView img;
 		TextView tv_cancel;
+		LinearLayout ll;
+		TextView tv_ordermoney;
 		CheckBox cb;
 	}
 
@@ -250,18 +260,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 						.findViewById(R.id.tv_num);
 				holder.tv_order_status = (TextView) convertView
 						.findViewById(R.id.tv_status);
-				holder.tv_type = (TextView) convertView
-						.findViewById(R.id.tv_type);
-				holder.tv_people = (TextView) convertView
-						.findViewById(R.id.tv_people);
-				holder.tv_count = (TextView) convertView
-						.findViewById(R.id.tv_count);
-				holder.tv_time = (TextView) convertView
-						.findViewById(R.id.tv_time);
-				holder.tv_sum = (TextView) convertView
-						.findViewById(R.id.tv_sum);
-				holder.tv_money = (TextView) convertView
-						.findViewById(R.id.tv_money);
+				holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
 				holder.tv_address = (TextView) convertView
 						.findViewById(R.id.tv_address);
 				holder.tv_phone = (TextView) convertView
@@ -273,47 +272,17 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				holder.img = (ImageView) convertView
 						.findViewById(R.id.imageView1);
 				holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
+				holder.tv_ordermoney = (TextView) convertView
+						.findViewById(R.id.tv_ordermoney);
 				convertView.setTag(holder);
 			}
 
 			final Order order = orders.get(position);
-			final OrderProduct product = order.orderProduct;
 			holder.tv_name.setText("联系人：" + order.consignee);
 			holder.tv_phone.setText("电话：" + order.mobile);
 			holder.tv_address.setText("地址：" + order.address);
 			holder.tv_order_num.setText("订单号：" + order.osn);
-
-			holder.tv_people.setText("推拿师：" + product.MassagerNames);
-			holder.tv_time.setText("预约时间：" + product.PServiceDate + " "
-					+ product.ServiceTime);
-			holder.tv_type.setText("项目：" + product.Name);
-			holder.tv_sum.setText(product.Name + "x" + product.RealCount);
-			holder.tv_money.setText("￥" + product.ShopPrice);
-
-			holder.cb.setChecked(order.checked);
-
-			holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-				@Override
-				public void onCheckedChanged(CompoundButton arg0,
-						boolean isChecked) {
-					if (checkedPosition != -1) {
-						if (checkedPosition != position) {
-							orders.get(checkedPosition).checked = false;
-							checkedPosition = position;
-						} else {
-							order.checked = false;
-							checkedPosition = -1;
-						}
-					} else {
-						checkedPosition = position;
-					}
-					order.checked = isChecked;
-					fillData();
-
-				}
-			});
-
+			holder.tv_ordermoney.setText("应付金额：￥" + order.orderamount);
 			String state = "订单状态：";
 			switch (order.orderstate) {
 			case 10:
@@ -358,17 +327,84 @@ public class MeOrderActivity extends MainActionBarActivity implements
 					: View.GONE);
 			holder.tv_order_status.setText(state);
 
-			changeTextColor(holder.tv_type, 3);
-			changeTextColor(holder.tv_people, 4);
-			changeTextColor(holder.tv_count, 3);
-			changeTextColor(holder.tv_time, 5);
+			List<OrderProduct> products = order.orderProducts;
+			holder.ll.removeAllViews();
+			for (int i = 0; i < products.size(); i++) {
+				OrderProduct product = products.get(i);
+				View rl = View.inflate(MeOrderActivity.this,
+						R.layout.item_product, null);
+				TextView tv_type = (TextView) rl.findViewById(R.id.tv_type);
+				TextView tv_people = (TextView) rl.findViewById(R.id.tv_people);
+				TextView tv_count = (TextView) rl.findViewById(R.id.tv_count);
+				TextView tv_time = (TextView) rl.findViewById(R.id.tv_time);
+				TextView tv_sum = (TextView) rl.findViewById(R.id.tv_sum);
+				TextView tv_money = (TextView) rl.findViewById(R.id.tv_money);
+
+				tv_people.setText("推拿师：" + product.MassagerNames);
+				String time = product.PServiceDate + " " + product.ServiceTime;
+				tv_time.setText("预约时间：" + time);
+				tv_type.setText("项目：" + product.Name);
+				tv_count.setText("数量：" + product.BuyCount);
+				tv_sum.setText(product.Name + "x" + product.RealCount);
+				tv_money.setText("￥" + product.ShopPrice * product.RealCount);
+
+				changeTextColor(tv_type, 3);
+				changeTextColor(tv_people, 4);
+				changeTextColor(tv_count, 3);
+				changeTextColor(tv_time, 5);
+
+				holder.ll.addView(rl);
+
+				if (product.BrandId != 28 && state.contains("等待付款")) {
+					boolean flag1 = false;
+					if(TextUtils.isEmpty(product.ServiceTime))
+						flag1 = true;
+					String date = product.PServiceDate + product.ServiceTime;
+					SimpleDateFormat sdf1 = new SimpleDateFormat(
+							"yyyy年MM月dd日", Locale.CHINA);
+					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年MM月dd日HH:mm", Locale.CHINA);
+					Date d;
+					try {
+						d = flag1 ? sdf1.parse(date) : sdf2.parse(date);
+						boolean flag2 = d.before(new Date());
+						if (flag2) {
+							holder.tv_order_status.setText("订单状态：预约时间已过");
+							holder.cb.setVisibility(View.GONE);
+							holder.tv_cancel.setVisibility(View.GONE);
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			holder.cb.setChecked(order.checked);
+
+			holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton,
+						boolean isChecked) {
+					if (isChecked) {
+						for (int i = 0; i < orders.size(); i++) {
+							Order order = orders.get(i);
+							if (order.checked) {
+								order.checked = false;
+								break;
+							}
+						}
+					}
+
+					order.checked = isChecked;
+					fillData();
+				}
+			});
 
 			changeTextColor(holder.tv_name, 4);
 			changeTextColor(holder.tv_address, 3);
 			changeTextColor(holder.tv_phone, 3);
 			return convertView;
 		}
-
 	}
 
 	void changeTextColor(TextView textView, int count) {

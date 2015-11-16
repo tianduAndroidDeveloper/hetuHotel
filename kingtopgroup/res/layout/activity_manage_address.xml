@@ -3,10 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +25,7 @@
                 android:drawableRight="@null"
                 android:text="添加" />
 
-            <com.kingtogroup.view.MyListView
+            <ListView
                 android:id="@+id/lv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -38,10 +34,9 @@
                 android:divider="@null"
                 android:dividerHeight="5dp"
                 android:scrollbars="none" 
-                android:layout_marginBottom="10dp">
-            </com.kingtogroup.view.MyListView>
+                android:layout_marginBottom="10dp" />
+            
         </LinearLayout>
-    </ScrollView>
 
     <include
         android:id="@+id/progress"

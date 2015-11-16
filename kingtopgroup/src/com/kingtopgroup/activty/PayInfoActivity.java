@@ -31,8 +31,7 @@ public class PayInfoActivity extends MainActionBarActivity {
 		tv_num = (TextView) findViewById(R.id.tv_num);
 		
 		Order order = (Order) getIntent().getExtras().get("order");
-		OrderProduct product = order.orderProduct;
-		tv_money.setText("应付金额：￥" + product.ShopPrice*product.RealCount);
+		tv_money.setText("应付金额：￥" + order.orderamount);
 		tv_num.setText("订单号：" + order.osn);
 		spanText();
 	}

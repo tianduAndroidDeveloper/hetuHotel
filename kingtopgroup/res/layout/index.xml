@@ -33,7 +33,8 @@
             android:layout_alignParentBottom="true"
             android:background="#FFFFFF"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="5dp" >
 
             <RadioButton
                 android:id="@+id/order"

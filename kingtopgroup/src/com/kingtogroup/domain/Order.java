@@ -1,6 +1,8 @@
 package com.kingtogroup.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -24,7 +26,7 @@ public class Order implements Serializable{
 	public String consignee;
 	public String mobile;
 	public String address;
-	public OrderProduct orderProduct;
+	public List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
 	public boolean checked = false;
 
 	@Override
