@@ -26,7 +26,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.Toast;
-
+   
 @SuppressWarnings("deprecation")
 public class indexActivity  extends TabActivity implements OnCheckedChangeListener,OnClickListener{
 	private RadioButton personal,cooperate,order,more;
@@ -85,7 +85,7 @@ public class indexActivity  extends TabActivity implements OnCheckedChangeListen
 	        //个人跳转
 	        TabHost.TabSpec tabSpec4= tabhost.newTabSpec("个人");
 	        tabSpec4.setIndicator("个人");
-	        tabSpec4.setContent(new Intent(indexActivity.this, CooperateActivty.class));
+	        tabSpec4.setContent(new Intent(indexActivity.this, PersonalActivity.class));
 	        tabhost.addTab(tabSpec4);
 	       
 	        
@@ -144,10 +144,10 @@ public class indexActivity  extends TabActivity implements OnCheckedChangeListen
 		                	 tabhost.setCurrentTab(0);
 		                   break;  
 		                case R.id.cooperate:  
-		                	tabhost.setCurrentTab(1);  
+		                	tabhost.setCurrentTab(2);  
 		                    break;  
 		                case R.id.personal:  
-		                	tabhost.setCurrentTab(2); 
+		                	tabhost.setCurrentTab(1); 
 		                   break;  
 		                 case R.id.more:  
 		                	 tabhost.setCurrentTab(3);  

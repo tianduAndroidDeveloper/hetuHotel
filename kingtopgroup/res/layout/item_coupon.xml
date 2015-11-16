@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/coupon"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <TextView
+            android:id="@+id/tv_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="100"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_points"
+            android:layout_toRightOf="@id/tv_points"
+            android:textStyle="bold"
+            android:text="优惠券"
+            android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tv_points"
+            android:text="新用户福利"
+            android:textSize="12sp"
+            android:textColor="@color/white" />
+
+        
+
+        
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="有效期剩余10天"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+</RelativeLayout>
