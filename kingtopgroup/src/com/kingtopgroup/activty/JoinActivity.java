@@ -12,7 +12,6 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,7 +30,6 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class JoinActivity extends Activity implements OnClickListener {
-	private static final String TAG = "JoinActivity";
 	EditText et_name;
 	RadioGroup rg_sex;
 	EditText et_phone;
@@ -61,6 +59,10 @@ public class JoinActivity extends Activity implements OnClickListener {
 		String uri = "http://kingtopgroup.com/mobile/images/recruit_01.jpg";
 		iv.setTag(uri);
 		ImageLoader.getInstance().displayImage(uri, iv);
+	}
+
+	public void back(View v) {
+		finish();
 	}
 
 	@Override
@@ -114,7 +116,6 @@ public class JoinActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				Log.i(TAG, new String(arg2));
 				if (arg0 == 200) {
 					try {
 						JSONObject object = new JSONObject(new String(arg2));
@@ -132,8 +133,6 @@ public class JoinActivity extends Activity implements OnClickListener {
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-
-				Log.i(TAG, new String(arg2));
 				toastMsg("«Î«Û¥ÌŒÛ£¨«Î÷ÿ ‘", 1);
 			}
 		});

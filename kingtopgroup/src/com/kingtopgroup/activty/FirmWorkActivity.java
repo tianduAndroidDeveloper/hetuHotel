@@ -29,7 +29,6 @@ import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FirmWorkActivity extends Activity {
-	private static final String TAG = "FirmWorkActivity";
 	ImageView iv;
 	EditText et_firm;
 	EditText et_address;
@@ -121,7 +120,6 @@ public class FirmWorkActivity extends Activity {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				Log.i(TAG, new String(arg2));
 				if (arg0 == 200) {
 					try {
 						JSONObject object = new JSONObject(new String(arg2));
@@ -139,8 +137,6 @@ public class FirmWorkActivity extends Activity {
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-
-				Log.i(TAG, new String(arg2));
 				toastMsg("«Î«Û¥ÌŒÛ£¨«Î÷ÿ ‘", 1);
 			}
 		});
@@ -176,6 +172,10 @@ public class FirmWorkActivity extends Activity {
 
 	void toastMsg(String msg, int time) {
 		Toast.makeText(this, msg, time).show();
+	}
+	
+	public void back(View v){
+		finish();
 	}
 
 }

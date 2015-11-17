@@ -12,8 +12,33 @@
         android:focusable="true"
         android:focusableInTouchMode="true" >
         <requestFocus />
+        
+        <RelativeLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+            
+            <Button 
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/back_h"
+                android:background="@android:color/transparent"
+                android:onClick="back"/>
+            <TextView 
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="企业合作体验"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </RelativeLayout>
 
         <ImageView
+            android:layout_below="@id/ll_title"
             android:id="@+id/iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -28,14 +53,6 @@
             android:background="@drawable/personal_bg"
             android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="企业合作"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,7 +73,8 @@
                     android:layout_marginLeft="5dp"
                     android:background="@color/white"
                     android:hint="公司名称"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <View
@@ -83,7 +101,8 @@
                     android:layout_marginLeft="5dp"
                     android:background="@null"
                     android:hint="公司具体地址"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <View
@@ -104,6 +123,8 @@
                     android:textColor="@color/black" />
 
                 <EditText
+                    android:singleLine="true"
+                    android:maxLength="6"
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,6 +153,8 @@
                     android:textColor="@color/black" />
 
                 <EditText
+                    android:singleLine="true"
+                    android:maxLength="11"
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,6 +184,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
+                    android:singleLine="true"
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,7 +207,8 @@
                 android:background="@color/white"
                 android:gravity="left|top"
                 android:hint="您是如何知道点点下的呢？"
-                android:minLines="5"
+                android:minLines="3"
+                android:maxLines="5"
                 android:padding="10dp"
                 android:textColor="@color/black" />
         </LinearLayout>
