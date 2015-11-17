@@ -1,165 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light" >
+    android:fillViewport="true" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/personal_bg"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:background="@color/gray_light"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+        <requestFocus />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="欢迎加入点下下"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp" >
+            android:layout_below="@id/iv"
+            android:layout_margin="10dp"
+            android:background="@drawable/personal_bg"
+            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="姓名："
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/et_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@color/white"
-                android:hint="您的名字"
-                android:textColor="@color/black" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:padding="10dp" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_light" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp" 
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="性别："
-                android:textColor="@color/black" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <RadioButton
+                <com.kingtogroup.view.RedStarTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="男"
+                    android:text="*姓名："
+                    android:singleLine="true"
                     android:textColor="@color/black" />
 
-                <RadioButton
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/white"
+                    android:hint="您的名字"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <com.kingtogroup.view.RedStarTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="女" 
-                    android:textColor="@color/black"/>
-            </RadioGroup>
-        </LinearLayout>
+                    android:text="*性别："
+                    android:textColor="@color/black" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_light" />
+                <RadioGroup
+                    android:id="@+id/rg_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/rb_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="男"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/rb_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="女"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <com.kingtogroup.view.RedStarTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*电话："
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:hint="您的手机号"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <com.kingtogroup.view.RedStarTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*工作经验："
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="left|top"
+                android:hint="工作经验"
+                android:minLines="5"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="电话："
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@null"
-                android:hint="您的手机号"
-                android:inputType="phone"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@color/black" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_light" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="工作经验："
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@null"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@color/black" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/et_experience"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:gravity="left|top"
-            android:hint="工作经验"
-            android:minLines="5"
-            android:padding="10dp"
-            android:textColor="@color/black" />
-    </LinearLayout>
-    
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        android:padding="10dp">
-        <Button 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="提交"
-            android:textColor="@color/white"
-            android:background="@drawable/red_bg"/>
-    </LinearLayout>
+            android:padding="10dp" >
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_bg"
+                android:padding="10dp"
+                android:text="提交"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

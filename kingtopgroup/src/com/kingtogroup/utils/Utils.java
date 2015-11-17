@@ -80,5 +80,9 @@ public class Utils {
 		intent.setData(Uri.parse(("tel:" + phone)));
 		context.startActivity(intent);
 	}
+	
+	public static String assembleImageUri(String name, String id){
+		return "http://kingtopgroup.com/upload/store/" + id + "/product/show/thumb190_190/" + name;
+	}
 
 }

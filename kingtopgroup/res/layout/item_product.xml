@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_people"
         android:layout_toRightOf="@id/imageView1"
-        android:text="数量：1" />
+        android:text="数量：1" />  
 
     <TextView
         android:id="@+id/tv_time"

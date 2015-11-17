@@ -16,10 +16,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -49,9 +47,9 @@ public class loginActivty extends Activity implements OnClickListener{
 		//获得实例对象  
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);  
 		username=(EditText) findViewById(R.id.username);
-		username.setText("15287811383");
+		username.setText("13888973311");
 		password=(EditText) findViewById(R.id.password);
-		password.setText("123456");
+		password.setText("HT13888973311");
 		loginsubmit=(Button) findViewById(R.id.loginsubmit);
 		register_button=(TextView) findViewById(R.id.register_button);
 		register_button.setOnClickListener(this);
