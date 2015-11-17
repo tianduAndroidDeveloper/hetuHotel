@@ -7,4 +7,5 @@
     <color name="red_light">#e4643d</color>
     <color name="gray_text">#848484</color>
     <color name="blue">#2479c0</color>
+    <color name="gray_disable">#c7c7c7</color>
 </resources>
