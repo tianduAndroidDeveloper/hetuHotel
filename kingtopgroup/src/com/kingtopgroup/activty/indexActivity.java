@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kingtogroup.location.LocationService;
 import com.kingtopgroup.R;
 import android.app.ActionBar.LayoutParams;
 import android.app.TabActivity;
@@ -45,9 +46,6 @@ public class indexActivity  extends TabActivity implements OnCheckedChangeListen
 	  protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.index);
-	        
-	        
-	        
 	        
 	        listLeft = new ArrayList<Map<String, String>>();
 			//for (int i = 1; i <5; i++) {
