@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 
 public class PersonalActivity extends Activity implements OnClickListener {
@@ -17,6 +19,7 @@ public class PersonalActivity extends Activity implements OnClickListener {
 	TextView tv_aboutus;
 	TextView tv_agreement;
 	TextView tv_share;
+	Button btn_call;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class PersonalActivity extends Activity implements OnClickListener {
 		tv_aboutus = (TextView) findViewById(R.id.tv_aboutus);
 		tv_agreement = (TextView) findViewById(R.id.tv_agreement);
 		tv_share = (TextView) findViewById(R.id.tv_share);
+		btn_call = (Button) findViewById(R.id.btn_call);
 
 		tv_order.setOnClickListener(this);
 		tv_prefer.setOnClickListener(this);
@@ -41,6 +45,7 @@ public class PersonalActivity extends Activity implements OnClickListener {
 		tv_aboutus.setOnClickListener(this);
 		tv_share.setOnClickListener(this);
 		tv_agreement.setOnClickListener(this);
+		btn_call.setOnClickListener(this);
 	}
 
 	@Override
@@ -67,6 +72,9 @@ public class PersonalActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.tv_share:
 			intent = new Intent(this, ShareActivity.class);
+			break;
+		case R.id.btn_call:
+			Utils.callPhone(this, "400-6589-8875");
 			break;
 		}
 		if (intent != null)

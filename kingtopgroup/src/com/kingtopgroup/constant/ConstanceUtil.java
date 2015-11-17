@@ -19,5 +19,8 @@ public  class ConstanceUtil {
   //获取服务时间
 	
 	public static String get_sesrvice_time="http://kingtopgroup.com/api/item/GetServiceTime";
+	
+	//獲取推拿師列表
+	public static String get_manager_list_url="http://kingtopgroup.com/api/item/GetServiceMassage";
 
 }

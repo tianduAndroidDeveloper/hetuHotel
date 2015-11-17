@@ -158,7 +158,6 @@ protected void onCreate(Bundle savedInstanceState) {
 			           	    list.add(map);
 				  }
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             return list;

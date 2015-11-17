@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.Activity; 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -34,7 +35,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class ManageAddressActivity extends MainActionBarActivity implements OnClickListener {
-	MyListView lv;
+	ListView lv;
 	TextView tv_add;
 	MyListViewAdapter adapter;
 	List<ShipAddress> addresses = new ArrayList<ShipAddress>();
@@ -51,7 +52,7 @@ public class ManageAddressActivity extends MainActionBarActivity implements OnCl
 	}
 
 	void init() {
-		lv = (MyListView) findViewById(R.id.lv);
+		lv = (ListView) findViewById(R.id.lv);
 		tv_add = (TextView) findViewById(R.id.tv_add);
 		progress = findViewById(R.id.progress);
 		
@@ -110,16 +111,12 @@ public class ManageAddressActivity extends MainActionBarActivity implements OnCl
 									obj.toString(), ShipAddress.class);
 							addresses.add(shipAddress);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (JsonParseException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (JsonMappingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -134,7 +131,6 @@ public class ManageAddressActivity extends MainActionBarActivity implements OnCl
 				}
 			}).execute();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -231,13 +227,11 @@ public class ManageAddressActivity extends MainActionBarActivity implements OnCl
 
 	@Override
 	public void titleButtonClick(View v) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		// TODO Auto-generated method stub
 		
 	}
 

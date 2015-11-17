@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class ServiceAddressActivty extends Activity implements OnClickListener{
@@ -33,7 +34,8 @@ public class ServiceAddressActivty extends Activity implements OnClickListener{
 	private ImageView add_address;
 	Map<String,Object> map=null;
 	private TextView service_address_name,service_address_phone,service_address_address;
-	private Button service_address_for_me,service_address_for_other,service_address_next_button;
+	private Button service_address_next_button;
+	private RadioButton service_address_for_me,service_address_for_other;
  @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -41,11 +43,11 @@ protected void onCreate(Bundle savedInstanceState) {
 	setContentView(R.layout.service_address);
 	
 	//为他人预约
-	service_address_for_other=(Button) findViewById(R.id.for_other);
+	service_address_for_other=(RadioButton) findViewById(R.id.for_other);
 	service_address_for_other.setOnClickListener(this);
 	
 	//为自己预约
-	service_address_for_me=(Button) findViewById(R.id.for_me);
+	service_address_for_me=(RadioButton) findViewById(R.id.for_me);
 	service_address_for_me.setOnClickListener(this);
 	
 	//下一步按钮

@@ -4,20 +4,33 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:background="@color/gray1" >
+    
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dip"
         android:orientation="vertical">
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="10dp"
+            android:background="@color/red"
+            >
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="登陆"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+            
+            </LinearLayout>
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/red"
+            android:paddingTop="30dp"
+            android:layout_gravity="center"
+            android:text="这项操作需要验证手机，请接收并输入验证码"/>
         
       <LinearLayout android:layout_height="wrap_content"
           android:layout_width="fill_parent"
@@ -39,18 +52,34 @@
         </EditText>
         
         </LinearLayout>
+        
+        <LinearLayout android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:layout_margin="5dp"
+          android:orientation="horizontal"
+          android:background="@drawable/linear_boder">
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="fill_parent"
             android:ems="10"
             android:hint="密码"
+             android:background="@null"
             android:inputType="textPassword"
             android:paddingTop="20dip" />
         
+        <Button android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:id="@+id/getCode"
+            android:background="@drawable/btn_bg"
+            android:text="发送验证码"/>
+        
        
-
+    </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -78,8 +107,9 @@
             android:layout_height="50dip"
             android:layout_gravity="center"
             android:layout_marginTop="50dip"
-            android:background="@color/green"
-            android:text="登录" />
+            android:textColor="@color/white"
+            android:background="@drawable/btn_bg"
+            android:text="同意声明并登陆" />
         
         <TextView android:layout_height="wrap_content"
             android:layout_width="wrap_content"

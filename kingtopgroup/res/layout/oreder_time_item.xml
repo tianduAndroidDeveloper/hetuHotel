@@ -10,6 +10,7 @@
     android:background="@drawable/shape_rb_pop"
     android:layout_gravity="center"
     android:text="10:00"
+    
     android:textColor="@color/white"
     android:id="@+id/order_time_time"/>
 </LinearLayout>

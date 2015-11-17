@@ -97,6 +97,8 @@ public class orderActivity extends TabActivity implements OnCheckedChangeListene
 		
 	       radiogroup=(RadioGroup) findViewById(R.id.main_radio);
 	       radiogroup.setOnCheckedChangeListener(this);
+	       RadioButton radioButton = (RadioButton) radiogroup.getChildAt(0);
+	       radioButton.setChecked(true);
 	     		
 		
 		

@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class AboutUSActivity extends MainActionBarActivity {
+	private static final String TAG = "AboutUSActivity";
 	WebView wv;
 	View progress;
 	
@@ -45,8 +47,10 @@ public class AboutUSActivity extends MainActionBarActivity {
 				try {
 					JSONObject object = new JSONObject(new String(arg2));
 					String html = object.getString("Context");
-					wv.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+					wv.getSettings().setJavaScriptEnabled(true);
+					wv.loadDataWithBaseURL("http://kingtopgroup.com/", html, "text/html", "utf-8", null);
 				} catch (JSONException e) {
+					Log.i(TAG, e.getMessage());
 					e.printStackTrace();
 				}
 				progress.setVisibility(View.GONE);

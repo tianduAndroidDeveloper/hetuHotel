@@ -16,8 +16,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -47,15 +49,13 @@ public class loginActivty extends Activity implements OnClickListener{
 		//获得实例对象  
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);  
 		username=(EditText) findViewById(R.id.username);
-		username.setText("13888973311");
+		username.setText("15287811383");
 		password=(EditText) findViewById(R.id.password);
-		password.setText("HT13888973311");
-		auto_login = (CheckBox) findViewById(R.id.auto_login);  
+		password.setText("123456");
 		loginsubmit=(Button) findViewById(R.id.loginsubmit);
 		register_button=(TextView) findViewById(R.id.register_button);
 		register_button.setOnClickListener(this);
 		loginsubmit.setOnClickListener(this);
-		auto_login.setOnClickListener(this);
 		
 	
 	}
@@ -107,15 +107,6 @@ public class loginActivty extends Activity implements OnClickListener{
 				}
 			});
 			
-			break;
-          //自动登录
-		case R.id.auto_login:
-			 if (auto_login.isChecked()) {  
-				 setstatus(); 
-			 } else {  
-				 System.out.println("自动登录没有选中");  
-				 sp.edit().putBoolean("AUTO_ISCHECK", false).commit();  
-			 }  
 			break;
 			
 		case R.id.register_button:

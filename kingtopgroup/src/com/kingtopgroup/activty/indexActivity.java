@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.kingtopgroup.R;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -25,7 +24,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TabWidget;
-import android.widget.Toast;
    
 @SuppressWarnings("deprecation")
 public class indexActivity  extends TabActivity implements OnCheckedChangeListener,OnClickListener{
@@ -92,13 +90,13 @@ public class indexActivity  extends TabActivity implements OnCheckedChangeListen
 	        //合作
 	        TabHost.TabSpec tabSpec1= tabhost.newTabSpec("合作");
 	        tabSpec1.setIndicator("合作");
-	        tabSpec1.setContent(new Intent(indexActivity.this, MyActivty.class));
+	        tabSpec1.setContent(new Intent(indexActivity.this, CoworkActivity.class));
 	        tabhost.addTab(tabSpec1);
 	        
 	        //更多
 	        TabHost.TabSpec tabSpec2= tabhost.newTabSpec("更多");
 	        tabSpec2.setIndicator("更多");
-	        tabSpec2.setContent(new Intent(indexActivity.this, MoreServiceAgreementActivty.class));
+	        tabSpec2.setContent(new Intent(indexActivity.this, MoreActivity.class));
 	        tabhost.addTab(tabSpec2);
 	        
 	        indexGroup=(RadioGroup) findViewById(R.id.main_radio);
