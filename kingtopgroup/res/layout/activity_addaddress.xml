@@ -24,6 +24,7 @@
                 android:textColor="@color/black" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,6 +53,7 @@
                 android:textColor="@color/black" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,14 +82,14 @@
                 android:textColor="@color/black" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@null"
                 android:hint="选择所在或相近的道路/小区名"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@color/black" />
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <View
