@@ -15,9 +15,11 @@ import com.loopj.android.http.RequestParams;
 
 
 import android.content.Context;
+import android.util.Log;
 
 
 public class AsyncHttpCilentUtil {
+	private static final String TAG = "AsyncHttpCilentUtil";
 	private static AsyncHttpClient client;
 	private static RequestParams params;
 	private static String url=null;
@@ -63,8 +65,6 @@ public class AsyncHttpCilentUtil {
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override

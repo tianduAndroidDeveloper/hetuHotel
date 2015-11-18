@@ -4,9 +4,14 @@ import java.text.ChoiceFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.SyncStateContract.Constants;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +24,12 @@ import android.widget.LinearLayout;
 
 import com.kingtopgroup.R;
 import com.kingtopgroup.activty.ChioceManagerActivty;
+import com.kingtopgroup.activty.OrderTimeActivty;
+import com.kingtopgroup.constant.ConstanceUtil;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeAdapter extends BaseAdapter {
 	private static final String TAG = "OrderTimeAdapter";
@@ -38,19 +49,16 @@ public class OrderTimeAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return nameList.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return nameList.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 
@@ -87,45 +95,66 @@ public class OrderTimeAdapter extends BaseAdapter {
 		int getminter = Integer.parseInt(endTime);
 
 		int getTime = getHour * 60 + getminter;
-
-		// String times=(String) nameList.get(arg0).get("TimeSection");
-
 		int checked = equationTime - getTime;
 
 		if (checked > 0) {
-			// viewHolder.buttoTime.setBackgroundColor(conveView.getResources().getColor(R.color.gray2));
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
 			viewHolder.buttoTime.setTextColor(Color.BLACK);
 		} else if ((getTime - equationTime) > 60) {
-			// viewHolder.buttoTime.setBackgroundColor(conveView.getResources().getColor(R.color.red));
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
 			viewHolder.buttoTime.setTextColor(Color.WHITE);
 		} else if ((getTime - equationTime) < 60) {
-			// viewHolder.buttoTime.setBackgroundColor(conveView.getResources().getColor(R.color.gray2));
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
 			viewHolder.buttoTime.setTextColor(Color.BLACK);
 		} else if ((getTime - equationTime) == 60) {
-			// viewHolder.buttoTime.setBackgroundColor(conveView.getResources().getColor(R.color.red));
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
 			viewHolder.buttoTime.setTextColor(Color.WHITE);
 		}
 		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get(
 				"TimeSection"));
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View arg0) {
-				Log.i(TAG, "onClick");
+				
+				RequestParams params=AsyncHttpCilentUtil.getParams();
+				params.put("Uid", UserBean.getUSerBean().getUid());
+				params.put("Opid",UserBean.getUSerBean().getOpid());
+				//params.put("Stsid", nameList.get(arg0.get).get(""));
+				//params.put("ServiceDate", value);
+				params.put("Couponid",UserBean.getUSerBean().getCouponid());
+				params.put("Couponmoney",0);
+				AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.ser_service_time, params,new AsyncHttpResponseHandler() {
+					
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String date =new String(arg2);
+						try {
+							JSONObject obj=new JSONObject(date);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						
+						
+					}
+					
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
 				Intent intent = new Intent(context, ChioceManagerActivty.class);
 				context.startActivity(intent);
+				
 			}
 		});
 		return conveView;
 	}
-
 	class ViewHolder {
 		Button buttoTime;
-
 	}
 
 }

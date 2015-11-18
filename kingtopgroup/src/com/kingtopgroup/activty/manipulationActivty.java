@@ -53,6 +53,13 @@ public class manipulationActivty extends Activity{
 	private List<Map<String, Object>> list=null;
 	private static final AsyncHttpClient client=new AsyncHttpClient();
 	
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+	
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
