@@ -34,6 +34,19 @@ public class UserBean implements Serializable {
 	private String couponid;
 	//∂©µ•∫≈
 	private String Opid;
+	
+	//ŸèŸIîµ¡ø
+	private String BuyCount;
+
+
+	public String getBuyCount() {
+		return BuyCount;
+	}
+
+
+	public void setBuyCount(String buyCount) {
+		BuyCount = buyCount;
+	}
 
 
 	public String getOpid() {

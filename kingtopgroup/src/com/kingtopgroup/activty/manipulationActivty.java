@@ -53,6 +53,13 @@ public class manipulationActivty extends Activity{
 	private List<Map<String, Object>> list=null;
 	private static final AsyncHttpClient client=new AsyncHttpClient();
 	
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+	
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -63,10 +70,16 @@ protected void onCreate(Bundle savedInstanceState) {
 	acache=ACache.get(this);
 	
 	//适配listview
-	if(getDate()==null){
+	/*if(getDate()==null){
 		if(acache.getAsJSONObject("ItemList")!=null){
 			  setstatus(JsonObjectToListMap(acache.getAsJSONObject("ItemList")));
 		}
+	}*/
+	try {
+		setstatus(JsonObjectToListMap(new JSONArray(getIntent().getStringExtra("json"))));
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
 	//getDate();
 	//checkedNow();
@@ -86,10 +99,10 @@ protected void onCreate(Bundle savedInstanceState) {
 		
 	}
 
-    public List<Map<String, Object>> getDate(){
+   /* public List<Map<String, Object>> getDate(){
     	//服务器端传来数据
   	
-  	     client.get("http://kingtopgroup.com/api/item/GetItemList", null,
+  	     client.get(getResources().getString(R.string.url_getItemList), null,
   	               new AsyncHttpResponseHandler() {
   	    	
   	    	    @Override
@@ -120,13 +133,13 @@ protected void onCreate(Bundle savedInstanceState) {
   	     
   	   return list;
     } 
+    */
     
-    
-    public List<Map<String, Object>> JsonObjectToListMap (JSONObject jObject){
+    public List<Map<String, Object>> JsonObjectToListMap (JSONArray array){
     	list=new ArrayList<Map<String, Object>>(); 	
-            JSONArray array;
+           // JSONArray array;
 			try {
-				array = jObject.getJSONArray("MassagesList");
+				//array = jObject.getJSONArray("MassagesList");
 				  for(int i=0;i<array.length();i++){
 			            Map<String,Object> map=new HashMap<String,Object>();
 			           	 //项目名称
@@ -143,9 +156,9 @@ protected void onCreate(Bundle savedInstanceState) {
 			           	 String pid=array.getJSONObject(i).getString("pid");
 			           	 
 			           	 String storeid=array.getJSONObject(i).getString("storeid");
-			           	 String CouponId=jObject.getString("CouponId");
+			           	// String CouponId=jObject.getString("CouponId");
 			           	 
-			           	 UserBean.getUSerBean().setCouponid(CouponId);
+			           	// UserBean.getUSerBean().setCouponid(CouponId);
 			           
 			           	    map.put("name", pname);
 			           	    map.put("time", weight);
@@ -185,7 +198,7 @@ protected void onCreate(Bundle savedInstanceState) {
 						bundle.putString("beginnum", beginnum);
 						bundle.putString("image", image);
 						bundle.putString("pid", pid);
-						
+						       
 						UserBean.getUSerBean().setPid(pid);
 						UserBean.getUSerBean().setStoreRId(storeid);
 						

@@ -5,6 +5,11 @@ public class ManagerBean {
 	public String sex;
 	public String address;
 	public boolean isChecked = false;
+	public String serviceDate;
+	public String point_x;
+	public String point_y;
+	public String Logo;
+	public String StoreId;
 	@Override
 	public String toString() {
 		return "ManagerBean [name=" + name + ", sex=" + sex + ", address="

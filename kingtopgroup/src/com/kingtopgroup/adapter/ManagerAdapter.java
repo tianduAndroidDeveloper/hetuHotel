@@ -1,5 +1,7 @@
 package com.kingtopgroup.adapter;
 
+import java.io.BufferedReader;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -15,13 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kingtopgroup.R;
+import com.kingtopgroup.constant.finalBitmapUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ManagerBean;
 
 public class ManagerAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater inflater;
 	private List<ManagerBean> managerList;
-	int checkedCount = 0;
+	static int checkedCount = 0;
+	public String masserger;
 	private static final String TAG = "ManagerAdapter";
 
 	public ManagerAdapter(Context context, List<ManagerBean> managerList) {
@@ -52,40 +56,6 @@ public class ManagerAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View view, ViewGroup arg2) {
-		/*
-		 * ViewHolder viewHolder; if (view == null) { viewHolder = new
-		 * ViewHolder(); view = inflater.inflate(R.layout.manager_item, null);
-		 * viewHolder.Address = (TextView) view.findViewById(R.id.address);
-		 * viewHolder.distance = (TextView) view.findViewById(R.id.distance);
-		 * viewHolder.logo = (ImageView) view.findViewById(R.id.logo);
-		 * viewHolder.name = (TextView) view.findViewById(R.id.name);
-		 * viewHolder.sex = (TextView) view.findViewById(R.id.sex);
-		 * viewHolder.isChecked = (CheckBox) view.findViewById(R.id.isChecked);
-		 * view.setTag(viewHolder); } else { viewHolder = (ViewHolder)
-		 * view.getTag(); } final ManagerBean bean = managerList.get(position);
-		 * // viewHolder.isChecked.setChecked(checked) viewHolder.Address
-		 * .setText((CharSequence) managerList.get(position).address);
-		 * viewHolder.name.setText((CharSequence)
-		 * managerList.get(position).name);
-		 * viewHolder.sex.setText((CharSequence) managerList.get(position).sex);
-		 * viewHolder.isChecked.setOnCheckedChangeListener(new
-		 * OnCheckedChangeListener() {
-		 * 
-		 * @Override public void onCheckedChanged(CompoundButton arg0, boolean
-		 * arg1) { Toast.makeText(context, "position = " + position +
-		 * ",isChecked = " + arg1, 1).show(); bean.isChecked = arg1; } });
-		 * 
-		 * viewHolder.isChecked.setChecked(bean.isChecked);
-		 * 
-		 * // String point_x = (String) managerList.get(arg0).get("Point_X");//
-		 * // http://kingtopgroup.com/upload/store/14/logo/thumb100_100/ //
-		 * String point_y = (String) managerList.get(arg0).get("point_y");// //
-		 * /upload/store/14/logo/thumb100_100/s_1509031745435625758.jpg //
-		 * finalBitmapUtil.getFinalBitmap(context).display(viewHolder.logo, //
-		 * "http://kingtopgroup.com/upload/store/14/logo/thumb100_100/"+(String)
-		 * // managerList.get(arg0).get("Logo")); return view;
-		 */
-
 		if (view == null)
 			view = View.inflate(context, R.layout.manager_item, null);
 		ViewHolder holder = (ViewHolder) view.getTag();
@@ -102,29 +72,38 @@ public class ManagerAdapter extends BaseAdapter {
 		final ManagerBean bean = managerList.get(position);
 		holder.Address.setText(bean.address);
 		holder.name.setText(bean.name);
-		holder.sex.setText(bean.sex);
+		String sex;
+		if (bean.sex.equals("1")) {
+			sex = "ÄÐ";
+		} else {
+			sex = "Å®";
+		}
+		holder.sex.setText(sex);// http://kingtopgroup.com/upload/store/10/logo/thumb100_100/s_1509031744186077167.jpg
+		finalBitmapUtil.getFinalBitmap(context).display(
+				holder.logo,
+				"http://kingtopgroup.com/upload/store/" + bean.StoreId
+						+ "/logo/thumb100_100/" + bean.Logo);
+
 		holder.isChecked
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
 					@Override
 					public void onCheckedChanged(CompoundButton arg0,
 							boolean arg1) {
-						Toast.makeText(context, position + "", 0).show();
+						// Toast.makeText(context, position + "", 0).show();
 						managerList.get(position).isChecked = arg1;
+						// /HashMap<String, Object> obj=((Object)
+						// arg0).getItemAtPosition(arg0);
+						if (arg1 == true) {
+							//StringBuffer buffer = new StringBuffer();
+							//buffer.append(managerList.get(position).StoreId);
+							checkedCount++;
+						} else {
+							checkedCount--;
+						}
 					}
 				});
 		holder.isChecked.setChecked(bean.isChecked);
 		return view;
-
-	}
-
-	class MyCheckBoxChangeListener implements OnCheckedChangeListener {
-
-		@Override
-		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-			// TODO Auto-generated method stub
-
-		}
 
 	}
 
@@ -135,11 +114,21 @@ public class ManagerAdapter extends BaseAdapter {
 		TextView Address;
 		TextView distance;
 		CheckBox isChecked;
-
 	}
 
 	public int getCheckedCount() {
-		return 0;
+		return checkedCount;
 	}
 
+	public String getCheckedIds() {
+		StringBuilder sb = new StringBuilder();
+		for(int i =0; i < managerList.size(); i++){
+			ManagerBean bean = managerList.get(i);
+			if(bean.isChecked)
+				sb.append(bean.StoreId + ",");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+	
 }
