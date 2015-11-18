@@ -4,6 +4,10 @@
     <string name="app_name">kingtopgroup.com</string>
     <string name="hello_world">Hello world!</string>
     <string name="index_name">点下下推拿页</string>
+    <string name="tab_1">全部(22)</string>
+    <string name="tab_2">好评(22)</string>
+    <string name="tab_3">中评(0)</string>
+    <string name="tab_4">差评(0)</string>
     <string name="some_question">
        <div id="" class="agreement">	
 	   <p class=" mga mb15 mt15" style="text-indent : 30px;color:#959393;"></p>

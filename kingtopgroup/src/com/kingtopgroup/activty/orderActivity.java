@@ -1,45 +1,23 @@
 package com.kingtopgroup.activty;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.http.Header;
 import org.json.JSONObject;
-
-import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
-import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListener;
 
 import com.kingtogroup.location.LastLocation;
 import com.kingtogroup.location.LocationCallBack;
 import com.kingtogroup.location.LocationService;
 import com.kingtopgroup.R;
-import com.kingtopgroup.util.stevenhu.android.phone.bean.ADInfo;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.stevenhu.android.phone.utils.ViewFactory;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class orderActivity extends TabActivity implements
@@ -119,7 +97,9 @@ public class orderActivity extends TabActivity implements
 		// 订制
 		TabHost.TabSpec tabSpec4 = tabhost.newTabSpec("推拿师");
 		tabSpec4.setIndicator("推拿师");
-		tabSpec4.setContent(new Intent(orderActivity.this, messageActivty.class));
+		intent.setClass(this, messageActivty.class);
+		intent.putExtra("json", object.optJSONArray("MassagersList").toString());
+		tabSpec4.setContent(intent);
 		tabhost.addTab(tabSpec4);
 	}
 
@@ -169,11 +149,11 @@ public class orderActivity extends TabActivity implements
 			break;
 
 		case R.id.message:
-			tabhost.setCurrentTab(2);
+			tabhost.setCurrentTab(3);
 			break;
 
 		case R.id.orders:
-			tabhost.setCurrentTab(3);
+			tabhost.setCurrentTab(2);
 			break;
 		}
 
