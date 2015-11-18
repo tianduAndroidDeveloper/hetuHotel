@@ -165,6 +165,7 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 						Map<String,Object> map=new HashMap<String, Object>();
 						String TimeSection=array.getJSONObject(i).getString("TimeSection");
 						String StsId=array.getJSONObject(i).getString("StsId");
+						Log.i(TAG, "StsId = " + StsId);
 						map.put("StsId", StsId);
 						map.put("TimeSection",TimeSection.trim());
 						list.add(map);

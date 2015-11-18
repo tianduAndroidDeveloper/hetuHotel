@@ -76,7 +76,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	}*/
 	try {
-		setstatus(JsonObjectToListMap(new JSONArray(getIntent().getStringExtra("json"))));
+		setstatus(JsonObjectToListMap(new JSONObject(getIntent().getStringExtra("json"))));
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -135,11 +135,11 @@ protected void onCreate(Bundle savedInstanceState) {
     } 
     */
     
-    public List<Map<String, Object>> JsonObjectToListMap (JSONArray array){
+    public List<Map<String, Object>> JsonObjectToListMap (JSONObject obj){
     	list=new ArrayList<Map<String, Object>>(); 	
-           // JSONArray array;
+           JSONArray array;
 			try {
-				//array = jObject.getJSONArray("MassagesList");
+				array = obj.getJSONArray("MassagesList");
 				  for(int i=0;i<array.length();i++){
 			            Map<String,Object> map=new HashMap<String,Object>();
 			           	 //项目名称
@@ -156,9 +156,9 @@ protected void onCreate(Bundle savedInstanceState) {
 			           	 String pid=array.getJSONObject(i).getString("pid");
 			           	 
 			           	 String storeid=array.getJSONObject(i).getString("storeid");
-			           	// String CouponId=jObject.getString("CouponId");
+			             String CouponId=obj.getString("CouponId");
 			           	 
-			           	// UserBean.getUSerBean().setCouponid(CouponId);
+			           UserBean.getUSerBean().setCouponid(CouponId);
 			           
 			           	    map.put("name", pname);
 			           	    map.put("time", weight);

@@ -94,7 +94,10 @@ public class orderActivity extends TabActivity implements
 		TabHost.TabSpec tabSpec0 = tabhost.newTabSpec("推拿");
 		tabSpec0.setIndicator("推拿");
 		intent.setClass(this, manipulationActivty.class);
-		intent.putExtra("json", object.optJSONArray("MassagesList").toString());
+		intent.putExtra("json", object.toString());
+				
+				
+				//object.optJSONArray("MassagesList").toString());
 		tabSpec0.setContent(intent);
 		tabhost.addTab(tabSpec0);
 

@@ -236,7 +236,12 @@ public class ServieNumActivty extends FragmentActivity implements
 		String num = service_num_button.getText().toString();
 		String price = produt_item_price.getText().toString();
 		int index = price.indexOf(".");
-		String st = price.substring(1, index);
+		if(index!=-1){
+			price = price.substring(1, index);
+		}else{
+			price = price.substring(1, price.length());
+		}
+		
 
 		switch (arg0.getId()) {
 		case R.id.service_scope:// 服务范围
@@ -253,7 +258,7 @@ public class ServieNumActivty extends FragmentActivity implements
 
 		case R.id.service_add_button:// 数量增加按钮
 			Integer nus = Integer.parseInt(num) + 1;
-			Integer subprice = (Integer.parseInt(st)) * nus;
+			Integer subprice = (Integer.parseInt(price)) * nus;
 			service_num_button.setText(nus + "");
 			service_sub_price.setText("合计:￥" + subprice + "");
 			break;
@@ -263,7 +268,7 @@ public class ServieNumActivty extends FragmentActivity implements
 				ToastUtils.show(this, "数量不能少于1");
 			} else {
 				int nu = Integer.parseInt(num) - 1;
-				int sub = Integer.parseInt(st) * nu;
+				int sub = Integer.parseInt(price) * nu;
 				service_num_button.setText(nu + "");
 				service_sub_price.setText("合计:￥" + sub + "");
 			}

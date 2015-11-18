@@ -27,6 +27,11 @@ public class ManagerAdapter extends BaseAdapter {
 	static int checkedCount = 0;
 	public String masserger;
 	private static final String TAG = "ManagerAdapter";
+	
+
+	public static void setCheckedCount(int checkedCount) {
+		ManagerAdapter.checkedCount = checkedCount;
+	}
 
 	public ManagerAdapter(Context context, List<ManagerBean> managerList) {
 		this.context = context;
@@ -90,6 +95,7 @@ public class ManagerAdapter extends BaseAdapter {
 					public void onCheckedChanged(CompoundButton arg0,
 							boolean arg1) {
 						// Toast.makeText(context, position + "", 0).show();
+						
 						managerList.get(position).isChecked = arg1;
 						// /HashMap<String, Object> obj=((Object)
 						// arg0).getItemAtPosition(arg0);

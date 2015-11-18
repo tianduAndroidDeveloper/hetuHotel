@@ -132,6 +132,7 @@ public class ChioceManagerActivty extends Activity {
 		manager_next_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				
 				String count = UserBean.getUSerBean().getBuyCount();
 				Integer.parseInt(count);
 				String checked=adapter.getCheckedIds();
@@ -149,7 +150,6 @@ public class ChioceManagerActivty extends Activity {
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", UserBean.getUSerBean().getOpid());
-					
 					params.put("StoreId", getChecked);
 					params.put("MasagerIdList",checked);
 					
