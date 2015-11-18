@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListener;
 
@@ -13,6 +16,8 @@ import com.kingtogroup.location.LocationCallBack;
 import com.kingtogroup.location.LocationService;
 import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ADInfo;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,7 +47,7 @@ public class orderActivity extends TabActivity implements
 
 	private ImageView imgaeview;
 	private RadioGroup radiogroup;
-	private RadioButton manipulation, message, orders, pedicure,location;
+	private RadioButton manipulation, message, orders, pedicure, location;
 	private TabHost tabhost;
 	private TabWidget tabs;
 
@@ -50,7 +55,7 @@ public class orderActivity extends TabActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlistview);
-
+		getDate();
 		manipulation = (RadioButton) findViewById(R.id.manipulation);
 		pedicure = (RadioButton) findViewById(R.id.pedicure);
 		message = (RadioButton) findViewById(R.id.message);
@@ -63,11 +68,34 @@ public class orderActivity extends TabActivity implements
 		tabhost.setup();
 		tabhost.setFocusable(true);
 
+		radiogroup = (RadioGroup) findViewById(R.id.main_radio);
+		radiogroup.setOnCheckedChangeListener(this);
+		RadioButton radioButton = (RadioButton) radiogroup.getChildAt(0);
+		radioButton.setChecked(true);
+
+	}
+
+	private void initLocation() {
+		LastLocation.initInstance().setCallBack(new LocationCallBack() {
+
+			@Override
+			public void callBack() {
+				location.setText(LastLocation.initInstance().getShi());
+
+			}
+		});
+		startService(new Intent(this, LocationService.class));
+
+	}
+
+	private void initTabs(JSONObject object) {
+		Intent intent = new Intent();
 		// 推拿
 		TabHost.TabSpec tabSpec0 = tabhost.newTabSpec("推拿");
 		tabSpec0.setIndicator("推拿");
-		tabSpec0.setContent(new Intent(orderActivity.this,
-				manipulationActivty.class));
+		intent.setClass(this, manipulationActivty.class);
+		intent.putExtra("json", object.optJSONArray("MassagesList").toString());
+		tabSpec0.setContent(intent);
 		tabhost.addTab(tabSpec0);
 
 		// 足疗
@@ -90,24 +118,39 @@ public class orderActivity extends TabActivity implements
 		tabSpec4.setIndicator("推拿师");
 		tabSpec4.setContent(new Intent(orderActivity.this, messageActivty.class));
 		tabhost.addTab(tabSpec4);
-
-		radiogroup = (RadioGroup) findViewById(R.id.main_radio);
-		radiogroup.setOnCheckedChangeListener(this);
-		RadioButton radioButton = (RadioButton) radiogroup.getChildAt(0);
-		radioButton.setChecked(true);
-
 	}
 
-	private void initLocation() {
-		LastLocation.initInstance().setCallBack(new LocationCallBack() {
+	public void getDate() {
+		// 服务器端传来数据
 
-			@Override
-			public void callBack() {
-				location.setText(LastLocation.initInstance().getShi());
+		new AsyncHttpClient().get(
+				getResources().getString(R.string.url_getItemList), null,
+				new AsyncHttpResponseHandler() {
 
-			}
-		});
-		startService(new Intent(this, LocationService.class));
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						if (arg0 == 200) {
+							try {
+								String date = new String(arg2);
+								JSONObject jObject = new JSONObject(date);
+								initTabs(jObject);
+							} catch (Exception e) {
+								e.printStackTrace();
+								// checkedNow();
+								Toast.makeText(orderActivity.this, "ddd",
+										Toast.LENGTH_LONG).show();
+							}
+						}
+
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 
 	}
 
