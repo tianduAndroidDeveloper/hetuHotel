@@ -162,9 +162,9 @@ public class ChioceManagerActivty extends Activity {
 							JSONObject obj=new JSONObject(data);
 							String ActionMessage=obj.getString("ActionMessage");
 							if(ActionMessage.equals("设置成功")){
-								Intent inten = new Intent(ChioceManagerActivty.this,
-										SubmitOrderActivty.class);
-								startActivity(inten);
+								//Intent inten = new Intent(ChioceManagerActivty.this,
+									//	SubmitOrderActivty.class);
+								//startActivity(inten);
 							}else{
 								//ToastUtils.show(this, "網絡錯誤，請稍後再試");
 							}

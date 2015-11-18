@@ -9,24 +9,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#FFF" >
-        </FrameLayout>
-
-        <!-- TabWidget管理所有的选项卡，id名是android指定的 -->
-
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:visibility="gone" />
+       
 
         <!-- Frame下放置单选群组替代TAB效果 -->
 
         <RadioGroup
+           
             android:padding="5dp"
             android:id="@+id/main_radio"
             android:layout_width="fill_parent"
@@ -85,6 +73,21 @@
                 android:gravity="center"
                 android:text="更多" />
         </RadioGroup>
+         <FrameLayout
+             android:layout_above="@id/main_radio"
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF" >
+        </FrameLayout>
+
+        <!-- TabWidget管理所有的选项卡，id名是android指定的 -->
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </TabHost>
