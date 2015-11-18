@@ -135,7 +135,8 @@ public class OrderTimeAdapter extends BaseAdapter {
 							e.printStackTrace();
 						}
 						
-						
+						Intent intent = new Intent(context, ChioceManagerActivty.class);
+						context.startActivity(intent);
 						
 					}
 					
@@ -146,8 +147,7 @@ public class OrderTimeAdapter extends BaseAdapter {
 					}
 				});
 				
-				Intent intent = new Intent(context, ChioceManagerActivty.class);
-				context.startActivity(intent);
+				
 				
 			}
 		});

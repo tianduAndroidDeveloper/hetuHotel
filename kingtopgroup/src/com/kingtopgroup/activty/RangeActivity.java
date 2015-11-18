@@ -4,40 +4,39 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.text.Html;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.kingtopgroup.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class CommonActivity extends MainActionBarActivity {
-	TextView tv;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Toast;
+
+public class RangeActivity extends MainActionBarActivity {
+	WebView wv;
 	View progress;
 
 	@Override
 	@SuppressLint("InflateParams")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_common);
-		titleButton.setText("常见问题");
+		setContentView(R.layout.activity_range);
+		titleButton.setText("服务范围");
 		init();
 	}
 
 	void init() {
-		tv = (TextView) findViewById(R.id.tv);
+		wv = (WebView) findViewById(R.id.wv);
 		progress = findViewById(R.id.progress);
 		requestData();
 	}
-	
+
 	void requestData() {
 		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = "http://kingtopgroup.com/api/home/GetServiceChangJianWenTi";
+		String url = "http://kingtopgroup.com/api/home/GetServiceRange";
 		client.get(url, null, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -45,19 +44,20 @@ public class CommonActivity extends MainActionBarActivity {
 				try {
 					JSONObject object = new JSONObject(new String(arg2));
 					String html = object.getString("Context");
-					tv.setText(Html.fromHtml(html));
+					wv.getSettings().setJavaScriptEnabled(true);
+					wv.loadDataWithBaseURL("http://kingtopgroup.com/", html,
+							"text/html", "utf-8", null);
+					
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
 				progress.setVisibility(View.GONE);
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
-				Toast.makeText(CommonActivity.this, "信息获取失败，请重试！",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(RangeActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
 				progress.setVisibility(View.GONE);
 			}
 		});

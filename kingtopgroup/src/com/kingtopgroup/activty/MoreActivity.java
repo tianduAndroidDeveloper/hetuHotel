@@ -41,6 +41,9 @@ public class MoreActivity extends Activity implements OnClickListener {
 		case R.id.tv1:
 			intent = new Intent(this, AgreementActivity.class);
 			break;
+		case R.id.tv2:
+			intent = new Intent(this, RangeActivity.class);
+			break;
 		case R.id.tv3:
 			intent = new Intent(this, CommonActivity.class);
 			break;

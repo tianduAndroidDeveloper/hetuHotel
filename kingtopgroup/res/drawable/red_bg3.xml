@@ -6,14 +6,14 @@
 
             <padding android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="0dp" />
 
-            <corners android:radius="10dip" />
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="5dp" android:topLeftRadius="0dip" android:topRightRadius="0dp" />
         </shape></item>
     <item android:state_pressed="true"><shape android:shape="rectangle">
             <solid android:color="@color/red_light" />
 
             <padding android:bottom="0dp" android:left="0dp" android:right="0dp" android:top="0dp" />
 
-            <corners android:radius="10dip" />
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="5dp" android:topLeftRadius="0dip" android:topRightRadius="0dp" />
         </shape></item>
 
 </selector>

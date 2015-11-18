@@ -43,10 +43,12 @@ import com.kingtogroup.domain.Order;
 import com.kingtogroup.domain.OrderProduct;
 import com.kingtogroup.utils.ParserJSON;
 import com.kingtogroup.utils.ParserJSON.ParseListener;
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MeOrderActivity extends MainActionBarActivity implements
 		OnClickListener {
@@ -339,6 +341,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				TextView tv_time = (TextView) rl.findViewById(R.id.tv_time);
 				TextView tv_sum = (TextView) rl.findViewById(R.id.tv_sum);
 				TextView tv_money = (TextView) rl.findViewById(R.id.tv_money);
+				ImageView imageView1 = (ImageView) rl.findViewById(R.id.imageView1);
 
 				tv_people.setText("推拿师：" + product.MassagerNames);
 				String time = product.PServiceDate + " " + product.ServiceTime;
@@ -347,6 +350,9 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				tv_count.setText("数量：" + product.BuyCount);
 				tv_sum.setText(product.Name + "x" + product.RealCount);
 				tv_money.setText("￥" + product.ShopPrice * product.RealCount);
+				String uri = Utils.assembleImageUri(product.ShowImg, "5");
+				Log.i(TAG, uri);
+				ImageLoader.getInstance().displayImage(uri, imageView1);
 
 				changeTextColor(tv_type, 3);
 				changeTextColor(tv_people, 4);
