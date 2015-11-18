@@ -11,6 +11,7 @@
 
 
         <RadioGroup
+            android:padding="5dp"
             android:id="@+id/main_radio"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -28,7 +29,7 @@
                 android:button="@null"
                 android:text="推拿"
                 android:gravity="center"
-                android:background="@drawable/shape_rb_pop"
+                android:background="@drawable/shape_rb_pop2"
                 android:textColor="@drawable/tab_order_text_btn"/>
 
 
@@ -66,7 +67,7 @@
                 android:layout_width="35dip"
                 android:text="推拿师"
                 android:drawablePadding="5dp"
-                android:background="@drawable/shape_rb_pop"
+                android:background="@drawable/shape_rb_pop3"
                 android:textColor="@drawable/tab_order_text_btn" 
                 android:typeface="normal" />
 

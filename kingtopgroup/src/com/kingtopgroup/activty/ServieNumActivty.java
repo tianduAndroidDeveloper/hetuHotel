@@ -62,8 +62,7 @@ public class ServieNumActivty extends FragmentActivity implements
 	private WebView service_num_webview;
 	JSONObject obj = null;
 	// private ProgressBar service_progressbar;
-	private Button service_add_button, service_reduce_button,
-			service_num_button, service_num_next_button;
+	private TextView service_num_button,service_add_button, service_reduce_button, service_num_next_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +98,10 @@ public class ServieNumActivty extends FragmentActivity implements
 		service_item_content = (TextView) findViewById(R.id.service_item_content);
 		service_num_webview = (WebView) findViewById(R.id.service_num_text);
 
-		service_add_button = (Button) findViewById(R.id.service_add_button);
-		service_reduce_button = (Button) findViewById(R.id.service_reduce_button);
-		service_num_button = (Button) findViewById(R.id.service_num_button);
-		service_num_next_button = (Button) findViewById(R.id.service_num_next_button);
+		service_add_button = (TextView) findViewById(R.id.service_add_button);
+		service_reduce_button = (TextView) findViewById(R.id.service_reduce_button);
+		service_num_button = (TextView) findViewById(R.id.service_num_button);
+		service_num_next_button = (TextView) findViewById(R.id.service_num_next_button);
 
 		produt_item_price = (TextView) findViewById(R.id.product_item_price);
 
@@ -234,7 +233,7 @@ public class ServieNumActivty extends FragmentActivity implements
 	@Override
 	public void onClick(View arg0) {
 		String num = service_num_button.getText().toString();
-		String price = produt_item_price.getText().toString();
+		String price = produt_item_price.getText().toString() + ".00";
 		int index = price.indexOf(".");
 		String st = price.substring(1, index);
 

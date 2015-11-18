@@ -1,137 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:orientation="vertical"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-
- <ScrollView 
-        android:id="@+id/scrollView1"
-         android:layout_weight="8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-<LinearLayout 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/all"
-    android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_light"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+    <requestFocus />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:background="@drawable/linear_boder"
-        android:orientation="horizontal" >
-       
-        <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
-        
-         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_yuan" />
-         
-        <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:textColor="@color/red"
-        android:layout_height="wrap_content"  
-        android:text="地址"></TextView>
-    
-         </FrameLayout>
-          
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:paddingLeft="5dp"
-            android:layout_height="wrap_content"
-            android:src="@color/gray" />
-        
-         <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/imageView1"
-              android:layout_gravity="center"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/shuzi_yuan" />
-        
-         <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"  
-        android:text="2"></TextView>
-        </FrameLayout>
-         
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@color/gray" />
-        
-         
-         <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
-        
-        
-        <ImageView
-            android:id="@+id/imageView1"
-             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shuzi_yuan" />
-        
-         <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_height="wrap_content"  
-        android:text="3"></TextView>
-        
-        </FrameLayout>
-    </LinearLayout>
-    
-    <RadioGroup android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:padding="10dp"
-        android:orientation="horizontal">
-         
-        <RadioButton android:layout_height="wrap_content"
-            android:id="@+id/for_me"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:button="@null"
-            android:textColor="@drawable/tab_order_text_btn" 
-            android:background="@drawable/shape_rb_pop"
-            android:gravity="center"
-            android:text="給自己預約"/> 
-            
-           <RadioButton android:layout_height="wrap_content"
-            android:id="@+id/for_other"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="@drawable/tab_order_text_btn" 
-            android:background="@drawable/shape_rb_pop"
-            android:gravity="center"
-            android:button="@null"
-            android:text="給他人預約"/> 
-        
-         </RadioGroup>
-    
-   <!--  <LinearLayout android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/linear_boder"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/add_yuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="地址"
+                        android:textColor="@color/red" >
+                    </TextView>
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:src="@color/gray" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/shuzi_yuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="2" >
+                    </TextView>
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@color/gray" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/shuzi_yuan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="3" >
+                    </TextView>
+                </FrameLayout>
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp">
+
+                <RadioButton
+                    android:id="@+id/for_me"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop2"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="給自己預約"
+                    android:textColor="@drawable/tab_order_text_btn" />
+
+                <RadioButton
+                    android:id="@+id/for_other"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop3"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="給他人預約"
+                    android:textColor="@drawable/tab_order_text_btn" />
+            </RadioGroup>
+
+            <!--
+         <LinearLayout android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:background="@color/white"
         android:layout_margin="10dp"
@@ -153,233 +161,243 @@
              android:textColor="@color/red"
             android:text="给他人预约"
             android:background="@drawable/shape_rb_pop"/>
-        </LinearLayout> -->
-        
-    
-    <LinearLayout android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_margin="10dp"
-        android:padding="5dp"
-        android:background="@drawable/linear_boder"
-        android:orientation="vertical">
-           
-        <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="手机号："/>
+        </LinearLayout>
+            -->
 
-        <EditText
-            android:id="@+id/service_phone"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linear_boder"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机号：" />
+
+                    <EditText
+                        android:id="@+id/service_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+
+                    </EditText>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="街道名：" />
+
+                    <EditText
+                        android:id="@+id/service_address_street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+                    </EditText>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="门牌号：" />
+
+                    <EditText
+                        android:id="@+id/service_address_door_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+                    </EditText>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系人：" />
+
+                    <EditText
+                        android:id="@+id/service_address_person"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+                    </EditText>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注：（选填）" />
+
+                    <EditText
+                        android:id="@+id/service_address_mark"
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:id="@+id/add_or_reduce"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linear_boder"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="常用地址" />
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/gray1" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名：" />
+
+                    <TextView
+                        android:id="@+id/service_address_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:padding="5dp" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机号码：" />
+
+                    <TextView
+                        android:id="@+id/service_address_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="phone"
+                        android:padding="5dp" >
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/add_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:src="@drawable/circle_check" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="详细地址" />
+
+                    <TextView
+                        android:id="@+id/service_address_address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="5dp" >
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/service_address_next_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-             android:padding="5dp"
-            android:background="@null"
-            android:inputType="textPersonName" >
-
-            <requestFocus />
-        </EditText>
-        
-        </LinearLayout>
-       
-          <ImageView android:layout_height="2dp"
-              android:layout_width="fill_parent"
-              android:background="@color/back"/>
-            <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="街道名："/>
-
-        <EditText
-            android:id="@+id/service_address_street"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-             android:padding="5dp"
-            android:background="@null"
-            android:inputType="textPersonName" >
-        </EditText>
-        
-        </LinearLayout>
-       
-          <ImageView android:layout_height="2dp"
-              android:layout_width="fill_parent"
-              android:background="@color/back"/>
-          
-          
-            <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="门牌号："/>
-
-        <EditText
-            android:id="@+id/service_address_door_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="@null"
-            android:inputType="textPersonName" >
-        </EditText>
-        
-        </LinearLayout>
-       
-          <ImageView android:layout_height="2dp"
-              android:layout_width="fill_parent"
-              android:background="@color/back"/>
-          
-            <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="联系人："/>
-
-        <EditText
-            android:id="@+id/service_address_person"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="@null"
-            android:inputType="textPersonName" >
-        </EditText>
-        
-        </LinearLayout>
-       
-          <ImageView android:layout_height="2dp"
-              android:layout_width="fill_parent"
-              android:background="@color/back"/>
-          
-           <LinearLayout
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal" >
-
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="备注：（选填）"/>
-
-        <EditText
-            android:id="@+id/service_address_mark"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:background="@null"
-            android:inputType="textPersonName" >
-        </EditText>
-        
-        </LinearLayout>
-          
-
-    
-     </LinearLayout>
-     
-    <LinearLayout android:layout_height="wrap_content"
-        android:id="@+id/add_or_reduce"
-        android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dip"
-        android:background="@drawable/linear_boder">
-         
-           <TextView android:layout_height="wrap_content"
-               android:padding="10dp"
-               android:layout_width="wrap_content"
-               android:text="常用地址"/>
-           
-             <ImageView android:layout_height="2dp"
-              android:layout_width="fill_parent"
-              android:background="@color/gray1"/>
-          
-               <LinearLayout android:layout_height="wrap_content"
-                   android:padding="5dp"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="姓名："/>
-
-        <TextView
-            android:id="@+id/service_address_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:inputType="textPersonName" >
-        </TextView>
-        
-        </LinearLayout>
-        
-                 <LinearLayout android:layout_height="wrap_content"
-                     android:padding="5dp"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="手机号码："/>
-
-        <TextView
-            android:id="@+id/service_address_phone"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:inputType="phone" >
-      </TextView>
-      
-        <ImageView android:layout_height="wrap_content"
-            android:id="@+id/add_address"
-            android:layout_width="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/circle_check"/>
-        
-        </LinearLayout>
-        
-                   <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:padding="10dp"
-            android:orientation="horizontal">
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:text="详细地址"/>
-
-        <TextView
-            android:id="@+id/service_address_address"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:inputType="text" >
-        </TextView>
-        
-        </LinearLayout>
-        
-        
-           </LinearLayout>
+            android:background="@drawable/red_bg"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </LinearLayout>
-   </ScrollView>
-   
- 
-   <LinearLayout
-    android:layout_width="fill_parent"
-    android:gravity="right"
-    android:layout_weight="2"
-    android:layout_height="50dp" 
-    android:orientation="horizontal" >
-  
-
-  <Button
-      android:layout_width="fill_parent"
-      android:id="@+id/service_address_next_button"
-      android:layout_height="32dp"
-      android:background="@drawable/btn_bg"
-      android:textColor="@color/white"
-      android:layout_margin="2dp"
-      android:gravity="center"
-      android:text="下一步" />
-
-  </LinearLayout>
-   </LinearLayout>

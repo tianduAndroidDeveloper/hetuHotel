@@ -2,273 +2,174 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/all"
-    android:orientation="vertical" >
-    
-       <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:background="@drawable/linear_boder"
-        android:orientation="horizontal" >
-       
-      
-        
-         <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
+    android:orientation="vertical" 
+    android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/imageView1"
-              android:layout_gravity="center"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/all"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/shuzi_yuan" />
-        
-         <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"  
-        android:text="1"></TextView>
-        </FrameLayout>
-        
-          <ImageView
-            android:id="@+id/imageView1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:paddingLeft="5dp"
-            android:layout_height="wrap_content"
-            android:src="@color/gray" />
-        
-         
-           <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
-        
-         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/linear_boder"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/shuzi_yuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1" >
+                </TextView>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:src="@color/gray" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/add_yuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="时间"
+                    android:textColor="@color/red" >
+                </TextView>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@color/gray" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/shuzi_yuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="3" >
+                </TextView>
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_yuan" />
-         
-        <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:textColor="@color/red"
-        android:layout_height="wrap_content"  
-        android:text="时间"></TextView>
-    
-         </FrameLayout>
-          
-       
-         
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="请选择开始时间，灰色表示推拿师全部被预约！"
+            android:textColor="@color/gray" />
+
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@color/gray" />
-        
-         
-         <FrameLayout android:layout_height="wrap_content"
-             android:layout_weight="1"
-            android:layout_width="0dp">
-        
-        
-        <ImageView
-            android:id="@+id/imageView1"
-             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shuzi_yuan" />
-        
-         <TextView  
-        android:layout_width="wrap_content"   
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_height="wrap_content"  
-        android:text="3"></TextView>
-        
-        </FrameLayout>
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_circle_rb"
+                android:button="@null"
+                android:gravity="center"
+                android:text="今天"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_circle_rb"
+                android:button="@null"
+                android:gravity="center"
+                android:text="明天"
+                android:textColor="#000000" />
+
+            <RadioButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_circle_rb"
+                android:button="@null"
+                android:gravity="center"
+                android:text="後天"
+                android:textColor="#000000" />
+
+            <RadioButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_circle_rb"
+                android:button="@null"
+                android:gravity="center"
+                android:text="大後天"
+                android:textColor="#000000" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/linear_boder"
+            android:padding="10dp" >
+
+            <GridView
+                android:id="@+id/order_time_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
     </LinearLayout>
-    
-       <TextView android:layout_height="wrap_content"
-           android:layout_width="fill_parent"
-           android:textColor="@color/gray"
-           android:gravity="center"
-           android:text="请选择开始时间，灰色表示推拿师全部被预约！"/>
-       
-       <RadioGroup 
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           android:gravity="center"
-           android:layout_margin="5dp"
-           android:id="@+id/rg">
-           
-           <RadioButton 
-               android:layout_width="70dp"
-               android:layout_height="70dp"
-               android:text="今天"
-               android:textColor="@color/white"
-               android:background="@drawable/shape_circle_rb"
-               android:button="@null"
-               android:gravity="center"/>
-           
-           <RadioButton 
-               android:layout_marginLeft="10dp"
-               android:layout_width="70dp"
-               android:layout_height="70dp"
-               android:text="明天"
-               android:textColor="#000000"
-               android:button="@null"
-               android:background="@drawable/shape_circle_rb"
-               android:gravity="center"/>
-           
-           <RadioButton 
-               android:layout_marginLeft="10dp"
-               android:layout_width="70dp"
-               android:layout_height="70dp"
-               android:text="後天"
-               android:textColor="#000000"
-               android:button="@null"
-               android:background="@drawable/shape_circle_rb"
-               android:gravity="center"/>
-           
-           <RadioButton 
-               android:layout_marginLeft="10dp"
-               android:layout_width="70dp"
-               android:layout_height="70dp"
-               android:textColor="#000000"
-               android:text="大後天"
-               android:button="@null"
-               android:background="@drawable/shape_circle_rb"
-               android:gravity="center"/>
-           
-       </RadioGroup>
-       
-       <!-- <LinearLayout android:layout_height="wrap_content"
-           android:layout_width="fill_parent"
-           android:padding="10dp"
-           android:orientation="horizontal"
-           >
-         
-           <FrameLayout android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:layout_gravity="center"
-               android:layout_width="0dp">
-           
-           <ImageView android:layout_height="70dp"
-               android:layout_width="70dp"
-               android:layout_gravity="center"
-               android:clickable="true"
-               android:id="@+id/today_image"
-                android:background="@drawable/change_rb_pop"
-               android:src="@drawable/circlea_d"/>
-           
-           <TextView android:layout_height="wrap_content"
-               android:id="@+id/today"
-               android:layout_width="wrap_content"
-               android:layout_gravity="center"
-               android:clickable="true"
-               android:textColor="@color/red"
-               android:background="@drawable/change_rb_pop"
-               android:text="今天"/>
-           
-           </FrameLayout>
-           
-            <FrameLayout android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:layout_gravity="center"
-               android:layout_width="0dp">
-           
-           <ImageView android:layout_height="70dp"
-               android:layout_width="70dp"
-               android:id="@+id/tomorro_image"
-               android:layout_gravity="center"
-               android:clickable="true"
-                android:background="@drawable/change_rb_pop"
-               android:src="@drawable/circlea_d"/>
-           
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:layout_gravity="center"
-               android:id="@+id/tomorro"
-               android:clickable="true"
-               android:background="@drawable/change_rb_pop"
-               android:textColor="@color/red"
-               android:text="明天"/>
-           
-           </FrameLayout>
-           
-             <FrameLayout android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:layout_gravity="center"
-               android:layout_width="0dp">
-           
-           <ImageView android:layout_height="70dp"
-               android:id="@+id/day_after_tomrror"
-               android:layout_width="70dp"
-               android:layout_gravity="center"
-                android:background="@drawable/change_rb_pop"
-               android:src="@drawable/circlea_d"/>
-           
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:layout_gravity="center"
-               android:textColor="@color/red"
-               android:text="后天"/>
-           
-           </FrameLayout>
-           
-              <FrameLayout android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:layout_gravity="center"
-               android:layout_width="0dp">
-           
-           <ImageView android:layout_height="70dp"
-               android:id="@+id/day_after_day_by_day"
-               android:layout_width="70dp"
-               android:layout_gravity="center"
-                android:background="@drawable/change_rb_pop"
-               android:src="@drawable/circlea_d"/>
-           
-           <TextView android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:textColor="@color/red"
-               android:layout_gravity="center"
-               android:text="周二"/>
-           
-           </FrameLayout>
-            
-       </LinearLayout> -->
-       
-       <LinearLayout android:layout_height="fill_parent"
-           android:layout_width="fill_parent"
-           android:padding="10dp"
-           android:layout_margin="10dp"
-           android:background="@drawable/linear_boder">
-              
-           <GridView android:layout_height="fill_parent"
-               android:id="@+id/order_time_listview"
-               android:layout_width="fill_parent"
-               android:layout_gravity="center"
-               android:gravity="center"  
-               android:horizontalSpacing="5dp"
-               android:verticalSpacing="5dp"
-               android:numColumns="4"/>
-           
-    </LinearLayout>
-       </LinearLayout>
-    
 
 </LinearLayout>
