@@ -180,9 +180,6 @@ public class ChioceManagerActivty extends Activity {
 					  byte[] arg2, Throwable arg3) { // TODO Auto-generated
 					  
 					  } });
-					
-					
-					
 				}
 			}
 		});
