@@ -2,4 +2,5 @@
 <resources>
 
     <string name="url_getItemList">http://kingtopgroup.com/api/item/GetItemList</string>
+    <string name="url_imgHost">http://kingtopgroup.com/upload/store/5/product/show/thumb190_190/</string>
 </resources>
