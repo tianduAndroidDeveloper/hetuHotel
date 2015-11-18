@@ -10,36 +10,39 @@
         android:background="@color/gray_light"
         android:focusable="true"
         android:focusableInTouchMode="true" >
+
         <requestFocus />
+
         <RelativeLayout
             android:id="@+id/ll_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:gravity="center_vertical">
-            
-            <Button 
+            android:gravity="center_vertical" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/back_h"
                 android:background="@android:color/transparent"
-                android:onClick="back"/>
-            <TextView 
-                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/back_h"
+                android:onClick="back" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_centerInParent="true"
                 android:text="加入点下下"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <ImageView
-            android:layout_below="@+id/ll_title"
             android:id="@+id/iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_below="@+id/ll_title"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -63,15 +66,16 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:singleLine="true"
-                    android:maxLength="6"
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:background="@color/white"
                     android:hint="您的名字"
-                    android:textColor="@color/black" />
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null" />
             </LinearLayout>
 
             <View
@@ -132,8 +136,6 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:singleLine="true"
-                    android:maxLength="11"
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,8 +143,10 @@
                     android:background="@null"
                     android:hint="您的手机号"
                     android:inputType="phone"
+                    android:maxLength="11"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textCursorDrawable="@color/black" />
+                    android:textCursorDrawable="@null" />
             </LinearLayout>
 
             <View
@@ -170,10 +174,11 @@
                 android:background="@color/white"
                 android:gravity="left|top"
                 android:hint="工作经验"
-                android:minLines="3"
                 android:maxLines="5"
+                android:minLines="3"
                 android:padding="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null" />
         </LinearLayout>
 
         <LinearLayout
