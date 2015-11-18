@@ -291,6 +291,7 @@ public class ServieNumActivty extends FragmentActivity implements
 					+ ItemIdList + "}";
 			// params.put("model", parans);
 			params.put("BuyCount", BuyCount);
+			UserBean.getUSerBean().setBuyCount(BuyCount);
 			params.put("StoreRId", StoreRId);
 			params.put("couponid", couponid);
 			params.put("Pid", pid);
@@ -316,6 +317,9 @@ public class ServieNumActivty extends FragmentActivity implements
 										// ±£´æ¶©µ¥ºÅ
 										UserBean.getUSerBean().setOpid(
 												ReturnValue);
+										
+										Intent intent = new Intent(ServieNumActivty.this, ServiceAddressActivty.class);
+										startActivity(intent);
 									}
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block
@@ -333,8 +337,7 @@ public class ServieNumActivty extends FragmentActivity implements
 						}
 
 					});
-			Intent intent = new Intent(this, ServiceAddressActivty.class);
-			startActivity(intent);
+			
 			break;
 		}
 	}

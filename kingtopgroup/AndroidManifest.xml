@@ -6,7 +6,8 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
+       
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -21,7 +22,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
- 
+ 
+
+
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
@@ -91,6 +94,10 @@
             android:name="com.kingtopgroup.activty.MoreServiceAgreementActivty"
             android:label="@string/app_name" >
         </activity>
+         <activity
+            android:name="com.kingtopgroup.activty.ChioceManagerActivty"
+            android:label="@string/app_name" >
+        </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServiceScopeActivty"
             android:label="@string/app_name" >
@@ -125,7 +132,7 @@
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.RegisterActivty"
-            android:theme="@style/Theme_Activity_Animation" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServiceAddressActivty"
@@ -162,22 +169,28 @@
         <activity
             android:name="com.kingtopgroup.activty.MemberCardActivity"
             android:theme="@style/Theme_Activity_Animation" />
+        
+          <activity
+            android:name="com.kingtopgroup.activty.SubmitOrderActivty"
+            android:theme="@style/Theme_Activity_Animation" />
+        
         <activity
             android:name="com.kingtopgroup.activty.ShareActivity"
             android:theme="@style/Theme_Activity_Animation" />
         <activity
+            
+            
+            
             android:name="com.kingtopgroup.activty.PayInfoActivity"
             android:theme="@style/Theme_Activity_Animation" />
-        <activity
-            android:name="com.kingtopgroup.activty.CommonActivity"
+        <activity android:name="com.kingtopgroup.activty.FirmWorkActivity"
             android:theme="@style/Theme_Activity_Animation" />
-        <activity
-            android:name="com.kingtopgroup.activty.RangeActivity"
+        <activity android:name="com.kingtopgroup.activty.JoinActivity"
             android:theme="@style/Theme_Activity_Animation" />
-        <activity android:name="com.kingtopgroup.activty.FindPswActivity"
+        <activity android:name="com.kingtopgroup.activty.CommonActivity"
             android:theme="@style/Theme_Activity_Animation" />
-        <activity android:name="com.kingtopgroup.activty.FirmWorkActivity" />
-        <activity android:name="com.kingtopgroup.activty.JoinActivity" />
+        <!-- <activity android:name="com.kingtopgroup.activty.FirmWorkActivity" />
+        <activity android:name="com.kingtopgroup.activty.JoinActivity" /> -->
         <activity android:name="com.kingtopgroup.activty.CoworkActivity" />
         <activity android:name="com.kingtopgroup.activty.MoreActivity" />
     </application>

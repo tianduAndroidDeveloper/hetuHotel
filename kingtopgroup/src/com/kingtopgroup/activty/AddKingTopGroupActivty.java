@@ -53,8 +53,6 @@ protected void onCreate(Bundle savedInstanceState) {
 	 mMainFrameTask = new MainFrameTask(this);
      mMainFrameTask.execute();
 	
-	// final AlertDialog alertDialog = new AlertDialog.Builder(this).create();  
-	 //bar = ProgressDialog.show(meActivty.this, "«Î…‘∫Ú£¨’˝‘⁄º”‘ÿ", "Loading..."); 
 	
      my_fresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 		@Override
@@ -117,17 +115,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		getSupportFragmentManager().beginTransaction().add(R.id.my_frame, firstframe).commit();
 	}
 }
-/*@Override
-public boolean onKeyDown(int keyCode, android.view.KeyEvent event) {
-	if(keyCode == KeyEvent.KEYCODE_BACK && 	my_webview.canGoBack()){
-		my_webview.goBack();
-		return true;
-	}else{
-		return false;
-	}
-}*/
-
-
 
 @Override
 protected void onDestroy() {

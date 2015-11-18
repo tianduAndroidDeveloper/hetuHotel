@@ -52,25 +52,6 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 		setContentView(R.layout.order_time);  
 		
 		 order_time_gridview=(GridView) findViewById(R.id.order_time_listview);
-		//order_time_gridview.setAdapter(new OrderTimeAdapter(this, getDate()));
-		
-		/*tommorr=(TextView) findViewById(R.id.tomorro);
-		tommorr.setOnClickListener(this);
-		//今天
-		today_image=(ImageView) findViewById(R.id.today_image);
-		today_image.setOnClickListener(this);
-		//明天
-		tommorr_image=(ImageView) findViewById(R.id.tomorro_image);
-		tommorr_image.setOnClickListener(this);
-		
-		//后天
-		day_after_tomrror=(ImageView) findViewById(R.id.day_after_tomrror);
-		day_after_tomrror.setOnClickListener(this);
-		
-		//大后天
-		day_after_day_by_day=(ImageView) findViewById(R.id.day_after_day_by_day);
-		day_after_day_by_day.setOnClickListener(this);*/
-		
 		rg = (RadioGroup) findViewById(R.id.rg);
 		rg.setOnCheckedChangeListener(new MyRadioCheckChangeListener());
 		RadioButton rb = (RadioButton) rg.getChildAt(0);
@@ -141,17 +122,6 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 				RadioButton rButton = (RadioButton) arg0.getChildAt(i);
 				rButton.setTextColor(Color.BLACK);
 			
-				
-				
-				/*if(i == 0){
-					setTime();
-				}else if(i == 1){
-					getOtherDays("ValidDay_1");
-				}else if(i == 2){
-					getOtherDays("ValidDay_2");
-				}else if(i == 3){
-					getOtherDays("ValidDay_3");
-				}*/
 			}
 			
 			switch (arg1) {
@@ -194,6 +164,8 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 					for(int i=0;i<array.length();i++){
 						Map<String,Object> map=new HashMap<String, Object>();
 						String TimeSection=array.getJSONObject(i).getString("TimeSection");
+						String StsId=array.getJSONObject(i).getString("StsId");
+						map.put("StsId", StsId);
 						map.put("TimeSection",TimeSection.trim());
 						list.add(map);
 					}
@@ -238,21 +210,6 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
       switch (arg0.getId()) {
-	/*case R.id.today_image:
-		setTime();
-		break;
-
-	case R.id.tomorro_image:
-		getOtherDays("ValidDay_1");
-		break;
-		
-      case R.id.day_after_tomrror:
-    	  getOtherDays("ValidDay_2");
-    	  break;
-    	  
-      case R.id.day_after_day_by_day:
-    	  getOtherDays("ValidDay_2");
-    	  break;*/
       }
 	}
 	
