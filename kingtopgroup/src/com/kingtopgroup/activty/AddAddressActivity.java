@@ -1,15 +1,19 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.kingtogroup.utils.RegxUtils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
@@ -19,6 +23,7 @@ import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class AddAddressActivity extends MainActionBarActivity implements
 		OnClickListener {
+	private static final String TAG = "AddAddressActivity";
 	EditText et_name;
 	EditText et_phone;
 	EditText et_address;
@@ -36,7 +41,7 @@ public class AddAddressActivity extends MainActionBarActivity implements
 		et_address = (EditText) findViewById(R.id.et_address);
 		et_phone = (EditText) findViewById(R.id.et_phone);
 		btn_ok = (Button) findViewById(R.id.btn_ok);
-		
+
 		titleButton.setText("添加地址");
 
 		btn_ok.setOnClickListener(this);
@@ -54,6 +59,10 @@ public class AddAddressActivity extends MainActionBarActivity implements
 			String phone = et_phone.getText().toString();
 			if (TextUtils.isEmpty(phone)) {
 				Toast.makeText(this, "联系电话不能为空！", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			if (!RegxUtils.isPhone(phone)) {
+				Toast.makeText(this, "请输入正确的手机号码！", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			String address = et_address.getText().toString();
@@ -100,8 +109,22 @@ public class AddAddressActivity extends MainActionBarActivity implements
 
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						toastMsg("添加成功");
-						finish();
+						Log.i(TAG, new String(arg2));
+						if (arg0 == 200) {
+							try {
+								JSONObject obj = new JSONObject(
+										new String(arg2));
+								int returnValue = obj.getInt("ReturnValue");
+								String msg = obj.getString("ActionMessage");
+								toastMsg(msg);
+								if (returnValue != -1) {
+									finish();
+								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+
+						}
 					}
 				});
 	}

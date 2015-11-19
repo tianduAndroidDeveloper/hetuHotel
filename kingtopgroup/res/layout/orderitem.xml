@@ -65,16 +65,14 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/zuob"
                     android:text="￥78.00"
-                    android:textColor="@color/red"
-                    android:textSize="12sp" />
+                    android:textColor="@color/red" />
 
                 <TextView
                     android:id="@+id/order_item_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dip"
-                    android:text="（1人起订）"
-                    android:textSize="12sp" />
+                    android:text="（1人起订）" />
             </LinearLayout>
 
             <RelativeLayout
