@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -17,6 +16,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +29,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class MemberCardActivity extends MainActionBarActivity {
 	TextView tv_money;
-	MyListView lv;
+	ListView lv;
 	View progress;
 	MyListViewAdapter adapter;
 	List<MemberCard> cards = new ArrayList<MemberCard>();
@@ -46,7 +46,7 @@ public class MemberCardActivity extends MainActionBarActivity {
 
 	void init() {
 		tv_money = (TextView) findViewById(R.id.tv_money);
-		lv = (MyListView) findViewById(R.id.lv);
+		lv = (ListView) findViewById(R.id.lv);
 		progress = findViewById(R.id.progress);
 		
 		spanTextSize(tv_money);

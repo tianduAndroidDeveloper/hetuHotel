@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class ServiceAddressActivty extends Activity implements OnClickListener {
+public class ServiceAddressActivty extends MainActionBarActivity implements OnClickListener {
 	private TextView service_phone, service_address_street,
 			service_address_streets_num, service_address_person,
 			service_address_mark;
@@ -45,6 +45,7 @@ public class ServiceAddressActivty extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_address);
+		titleButton.setText("选择地址");
 
 		// 为他人预约
 		service_address_for_other = (RadioButton) findViewById(R.id.for_other);
@@ -201,5 +202,25 @@ public class ServiceAddressActivty extends Activity implements OnClickListener {
 
 		}
 
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 }

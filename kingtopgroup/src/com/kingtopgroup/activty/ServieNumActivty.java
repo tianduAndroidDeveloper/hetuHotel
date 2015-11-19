@@ -44,7 +44,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class ServieNumActivty extends FragmentActivity implements
+public class ServieNumActivty extends MainActionBarActivity implements
 		OnClickListener {
 	private static final String TAG = "ServieNumActivty";
 	private CycleViewPager cycleViewPager;
@@ -68,6 +68,7 @@ public class ServieNumActivty extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_num);
+		titleButton.setText("Ñ¡ÔñÊýÁ¿");
 		acache = ACache.get(this);
 
 		Intent inten = this.getIntent();
@@ -339,6 +340,26 @@ public class ServieNumActivty extends FragmentActivity implements
 			
 			break;
 		}
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 
 }

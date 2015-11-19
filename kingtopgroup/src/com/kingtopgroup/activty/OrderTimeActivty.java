@@ -37,7 +37,7 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
-public class OrderTimeActivty extends Activity implements OnClickListener{
+public class OrderTimeActivty extends MainActionBarActivity implements OnClickListener{
 	private static final String TAG = "OrderTimeActivty";
 	private GridView order_time_gridview;
 	private RadioGroup rg;
@@ -50,6 +50,7 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_time);  
+		titleButton.setText("—°‘Ò ±º‰");
 		
 		 order_time_gridview=(GridView) findViewById(R.id.order_time_listview);
 		rg = (RadioGroup) findViewById(R.id.rg);
@@ -134,7 +135,7 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 				break;
 				
 		      case 3:
-		    	  getOtherDays("ValidDay_2");
+		    	  getOtherDays("ValidDay_2"); 
 		    	  break;
 		    	  
 		      case 4:
@@ -235,5 +236,27 @@ public class OrderTimeActivty extends Activity implements OnClickListener{
 			}
 			
 		}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
+	}
 	}
 
