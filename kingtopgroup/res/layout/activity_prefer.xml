@@ -44,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:background="@drawable/red_border"
-                    android:hint="请输入分享码"
+                    android:hint="请输入优惠码"
                     android:paddingLeft="5dp" />
 
                 <TextView
