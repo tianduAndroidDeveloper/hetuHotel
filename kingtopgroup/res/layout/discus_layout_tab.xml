@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:background="#FFffff"
      >
-    <TextView
-        android:id="@+id/tv_hello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+     
+    <ListView android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:padding="10dp"
+        android:id="@+id/discus_listview"/>
 
 </LinearLayout>
