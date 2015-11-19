@@ -7,7 +7,7 @@
 
     <Button
         android:id="@+id/order_time_time"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rb_pop"
         android:text="10:00"

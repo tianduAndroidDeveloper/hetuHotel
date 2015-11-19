@@ -3,29 +3,33 @@ package com.kingtopgroup.activty;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import android.app.TabActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.kingtogroup.location.LastLocation;
 import com.kingtogroup.location.LocationCallBack;
 import com.kingtogroup.location.LocationService;
 import com.kingtopgroup.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import android.app.TabActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
 public class orderActivity extends TabActivity implements
 		OnCheckedChangeListener {
 
 	private ImageView imgaeview;
 	private RadioGroup radiogroup;
-	private RadioButton manipulation, message, orders, pedicure, location;
+	private RadioButton manipulation, message, orders, pedicure;
+	private TextView location;
 	private TabHost tabhost;
 	private TabWidget tabs;
 
@@ -38,7 +42,7 @@ public class orderActivity extends TabActivity implements
 		pedicure = (RadioButton) findViewById(R.id.pedicure);
 		message = (RadioButton) findViewById(R.id.message);
 		orders = (RadioButton) findViewById(R.id.orders);
-		location = (RadioButton) findViewById(R.id.order);
+		location = (TextView) findViewById(R.id.order);
 		initLocation();
 
 		tabs = (TabWidget) findViewById(android.R.id.tabs);

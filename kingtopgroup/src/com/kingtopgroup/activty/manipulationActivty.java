@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListener;
 
+import com.kingtogroup.view.MyListView;
 import com.kingtopgroup.R;
 import com.kingtopgroup.adapter.manipulationAdapter;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ADInfo;
@@ -49,8 +50,9 @@ public class manipulationActivty extends Activity{
 	
 	private ACache acache;
 	private CycleViewPager cycleViewPager;
-	private ListView orderListview;
+	private MyListView orderListview;
 	private List<Map<String, Object>> list=null;
+	private View progress;
 	private static final AsyncHttpClient client=new AsyncHttpClient();
 	
 
@@ -66,6 +68,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.manipulationlistview);
 	
+	progress = findViewById(R.id.progress);
 	//缓存到Achace 中
 	acache=ACache.get(this);
 	
@@ -177,7 +180,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
     
     public void setstatus(List<Map<String, Object>> list){
-    	   orderListview=(ListView) findViewById(R.id.orderListview);
+    	   orderListview=(MyListView) findViewById(R.id.orderListview);
 		   orderListview.setAdapter(new manipulationAdapter(manipulationActivty.this, list));
 			 orderListview.setOnItemClickListener(new OnItemClickListener() {
 					@Override

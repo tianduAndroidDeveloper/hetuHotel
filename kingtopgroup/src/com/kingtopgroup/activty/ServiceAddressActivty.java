@@ -181,7 +181,7 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.for_other:
-			add_or_reduce.setVisibility(View.GONE);
+			//add_or_reduce.setVisibility(View.GONE);
 			break;
 
 		case R.id.for_me:// вўВи

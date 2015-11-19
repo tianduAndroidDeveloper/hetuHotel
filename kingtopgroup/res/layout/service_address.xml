@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/gray_light"
     android:focusable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
     <requestFocus />
 
     <ScrollView
+        android:layout_weight="1"
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:fillViewport="true"
-        android:padding="10dp">
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,9 +112,9 @@
             <RadioGroup
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp">
+                android:orientation="horizontal" >
 
                 <RadioButton
                     android:id="@+id/for_me"
@@ -137,32 +138,6 @@
                     android:text="給他人預約"
                     android:textColor="@drawable/tab_order_text_btn" />
             </RadioGroup>
-
-            <!--
-         <LinearLayout android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:background="@color/white"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        
-        <Button android:layout_height="wrap_content"
-            android:id="@+id/for_me"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="给自己预约"
-            android:clickable="true"
-            android:textColor="@color/red"
-            android:background="@drawable/shape_rb_pop"/>
-        
-           <Button android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/for_other"
-            android:layout_weight="1"
-             android:textColor="@color/red"
-            android:text="给他人预约"
-            android:background="@drawable/shape_rb_pop"/>
-        </LinearLayout>
-            -->
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -189,7 +164,6 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:padding="5dp" >
-
                     </EditText>
                 </LinearLayout>
 
@@ -264,7 +238,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:inputType="textPersonName"
+						android:singleLine="true"
                         android:padding="5dp" >
                     </EditText>
                 </LinearLayout>
@@ -277,31 +251,35 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="备注：（选填）" />
+                        android:text="备注    ：" />
 
                     <EditText
+                        android:gravity="left"
                         android:id="@+id/service_address_mark"
                         android:layout_width="fill_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
+                        android:minLines="3"
+                        android:maxLines="5"
                         android:background="@null"
-                        android:inputType="textPersonName"
+                        android:hint="选填"
                         android:padding="5dp" >
                     </EditText>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:id="@+id/add_or_reduce"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/linear_boder"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingBottom="5dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -309,77 +287,94 @@
                     android:padding="10dp"
                     android:text="常用地址" />
 
-                <ImageView
+                <View
                     android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray1" />
+                    android:layout_height="1dp"
+                    android:background="@color/gray_light" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="5dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="姓名：" />
-
-                    <TextView
-                        android:id="@+id/service_address_name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:padding="5dp" >
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="手机号码：" />
-
-                    <TextView
-                        android:id="@+id/service_address_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="phone"
-                        android:padding="5dp" >
-                    </TextView>
+                    android:paddingLeft="10dp" >
 
                     <ImageView
                         android:id="@+id/add_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
                         android:src="@drawable/circle_check" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="详细地址" />
+                        android:orientation="vertical" 
+                        android:layout_marginLeft="5dp">
 
-                    <TextView
-                        android:id="@+id/service_address_address"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="5dp" >
-                    </TextView>
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="姓        名：" />
+
+                            <TextView
+                                android:id="@+id/service_address_name"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:paddingLeft="5dp" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="手机号码：" />
+
+                            <TextView
+                                android:id="@+id/service_address_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="phone"
+                                android:paddingLeft="5dp" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="详细地址：" />
+
+                            <TextView
+                                android:id="@+id/service_address_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:paddingLeft="5dp" >
+                            </TextView>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

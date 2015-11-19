@@ -37,94 +37,95 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
-public class OrderTimeActivty extends MainActionBarActivity implements OnClickListener{
+public class OrderTimeActivty extends MainActionBarActivity implements
+		OnClickListener {
 	private static final String TAG = "OrderTimeActivty";
 	private GridView order_time_gridview;
 	private RadioGroup rg;
-	private TextView today,tommorr;
-	private List<Map<String,Object>> list;
-//	private ImageView today_image,tommorr_image,day_after_tomrror,day_after_day_by_day;
+	private TextView today, tommorr;
+	private List<Map<String, Object>> list;
+	// private ImageView
+	// today_image,tommorr_image,day_after_tomrror,day_after_day_by_day;
 	private ACache acache;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_time);  
+		setContentView(R.layout.order_time);
 		titleButton.setText("选择时间");
-		
-		 order_time_gridview=(GridView) findViewById(R.id.order_time_listview);
+
+		order_time_gridview = (GridView) findViewById(R.id.order_time_listview);
 		rg = (RadioGroup) findViewById(R.id.rg);
 		rg.setOnCheckedChangeListener(new MyRadioCheckChangeListener());
 		RadioButton rb = (RadioButton) rg.getChildAt(0);
 		rb.setChecked(true);
-		
+
 		setTime();
-		//设置大后天
-		RadioButton rbs = (RadioButton) rg.getChildAt(rg.getChildCount()-1);
+		// 设置大后天
+		RadioButton rbs = (RadioButton) rg.getChildAt(rg.getChildCount() - 1);
 		rbs.setText(getWeekOfDay());
-		
-		
-		acache=ACache.get(this);
-		
-		order_time_gridview.setOnItemClickListener(new MyGridViewItemClickListener());
-		
-		
-		//setTime();
-	
-		
+
+		acache = ACache.get(this);
+
+		order_time_gridview
+				.setOnItemClickListener(new MyGridViewItemClickListener());
+
+		// setTime();
+
 	}
-	
-	class MyGridViewItemClickListener implements OnItemClickListener{
+
+	class MyGridViewItemClickListener implements OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			Log.i(TAG, "onItemClick");
-			Intent intent = new Intent(OrderTimeActivty.this, ChioceManagerActivty.class);
+			Intent intent = new Intent(OrderTimeActivty.this,
+					ChioceManagerActivty.class);
 			OrderTimeActivty.this.startActivity(intent);
 		}
-		
+
 	}
-	
-	
-	 String getWeekOfDay(){
+
+	String getWeekOfDay() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));  
-        int weeek=calendar.get(Calendar.DAY_OF_WEEK);  
-        int getWeek=weeek+3;
-        if(getWeek>7){
-        	getWeek=getWeek-7;
-        }
-          String mWay=String.valueOf(getWeek);
-	       if("1".equals(mWay)){  
-	            mWay ="周天";  
-	        }else if("2".equals(mWay)){  
-	            mWay ="周一";  
-	        }else if("3".equals(mWay)){  
-	            mWay ="周二";  
-	        }else if("4".equals(mWay)){  
-	            mWay ="周三";  
-	        }else if("5".equals(mWay)){  
-	            mWay ="周四";  
-	        }else if("6".equals(mWay)){  
-	            mWay ="周五";  
-	        }else if("7".equals(mWay)){  
-	            mWay ="周六";  
-	        }  
-	       return mWay;
+		calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		int weeek = calendar.get(Calendar.DAY_OF_WEEK);
+		int getWeek = weeek + 3;
+		if (getWeek > 7) {
+			getWeek = getWeek - 7;
+		}
+		String mWay = String.valueOf(getWeek);
+		if ("1".equals(mWay)) {
+			mWay = "周天";
+		} else if ("2".equals(mWay)) {
+			mWay = "周一";
+		} else if ("3".equals(mWay)) {
+			mWay = "周二";
+		} else if ("4".equals(mWay)) {
+			mWay = "周三";
+		} else if ("5".equals(mWay)) {
+			mWay = "周四";
+		} else if ("6".equals(mWay)) {
+			mWay = "周五";
+		} else if ("7".equals(mWay)) {
+			mWay = "周六";
+		}
+		return mWay;
 	}
-	
-	class MyRadioCheckChangeListener implements OnCheckedChangeListener{
+
+	class MyRadioCheckChangeListener implements OnCheckedChangeListener {
 
 		@Override
 		public void onCheckedChanged(RadioGroup arg0, int arg1) {
 			int count = rg.getChildCount();
-			for(int i = 0; i < count; i++){
+			for (int i = 0; i < count; i++) {
 				RadioButton rButton = (RadioButton) arg0.getChildAt(i);
 				rButton.setTextColor(Color.BLACK);
-			
+
 			}
-			
+
 			switch (arg1) {
 			case 1:
 				setTime();
@@ -133,76 +134,78 @@ public class OrderTimeActivty extends MainActionBarActivity implements OnClickLi
 			case 2:
 				getOtherDays("ValidDay_1");
 				break;
-				
-		      case 3:
-		    	  getOtherDays("ValidDay_2"); 
-		    	  break;
-		    	  
-		      case 4:
-		    	  getOtherDays("ValidDay_3");
-		    	  break;
-		      }
+
+			case 3:
+				getOtherDays("ValidDay_2");
+				break;
+
+			case 4:
+				getOtherDays("ValidDay_3");
+				break;
+			}
 			RadioButton rb = (RadioButton) rg.getChildAt(arg1 - 1);
 			rb.setTextColor(Color.WHITE);
 		}
-		
-	}
-	
-	public void setTime(){
-		
-		String oid=UserBean.getUSerBean().getOpid();
-		RequestParams params=AsyncHttpCilentUtil.getParams();
-				params.put("opid", oid);
-		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_sesrvice_time,params,new AsyncHttpResponseHandler(){
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				try {
-					String date=new String(arg2);
-					JSONObject obj=new JSONObject(date);
-					acache.put("service_time", obj);
-					JSONArray array=obj.getJSONArray("ValidDay_0");
-					list=new ArrayList<Map<String,Object>>();
-					for(int i=0;i<array.length();i++){
-						Map<String,Object> map=new HashMap<String, Object>();
-						String TimeSection=array.getJSONObject(i).getString("TimeSection");
-						String StsId=array.getJSONObject(i).getString("StsId");
-						map.put("StsId", StsId);
-						map.put("TimeSection",TimeSection.trim());
-						list.add(map);
-					}
-					setAdapter(list,"ValidDay_0");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
 
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
-			}
-			
-			
-			
-		});
-		
 	}
-	
-	private void setAdapter(List<Map<String,Object>> list,String day){
-		order_time_gridview=(GridView) findViewById(R.id.order_time_listview);
-		if(day.equals("ValidDay_0")){
-			order_time_gridview.setAdapter(new OrderTimeAdapter(this,list));
-		}else{
-			order_time_gridview.setAdapter(new OrderTommoroTimeAdapter(this,list));
+
+	public void setTime() {
+
+		String oid = UserBean.getUSerBean().getOpid();
+		RequestParams params = AsyncHttpCilentUtil.getParams();
+		params.put("opid", oid);
+		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_sesrvice_time,
+				params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						try {
+							String date = new String(arg2);
+							JSONObject obj = new JSONObject(date);
+							acache.put("service_time", obj);
+							JSONArray array = obj.getJSONArray("ValidDay_0");
+							list = new ArrayList<Map<String, Object>>();
+							for (int i = 0; i < array.length(); i++) {
+								Map<String, Object> map = new HashMap<String, Object>();
+								String TimeSection = array.getJSONObject(i)
+										.getString("TimeSection");
+								String StsId = array.getJSONObject(i)
+										.getString("StsId");
+								map.put("StsId", StsId);
+								map.put("TimeSection", TimeSection.trim());
+								list.add(map);
+							}
+							setAdapter(list, "ValidDay_0");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+					}
+
+				});
+
+	}
+
+	private void setAdapter(List<Map<String, Object>> list, String day) {
+		order_time_gridview = (GridView) findViewById(R.id.order_time_listview);
+		if (day.equals("ValidDay_0")) {
+			order_time_gridview.setAdapter(new OrderTimeAdapter(this, list));
+		} else {
+			order_time_gridview.setAdapter(new OrderTommoroTimeAdapter(this,
+					list));
 		}
 	}
-	
-	private List<Map<String,Object>> getDate(){
-		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
-		for(int i=0;i<=25;i++){
-			Map<String,Object> map=new HashMap<String, Object>();
-			map.put("time","12:00");
+
+	private List<Map<String, Object>> getDate() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i <= 25; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("time", "12:00");
 			list.add(map);
 		}
 		return list;
@@ -210,32 +213,33 @@ public class OrderTimeActivty extends MainActionBarActivity implements OnClickLi
 
 	@Override
 	public void onClick(View arg0) {
-      switch (arg0.getId()) {
-      }
+		switch (arg0.getId()) {
+		}
 	}
-	
-	private void getOtherDays(String ValidDay_1){
-		if(acache.getAsJSONObject("service_time")!=null){
-			JSONObject obj=acache.getAsJSONObject("service_time");
+
+	private void getOtherDays(String ValidDay_1) {
+		if (acache.getAsJSONObject("service_time") != null) {
+			JSONObject obj = acache.getAsJSONObject("service_time");
 			JSONArray array;
 			try {
 				array = obj.getJSONArray(ValidDay_1);
-				list=new ArrayList<Map<String,Object>>();
-				for(int i=0;i<array.length();i++){
-					Map<String,Object> map=new HashMap<String, Object>();
-					String TimeSection=array.getJSONObject(i).getString("TimeSection");
-					map.put("TimeSection",TimeSection.trim());
+				list = new ArrayList<Map<String, Object>>();
+				for (int i = 0; i < array.length(); i++) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					String TimeSection = array.getJSONObject(i).getString(
+							"TimeSection");
+					map.put("TimeSection", TimeSection.trim());
 					list.add(map);
 				}
-				setAdapter(list,ValidDay_1);
+				setAdapter(list, ValidDay_1);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-			}
-			
+
 		}
+
+	}
 
 	@Override
 	public void backButtonClick(View v) {
@@ -245,18 +249,17 @@ public class OrderTimeActivty extends MainActionBarActivity implements OnClickLi
 	@Override
 	public void titleButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Boolean showHeadView() {
 		return true;
 	}
-	}
-
+}

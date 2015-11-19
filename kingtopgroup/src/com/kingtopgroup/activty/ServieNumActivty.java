@@ -59,7 +59,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String Description = null;
 	private String TuiNaContext = null;
 	private ACache acache;
-	private WebView service_num_webview;
+	private TextView service_num_webview;
 	JSONObject obj = null;
 	// private ProgressBar service_progressbar;
 	private TextView service_num_button,service_add_button, service_reduce_button, service_num_next_button;
@@ -97,7 +97,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		service_scope = (RadioButton) findViewById(R.id.service_scope);
 		you_must_know = (RadioButton) findViewById(R.id.you_must_know);
 		service_item_content = (TextView) findViewById(R.id.service_item_content);
-		service_num_webview = (WebView) findViewById(R.id.service_num_text);
+		service_num_webview = (TextView) findViewById(R.id.service_num_text);
 
 		service_add_button = (TextView) findViewById(R.id.service_add_button);
 		service_reduce_button = (TextView) findViewById(R.id.service_reduce_button);
@@ -179,13 +179,10 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 							service_item_content.setText(Html
 									.fromHtml(Description));
-							service_num_webview.getSettings()
-									.setJavaScriptEnabled(true);
-							// service_num_webview.setText(Html.fromHtml(TuiNaContext));
 							
-							service_num_webview.loadDataWithBaseURL(
-									"http://kingtopgroup.com", TuiNaContext,
-									"text/html", "utf-8", null);
+							 service_num_webview.setText(Html.fromHtml(TuiNaContext));
+							
+							
 							Log.i(TAG, TuiNaContext);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -220,10 +217,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			TuiNaContext = obj.getString("TuiNaContext");
 
 			service_item_content.setText(Html.fromHtml(Description));
-			service_num_webview.getSettings().setJavaScriptEnabled(true);
-			// service_num_webview.setText(Html.fromHtml(TuiNaContext));
-			service_num_webview.loadDataWithBaseURL("http://kingtopgroup.com",
-					TuiNaContext, "text/html", "utf-8", null);
+			 service_num_webview.setText(Html.fromHtml(TuiNaContext));
 			Log.i(TAG, TuiNaContext);
 		} catch (JSONException e) {
 			e.printStackTrace();
