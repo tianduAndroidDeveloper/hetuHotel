@@ -32,7 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChioceManagerActivty extends Activity {
+public class ChioceManagerActivty extends MainActionBarActivity {
 	private static final String TAG = "ChioceManagerActivty";
 	List<ManagerBean> managerBean;
 	private ListView manager_listview;
@@ -44,6 +44,7 @@ public class ChioceManagerActivty extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chioce_manager);
+		titleButton.setText("选择推拿师");
 
 		manager_listview = (ListView) findViewById(R.id.manager_listview);
 
@@ -163,7 +164,7 @@ public class ChioceManagerActivty extends Activity {
 							String ActionMessage=obj.getString("ActionMessage");
 							if(ActionMessage.equals("设置成功")){
 								Intent inten = new Intent(ChioceManagerActivty.this,
-										SubmitOrderActivty.class);
+										CommitActivity.class);
 								startActivity(inten);
 							}else{
 								//ToastUtils.show(this, "網絡錯誤，請稍後再試");
@@ -190,6 +191,26 @@ public class ChioceManagerActivty extends Activity {
 	private void setAdapter(List<ManagerBean> list) {
 		adapter = new ManagerAdapter(this, list);
 		manager_listview.setAdapter(adapter);
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 
 }
