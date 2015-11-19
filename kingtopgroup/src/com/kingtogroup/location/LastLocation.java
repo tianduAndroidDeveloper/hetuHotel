@@ -5,6 +5,23 @@ public class LastLocation {
 	private static LastLocation instance;
 	private Double latitude,longitude;
 	private String sheng,shi,xian;
+	private float accuracy,speed;
+	public float getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(float accuracy) {
+		this.accuracy = accuracy;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
 	public static LastLocation initInstance(){
 		if(instance == null){
 			instance = new LastLocation();

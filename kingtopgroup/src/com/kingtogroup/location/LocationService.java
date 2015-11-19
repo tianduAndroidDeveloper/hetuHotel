@@ -1,11 +1,11 @@
 package com.kingtogroup.location;
 
-import java.util.Date;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
 
 import android.app.Service;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import android.os.IBinder;
 public class LocationService extends Service implements AMapLocationListener{
 
 	private LocationManagerProxy mLocationManagerProxy;
-	
+		
 	private static LocationService instance;
 	public static LocationService initInstance(){
 		if(instance == null){
@@ -88,25 +88,18 @@ public class LocationService extends Service implements AMapLocationListener{
 			if (locBundle != null) {
 				cityCode = locBundle.getString("citycode");
 				desc = locBundle.getString("desc");
-			}
-			
-			/*String str = ("定位成功:(" + geoLng + "," + geoLat + ")"
-					+ "\n精    度    :" + location.getAccuracy() + "米"
-					+ "\n定位方式:" + location.getProvider() + "\n定位时间:"
-					+ new Date(location.getTime()).toLocaleString() + "\n城市编码:"
-					+ cityCode + "\n位置描述:" + desc + "\n省:"
-					+ location.getProvince() + "\n市:" + location.getCity()
-					+ "\n区(县):" + location.getDistrict() + "\n区域编码:" + location
-					.getAdCode());*/
-			
-			
+			}		
+			System.out.println("定位成功");
 				LastLocation entity = LastLocation.initInstance();
 				entity.setLatitude(geoLat);
 				entity.setLongitude(geoLng);
 				entity.setSheng(location.getProvince());
 				entity.setShi(location.getCity());
 				entity.setXian(location.getDistrict());
+				entity.setAccuracy(location.getAccuracy());
+				entity.setSpeed(location.getSpeed());
 				entity.callBack();
+				uploadLocation(entity);
 				stopLocation();
 			
 			//mTextView.setText("高德定位\n" + str);
@@ -126,12 +119,20 @@ public class LocationService extends Service implements AMapLocationListener{
         //其中如果间隔时间为-1，则定位只定一次
         mLocationManagerProxy.requestLocationData(
                 LocationProviderProxy.AMapNetwork, 60*1000, 15, this);
-        mLocationManagerProxy.setGpsEnable(true);
+        mLocationManagerProxy.setGpsEnable(false);
     }
     
     private void stopLocation(){
     	stopSelf();
     }
 
+    private void uploadLocation(LastLocation entity){
+    	RequestParams rp = new RequestParams();
+    	rp.add("longitude", String.valueOf(entity.getLongitude()));
+    	rp.add("latitude", String.valueOf(entity.getLatitude()));
+    	rp.add("accuracy", String.valueOf(entity.getAccuracy()));
+    	rp.add("speed", String.valueOf(entity.getSpeed()));
+    	new AsyncHttpClient().post("", rp, null);
+    }
 
 }
