@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -25,6 +26,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class PreferActivity extends MainActionBarActivity {
+	private static final String TAG = "PreferActivity";
 	ListView lv;
 	MyListViewAdapter adapter;
 	List<CouponEntity> coupons = new ArrayList<CouponEntity>();
@@ -154,6 +156,7 @@ public class PreferActivity extends MainActionBarActivity {
 				convertView.setTag(holder);
 			}
 			CouponEntity couponEntity = coupons.get(position);
+			Log.i(TAG, couponEntity.toString());
 			switch (couponEntity.getState()) {
 			case 1:
 			case 3:

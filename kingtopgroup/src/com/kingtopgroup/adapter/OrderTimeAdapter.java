@@ -74,8 +74,8 @@ public class OrderTimeAdapter extends BaseAdapter {
 			viewHolder = new ViewHolder();
 			viewHolder.buttoTime = (Button) conveView
 					.findViewById(R.id.order_time_time);
-			viewHolder.buttoTime.setBackgroundColor(conveView.getResources()
-					.getColor(R.color.red));
+			/*viewHolder.buttoTime.setBackgroundColor(conveView.getResources()
+					.getColor(R.color.red));*/
 			conveView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) conveView.getTag();

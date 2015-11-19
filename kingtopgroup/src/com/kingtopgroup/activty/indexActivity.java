@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.kingtogroup.location.LocationService;
 import com.kingtopgroup.R;
 import android.app.ActionBar.LayoutParams;
 import android.app.TabActivity;

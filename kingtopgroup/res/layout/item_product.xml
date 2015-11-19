@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/imageView1"
-        android:text="项目：头颈肩推拿 45分钟" />
+        android:text="项目：头颈肩推拿 45分钟" 
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/tv_people"
@@ -31,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_type"
         android:layout_toRightOf="@id/imageView1"
-        android:text="推拿师：李云娇" />
+        android:text="推拿师：李云娇"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/tv_count"

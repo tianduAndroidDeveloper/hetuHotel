@@ -44,7 +44,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class ServieNumActivty extends FragmentActivity implements
+public class ServieNumActivty extends MainActionBarActivity implements
 		OnClickListener {
 	private static final String TAG = "ServieNumActivty";
 	private CycleViewPager cycleViewPager;
@@ -59,16 +59,16 @@ public class ServieNumActivty extends FragmentActivity implements
 	private String Description = null;
 	private String TuiNaContext = null;
 	private ACache acache;
-	private WebView service_num_webview;
+	private TextView service_num_webview;
 	JSONObject obj = null;
 	// private ProgressBar service_progressbar;
-	private Button service_add_button, service_reduce_button,
-			service_num_button, service_num_next_button;
+	private TextView service_num_button,service_add_button, service_reduce_button, service_num_next_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_num);
+		titleButton.setText("Ñ¡ÔñÊýÁ¿");
 		acache = ACache.get(this);
 
 		Intent inten = this.getIntent();
@@ -97,12 +97,12 @@ public class ServieNumActivty extends FragmentActivity implements
 		service_scope = (RadioButton) findViewById(R.id.service_scope);
 		you_must_know = (RadioButton) findViewById(R.id.you_must_know);
 		service_item_content = (TextView) findViewById(R.id.service_item_content);
-		service_num_webview = (WebView) findViewById(R.id.service_num_text);
+		service_num_webview = (TextView) findViewById(R.id.service_num_text);
 
-		service_add_button = (Button) findViewById(R.id.service_add_button);
-		service_reduce_button = (Button) findViewById(R.id.service_reduce_button);
-		service_num_button = (Button) findViewById(R.id.service_num_button);
-		service_num_next_button = (Button) findViewById(R.id.service_num_next_button);
+		service_add_button = (TextView) findViewById(R.id.service_add_button);
+		service_reduce_button = (TextView) findViewById(R.id.service_reduce_button);
+		service_num_button = (TextView) findViewById(R.id.service_num_button);
+		service_num_next_button = (TextView) findViewById(R.id.service_num_next_button);
 
 		produt_item_price = (TextView) findViewById(R.id.product_item_price);
 
@@ -179,13 +179,10 @@ public class ServieNumActivty extends FragmentActivity implements
 
 							service_item_content.setText(Html
 									.fromHtml(Description));
-							service_num_webview.getSettings()
-									.setJavaScriptEnabled(true);
-							// service_num_webview.setText(Html.fromHtml(TuiNaContext));
 							
-							service_num_webview.loadDataWithBaseURL(
-									"http://kingtopgroup.com", TuiNaContext,
-									"text/html", "utf-8", null);
+							 service_num_webview.setText(Html.fromHtml(TuiNaContext));
+							
+							
 							Log.i(TAG, TuiNaContext);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -220,10 +217,7 @@ public class ServieNumActivty extends FragmentActivity implements
 			TuiNaContext = obj.getString("TuiNaContext");
 
 			service_item_content.setText(Html.fromHtml(Description));
-			service_num_webview.getSettings().setJavaScriptEnabled(true);
-			// service_num_webview.setText(Html.fromHtml(TuiNaContext));
-			service_num_webview.loadDataWithBaseURL("http://kingtopgroup.com",
-					TuiNaContext, "text/html", "utf-8", null);
+			 service_num_webview.setText(Html.fromHtml(TuiNaContext));
 			Log.i(TAG, TuiNaContext);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -234,7 +228,7 @@ public class ServieNumActivty extends FragmentActivity implements
 	@Override
 	public void onClick(View arg0) {
 		String num = service_num_button.getText().toString();
-		String price = produt_item_price.getText().toString();
+		String price = produt_item_price.getText().toString() + ".00";
 		int index = price.indexOf(".");
 		if(index!=-1){
 			price = price.substring(1, index);
@@ -345,6 +339,26 @@ public class ServieNumActivty extends FragmentActivity implements
 			
 			break;
 		}
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 
 }

@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.kingtogroup.location.DistanceUtils;
+import com.kingtogroup.location.LastLocation;
 import com.kingtogroup.messager.DiscusActivity;
 import com.kingtopgroup.R;
 import com.makeramen.RoundedImageView;
@@ -117,12 +119,21 @@ class Adapter extends BaseAdapter{
 			if(obj == null)
 				return;
 			this.nameSex.setText(obj.optString("name").trim() + "  " + (obj.optInt("sex")==0?"Å®":"ÄÐ"));
-			this.metter.setText(obj.optString(""));
+			try{
+			double lat = obj.optDouble("point_x", 0);
+			double lgn = obj.optDouble("point_y", 0);
+			
+			double distance = DistanceUtils.GetDistance(lat, lgn, LastLocation.initInstance().getLatitude(), LastLocation.initInstance().getLongitude());
+			this.metter.setText(String.valueOf(distance));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 			this.discus.setText(obj.optString("announcement").trim());
 			this.location.setText(obj.optString("regionName").trim());
 			this.introduce.setText(obj.optString("description").trim());
 			this.level.setText(obj.optString("title").trim());
-			System.out.println(mContext.getString(R.string.url_imgHost) + obj.optString("logo").trim());
+			
 			finalBitMap.display(this.headPhoto, mContext.getString(R.string.url_imgHost) + obj.optString("logo").trim(),BitmapFactory.decodeResource(mContext.getResources(), R.drawable.photos));
 			this.discusLayout.setTag(obj);
 		}
