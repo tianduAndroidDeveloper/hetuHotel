@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.finalBitmapUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ManagerBean;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ManagerAdapter extends BaseAdapter {
 	private Context context;
@@ -26,8 +29,6 @@ public class ManagerAdapter extends BaseAdapter {
 	private List<ManagerBean> managerList;
 	static int checkedCount = 0;
 	public String masserger;
-	private static final String TAG = "ManagerAdapter";
-	
 
 	public static void setCheckedCount(int checkedCount) {
 		ManagerAdapter.checkedCount = checkedCount;
@@ -84,27 +85,22 @@ public class ManagerAdapter extends BaseAdapter {
 			sex = "Ů";
 		}
 		holder.sex.setText(sex);// http://kingtopgroup.com/upload/store/10/logo/thumb100_100/s_1509031744186077167.jpg
-		finalBitmapUtil.getFinalBitmap(context).display(
-				holder.logo,
-				"http://kingtopgroup.com/upload/store/" + bean.StoreId
-						+ "/logo/thumb100_100/" + bean.Logo);
-
+		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId
+				+ "/logo/thumb150_150/" + bean.Logo;
+		ImageLoader.getInstance().displayImage(uri, holder.logo);
 		holder.isChecked
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton arg0,
 							boolean arg1) {
-						// Toast.makeText(context, position + "", 0).show();
-						
+
 						managerList.get(position).isChecked = arg1;
-						// /HashMap<String, Object> obj=((Object)
-						// arg0).getItemAtPosition(arg0);
 						if (arg1 == true) {
-							//StringBuffer buffer = new StringBuffer();
-							//buffer.append(managerList.get(position).StoreId);
 							checkedCount++;
+							UserBean.getUSerBean().putMassage(bean);
 						} else {
 							checkedCount--;
+							UserBean.getUSerBean().removeMassage(bean);
 						}
 					}
 				});
@@ -128,13 +124,13 @@ public class ManagerAdapter extends BaseAdapter {
 
 	public String getCheckedIds() {
 		StringBuilder sb = new StringBuilder();
-		for(int i =0; i < managerList.size(); i++){
+		for (int i = 0; i < managerList.size(); i++) {
 			ManagerBean bean = managerList.get(i);
-			if(bean.isChecked)
+			if (bean.isChecked)
 				sb.append(bean.StoreId + ",");
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
-	
+
 }

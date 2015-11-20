@@ -197,6 +197,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name="com.kingtopgroup.activty.ConfirmOrderActivity"
+            android:theme="@style/Theme_Activity_Animation" />
     </application>
 
 </manifest>

@@ -273,11 +273,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:clickable="true"
                 android:id="@+id/add_or_reduce"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/linear_boder"
+                android:background="@drawable/personal_bg"
                 android:orientation="vertical"
                 android:paddingBottom="5dp" >
 

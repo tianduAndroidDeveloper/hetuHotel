@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -12,20 +13,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView;
 
 import com.kingtopgroup.R;
 import com.kingtopgroup.adapter.OrderTimeAdapter;
@@ -37,15 +36,11 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
-public class OrderTimeActivty extends MainActionBarActivity implements
-		OnClickListener {
-	private static final String TAG = "OrderTimeActivty";
+public class OrderTimeActivty extends MainActionBarActivity {
 	private GridView order_time_gridview;
 	private RadioGroup rg;
-	private TextView today, tommorr;
 	private List<Map<String, Object>> list;
-	// private ImageView
-	// today_image,tommorr_image,day_after_tomrror,day_after_day_by_day;
+	private View progress;
 	private ACache acache;
 
 	@Override
@@ -54,15 +49,18 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_time);
 		titleButton.setText("选择时间");
+		init();
+	}
 
+	void init() {
 		order_time_gridview = (GridView) findViewById(R.id.order_time_listview);
+		progress = findViewById(R.id.progress);
 		rg = (RadioGroup) findViewById(R.id.rg);
 		rg.setOnCheckedChangeListener(new MyRadioCheckChangeListener());
 		RadioButton rb = (RadioButton) rg.getChildAt(0);
 		rb.setChecked(true);
 
 		setTime();
-		// 设置大后天
 		RadioButton rbs = (RadioButton) rg.getChildAt(rg.getChildCount() - 1);
 		rbs.setText(getWeekOfDay());
 
@@ -70,9 +68,6 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 
 		order_time_gridview
 				.setOnItemClickListener(new MyGridViewItemClickListener());
-
-		// setTime();
-
 	}
 
 	class MyGridViewItemClickListener implements OnItemClickListener {
@@ -80,9 +75,11 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Log.i(TAG, "onItemClick");
 			Intent intent = new Intent(OrderTimeActivty.this,
 					ChioceManagerActivty.class);
+			LinearLayout convertView = (LinearLayout) arg1;
+			Button btn = (Button) convertView.getChildAt(0);
+			UserBean.getUSerBean().setOrdertime(btn.getText().toString());
 			OrderTimeActivty.this.startActivity(intent);
 		}
 
@@ -119,12 +116,6 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 
 		@Override
 		public void onCheckedChanged(RadioGroup arg0, int arg1) {
-			int count = rg.getChildCount();
-			for (int i = 0; i < count; i++) {
-				RadioButton rButton = (RadioButton) arg0.getChildAt(i);
-				rButton.setTextColor(Color.BLACK);
-
-			}
 
 			switch (arg1) {
 			case 1:
@@ -143,14 +134,14 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 				getOtherDays("ValidDay_3");
 				break;
 			}
-			RadioButton rb = (RadioButton) rg.getChildAt(arg1 - 1);
-			rb.setTextColor(Color.WHITE);
 		}
 
 	}
 
-	public void setTime() {
+	JSONArray array;
 
+	public void setTime() {
+		progress.setVisibility(View.VISIBLE);
 		String oid = UserBean.getUSerBean().getOpid();
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("opid", oid);
@@ -162,7 +153,7 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 							String date = new String(arg2);
 							JSONObject obj = new JSONObject(date);
 							acache.put("service_time", obj);
-							JSONArray array = obj.getJSONArray("ValidDay_0");
+							array = obj.getJSONArray("ValidDay_0");
 							list = new ArrayList<Map<String, Object>>();
 							for (int i = 0; i < array.length(); i++) {
 								Map<String, Object> map = new HashMap<String, Object>();
@@ -175,8 +166,8 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 								list.add(map);
 							}
 							setAdapter(list, "ValidDay_0");
+							progress.setVisibility(View.GONE);
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -185,6 +176,8 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
+						Toast.makeText(OrderTimeActivty.this, "获取时间失败，请重试", Toast.LENGTH_SHORT).show();
+						progress.setVisibility(View.GONE);
 					}
 
 				});
@@ -198,22 +191,6 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 		} else {
 			order_time_gridview.setAdapter(new OrderTommoroTimeAdapter(this,
 					list));
-		}
-	}
-
-	private List<Map<String, Object>> getDate() {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i <= 25; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("time", "12:00");
-			list.add(map);
-		}
-		return list;
-	}
-
-	@Override
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
 		}
 	}
 
@@ -233,7 +210,6 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 				}
 				setAdapter(list, ValidDay_1);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -248,13 +224,11 @@ public class OrderTimeActivty extends MainActionBarActivity implements
 
 	@Override
 	public void titleButtonClick(View v) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		// TODO Auto-generated method stub
 
 	}
 

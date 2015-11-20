@@ -47,15 +47,13 @@
             android:id="@+id/tv_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="项目：太乙肩颈推拿45分钟" />
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="项目数量：1" />
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/tv_time"
@@ -70,14 +68,12 @@
         android:layout_below="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/red"
-        android:text="太乙肩颈推拿x1"/>
+        android:textColor="@color/red"/>
     <TextView 
         android:id="@+id/tv_money"
         android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="￥78.00"
         android:textColor="@color/red"
         android:layout_alignParentRight="true"
         android:layout_below="@id/imageView1"/>
@@ -167,20 +163,20 @@
         android:orientation="vertical"
         android:paddingBottom="10dp">
         <TextView 
+            android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="地址：kajsdh"
             />
         <TextView 
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="电话：12563598745"
             />
         
         <TextView 
+            android:id="@+id/tv_contactor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="联系人：kajsdh"
             />
     </LinearLayout>
 

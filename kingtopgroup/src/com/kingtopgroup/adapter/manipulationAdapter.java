@@ -8,6 +8,7 @@ import net.tsz.afinal.FinalBitmap;
 import com.kingtopgroup.R;
 import com.kingtopgroup.activty.MainActivity;
 import com.kingtopgroup.activty.manipulationActivty;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
 import android.content.Intent;
@@ -55,9 +56,10 @@ public class manipulationAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
-		if (holder == null) {
+		if (convertView == null)
 			convertView = inflater.inflate(R.layout.orderitem, null);
+		ViewHolder holder = (ViewHolder) convertView.getTag();
+		if (holder == null) {
 			holder = new ViewHolder();
 			holder.order_item_name = (TextView) convertView
 					.findViewById(R.id.order_item_name);
@@ -72,16 +74,10 @@ public class manipulationAdapter extends BaseAdapter {
 			holder.order_item_price = (TextView) convertView
 					.findViewById(R.id.order_item_price);
 			convertView.setTag(holder);
-		} else {
-
-			holder = (ViewHolder) convertView.getTag();
 		}
-		// convertView.setTag((Integer)
-		// getItem(position),ItemInfoList.get(position).get("pid"));
+
 		holder.order_item_name.setId(Integer.parseInt((String) ItemInfoList
 				.get(position).get("pid")));
-		// holder.item_id.setId(Integer.parseInt((String)
-		// ItemInfoList.get(position).get("pid")));
 		holder.order_item_name.setText((CharSequence) ItemInfoList
 				.get(position).get("name"));
 		holder.order_item_time.setText((CharSequence) ItemInfoList
@@ -89,12 +85,14 @@ public class manipulationAdapter extends BaseAdapter {
 		holder.beginnum.setText("("
 				+ (CharSequence) ItemInfoList.get(position).get("beginnum")
 				+ "ÈËÆð¶©)");
-		holder.order_item_price.setText("£¤" + (CharSequence) ItemInfoList.get(
-				position).get("marketprice"));
-		finalBitMap.display(holder.order_item_image1, (String) ItemInfoList
-				.get(position).get("order_item_image1"));
+		holder.order_item_price.setText("£¤"
+				+ (CharSequence) ItemInfoList.get(position).get("marketprice"));
+		ImageLoader.getInstance().displayImage(
+				(String) ItemInfoList.get(position).get("order_item_image1"),
+				holder.order_item_image1);
+		// finalBitMap.display(holder.order_item_image1, (String) ItemInfoList
+		// .get(position).get("order_item_image1"));
 
-		// }
 		return convertView;
 	}
 

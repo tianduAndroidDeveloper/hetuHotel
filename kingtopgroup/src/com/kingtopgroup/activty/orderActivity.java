@@ -77,9 +77,8 @@ public class orderActivity extends TabActivity implements
 		tabSpec0.setIndicator("推拿");
 		intent.setClass(this, manipulationActivty.class);
 		intent.putExtra("json", object.toString());
-				
-				
-				//object.optJSONArray("MassagesList").toString());
+
+		// object.optJSONArray("MassagesList").toString());
 		tabSpec0.setContent(intent);
 		tabhost.addTab(tabSpec0);
 
@@ -123,8 +122,7 @@ public class orderActivity extends TabActivity implements
 								initTabs(jObject);
 							} catch (Exception e) {
 								e.printStackTrace();
-								// checkedNow();
-								Toast.makeText(orderActivity.this, "ddd",
+								Toast.makeText(orderActivity.this, "请求失败，请重试",
 										Toast.LENGTH_LONG).show();
 							}
 						}
@@ -134,8 +132,8 @@ public class orderActivity extends TabActivity implements
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						// TODO Auto-generated method stub
-
+						Toast.makeText(orderActivity.this, "请求失败，请重试",
+								Toast.LENGTH_LONG).show();
 					}
 				});
 
