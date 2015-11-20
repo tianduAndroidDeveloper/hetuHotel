@@ -1,83 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="10dp"
     android:layout_height="match_parent"
-    android:background="@color/all"
-    android:orientation="vertical" >
-    
-    <LinearLayout android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:background="@color/white"
-        android:orientation="horizontal">
-        <LinearLayout android:layout_height="fill_parent"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_weight="1.5"
-            android:layout_width="0dp">
-            <ImageView android:layout_height="wrap_content"
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:src="@drawable/photos"/>
-            </LinearLayout>
-              <LinearLayout android:layout_height="fill_parent"
-                  android:layout_weight="2"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                  android:orientation="vertical"
-            android:layout_width="0dp">
-            <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal">
-              <TextView android:layout_height="wrap_content"
-                  android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:text="李雲嬌"/>
-              <TextView android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:id="@+id/sex"
-                android:layout_width="wrap_content"
-                android:text="女"/>  
-            </LinearLayout>
-            
-            <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal">
-              <ImageView android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:src="@drawable/loc"/>
-             <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/distance"
-                android:text="10.34公里"/>
-             </LinearLayout>
-              <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/address"
-                android:text="位置:雲紡商廈"/>
-            </LinearLayout>
-           <!--  <LinearLayout android:layout_height="80dp"
-                android:layout_width="wrap_content"
-                  android:orientation="vertical"> -->
-            
-              <ImageView android:layout_height="80dp"
-                  android:layout_width="1dp"
-                  android:background="@color/gray1"
-                  />
-             <!--  </LinearLayout> -->
-              <LinearLayout android:layout_height="fill_parent"
-                  android:layout_weight="1"
-                  android:layout_gravity="center"
-                  android:gravity="center"
-                          android:layout_width="0dp">
-              <CheckBox android:layout_height="wrap_content"
-                  android:id="@+id/isChecked"
-                  android:layout_width="wrap_content"
-                  android:gravity="center"
-                  android:button="@drawable/check_box_bg"
-                  />
-            </LinearLayout>
-        </LinearLayout>
-    
+    android:background="@color/white"
+    android:gravity="center"
+    android:padding="10dp" >
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/logo"
+        android:text="任意推拿师" />
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/name"
+        android:text="未知" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/logo"
+        android:drawableLeft="@drawable/loc"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="645.78公里" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distance"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/logo"
+        android:text="位置：北市区" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:background="@color/gray_light" />
+
+    <CheckBox
+        android:id="@+id/isChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:button="@drawable/check_box_bg" />
+
+</RelativeLayout>

@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
- 
+ 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
@@ -93,7 +93,7 @@
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ChioceManagerActivty"
-            android:label="@string/app_name" >
+            android:theme="@style/Theme_Activity_Animation" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServiceScopeActivty"
@@ -180,9 +180,12 @@
         <activity
             android:name="com.kingtopgroup.activty.CommonActivity"
             android:theme="@style/Theme_Activity_Animation" />
+        <activity
+            android:name="com.kingtopgroup.activty.CommitActivity"
+            android:theme="@style/Theme_Activity_Animation" />
         <!--
         <activity android:name="com.kingtopgroup.activty.FirmWorkActivity" />
-        <activity android:name="com.kingtopgroup.activty.JoinActivity" />
+        <activity android:name="com.kingtopgroup.activty.JoinActivity" />
         -->
         <activity
             android:name="com.kingtopgroup.activty.RangeActivity"
@@ -194,7 +197,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name="android.app.Activity" />
     </application>
 
 </manifest>

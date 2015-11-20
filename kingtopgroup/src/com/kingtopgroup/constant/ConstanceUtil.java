@@ -29,5 +29,8 @@ public  class ConstanceUtil {
 	//設置服務時間
 	
 	public static String ser_service_time="http://kingtopgroup.com/api/item/SetServiceTime";
+	
+	//评价列表
+	public static String get_masserger_list_url="http://kingtopgroup.com/api/ucenter/MassagerReview";
 
 }

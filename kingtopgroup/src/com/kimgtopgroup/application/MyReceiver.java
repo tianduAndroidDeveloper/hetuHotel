@@ -1,12 +1,10 @@
 package com.kimgtopgroup.application;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
 
 public class MyReceiver extends BroadcastReceiver {
 	@Override
@@ -21,9 +19,9 @@ public class MyReceiver extends BroadcastReceiver {
 				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		NetworkInfo activeInfo = manager.getActiveNetworkInfo();
 		if (activeInfo != null) {
-			Intent inten = new Intent(context, Activity.class);
+			/*Intent inten = new Intent(context, Activity.class);
 			inten.setFlags(inten.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(inten);
+			context.startActivity(inten);*/
 		}
 		// Toast.makeText(context,
 		// "mobile:"+mobileInfo.isConnected()+"\n"+"wifi:"+wifiInfo.isConnected()

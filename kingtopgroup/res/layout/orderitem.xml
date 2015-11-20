@@ -64,10 +64,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/zuob"
+                    android:drawablePadding="2dp"
                     android:text="￥78.00"
                     android:textColor="@color/red" />
 
                 <TextView
+                    android:textColor="@android:color/holo_red_dark"
                     android:id="@+id/order_item_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

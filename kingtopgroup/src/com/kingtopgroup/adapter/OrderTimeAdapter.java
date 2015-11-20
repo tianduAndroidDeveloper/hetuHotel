@@ -1,6 +1,9 @@
 package com.kingtopgroup.adapter;
 
+import java.sql.Date;
 import java.text.ChoiceFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +14,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.ContactsContract.Contacts.Data;
 import android.provider.SyncStateContract.Constants;
 import android.text.format.Time;
 import android.util.Log;
@@ -63,15 +67,15 @@ public class OrderTimeAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int arg0, View conveView, ViewGroup arg2) {
+	public View getView(final int arg0, View conveView, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
 		if (conveView == null) {
 			conveView = inflater.inflate(R.layout.oreder_time_item, null);
 			viewHolder = new ViewHolder();
 			viewHolder.buttoTime = (Button) conveView
 					.findViewById(R.id.order_time_time);
-			viewHolder.buttoTime.setBackgroundColor(conveView.getResources()
-					.getColor(R.color.red));
+			/*viewHolder.buttoTime.setBackgroundColor(conveView.getResources()
+					.getColor(R.color.red));*/
 			conveView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) conveView.getTag();
@@ -82,6 +86,7 @@ public class OrderTimeAdapter extends BaseAdapter {
 		/*
 		 * int year = t.year; int month = t.month; int date = t.monthDay;
 		 */
+	
 		int hour = t.hour;
 		int minute = t.minute;
 		int equationTime = hour * 60 + minute;
@@ -100,12 +105,14 @@ public class OrderTimeAdapter extends BaseAdapter {
 		if (checked > 0) {
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
 			viewHolder.buttoTime.setTextColor(Color.BLACK);
+			viewHolder.buttoTime.setClickable(false);
 		} else if ((getTime - equationTime) > 60) {
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
 			viewHolder.buttoTime.setTextColor(Color.WHITE);
 		} else if ((getTime - equationTime) < 60) {
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
 			viewHolder.buttoTime.setTextColor(Color.BLACK);
+			viewHolder.buttoTime.setClickable(false);
 		} else if ((getTime - equationTime) == 60) {
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
 			viewHolder.buttoTime.setTextColor(Color.WHITE);
@@ -114,15 +121,23 @@ public class OrderTimeAdapter extends BaseAdapter {
 				"TimeSection"));
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View view) {
 				
 				RequestParams params=AsyncHttpCilentUtil.getParams();
 				params.put("Uid", UserBean.getUSerBean().getUid());
 				params.put("Opid",UserBean.getUSerBean().getOpid());
-				//params.put("Stsid", nameList.get(arg0.get).get(""));
-				//params.put("ServiceDate", value);
+				params.put("Stsid",  nameList.get(arg0).get("StsId"));
+				
+				
+				//使用默认时区和语言环境获得一个日历  
+				Calendar cale = Calendar.getInstance();  
+				//将Calendar类型转换成Date类型  
+				java.util.Date tasktime= cale.getTime();  
+				//设置日期输出的格式  
+				SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
+				params.put("ServiceDate", df.format(tasktime));
 				params.put("Couponid",UserBean.getUSerBean().getCouponid());
-				params.put("Couponmoney",0);
+				params.put("Couponmoney","0");
 				AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.ser_service_time, params,new AsyncHttpResponseHandler() {
 					
 					@Override
@@ -130,14 +145,15 @@ public class OrderTimeAdapter extends BaseAdapter {
 						String date =new String(arg2);
 						try {
 							JSONObject obj=new JSONObject(date);
+							String ActionMessage=obj.getString("ActionMessage");
+							if(ActionMessage.equals("服务时间设置成功，返回Opid")){
+								Intent intent = new Intent(context, ChioceManagerActivty.class);
+								context.startActivity(intent);
+							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
-						Intent intent = new Intent(context, ChioceManagerActivty.class);
-						context.startActivity(intent);
-						
 					}
 					
 					@Override

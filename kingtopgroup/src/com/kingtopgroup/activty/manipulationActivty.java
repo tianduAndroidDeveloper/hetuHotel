@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListener;
 
+import com.kingtogroup.view.MyListView;
 import com.kingtopgroup.R;
 import com.kingtopgroup.adapter.manipulationAdapter;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ADInfo;
@@ -42,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -49,8 +51,9 @@ public class manipulationActivty extends Activity{
 	
 	private ACache acache;
 	private CycleViewPager cycleViewPager;
-	private ListView orderListview;
+	private MyListView orderListview;
 	private List<Map<String, Object>> list=null;
+	private View progress;
 	private static final AsyncHttpClient client=new AsyncHttpClient();
 	
 
@@ -66,8 +69,10 @@ protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.manipulationlistview);
 	
+	progress = findViewById(R.id.progress);
 	//缓存到Achace 中
 	acache=ACache.get(this);
+	
 	
 	//适配listview
 	/*if(getDate()==null){
@@ -76,7 +81,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	}*/
 	try {
-		setstatus(JsonObjectToListMap(new JSONArray(getIntent().getStringExtra("json"))));
+		setstatus(JsonObjectToListMap(new JSONObject(getIntent().getStringExtra("json"))));
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -96,50 +101,18 @@ protected void onCreate(Bundle savedInstanceState) {
 	//图片轮播
 	LunboImageUtil lb=new LunboImageUtil();
 	lb.initialize(this,imageUrls,cycleViewPager);
+	
+	
 		
 	}
 
-   /* public List<Map<String, Object>> getDate(){
-    	//服务器端传来数据
-  	
-  	     client.get(getResources().getString(R.string.url_getItemList), null,
-  	               new AsyncHttpResponseHandler() {
-  	    	
-  	    	    @Override
-  	        	  public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-  	    	    	if(arg0==200){
-  	    	    	  try {
-  	    	    		  String date=new String(arg2);
-  	  	                 JSONObject jObject = new JSONObject(date);
-  	  	                  acache.put("ItemList", jObject);
-  	  	                  setstatus(JsonObjectToListMap(jObject));
-  	    	    	 } catch (Exception e) {
-                           e.printStackTrace();
-                         //  checkedNow();
-                           Toast.makeText(manipulationActivty.this, "ddd",
-                                   Toast.LENGTH_LONG).show();
-                       }
-  	    	    	}
-  	                       
-  	                    }
 
-				@Override
-				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-						Throwable arg3) {
-					// TODO Auto-generated method stub
-					
-				}
-  	               });
-  	     
-  	   return list;
-    } 
-    */
     
-    public List<Map<String, Object>> JsonObjectToListMap (JSONArray array){
+    public List<Map<String, Object>> JsonObjectToListMap (JSONObject obj){
     	list=new ArrayList<Map<String, Object>>(); 	
-           // JSONArray array;
+           JSONArray array;
 			try {
-				//array = jObject.getJSONArray("MassagesList");
+				array = obj.getJSONArray("MassagesList");
 				  for(int i=0;i<array.length();i++){
 			            Map<String,Object> map=new HashMap<String,Object>();
 			           	 //项目名称
@@ -156,9 +129,9 @@ protected void onCreate(Bundle savedInstanceState) {
 			           	 String pid=array.getJSONObject(i).getString("pid");
 			           	 
 			           	 String storeid=array.getJSONObject(i).getString("storeid");
-			           	// String CouponId=jObject.getString("CouponId");
+			             String CouponId=obj.getString("CouponId");
 			           	 
-			           	// UserBean.getUSerBean().setCouponid(CouponId);
+			           UserBean.getUSerBean().setCouponid(CouponId);
 			           
 			           	    map.put("name", pname);
 			           	    map.put("time", weight);
@@ -169,6 +142,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			           	    map.put("storeid",storeid);
 			           	    map.put("order_item_image1","http://kingtopgroup.com/upload/store/5/product/show/thumb190_190/"+showimg);
 			           	    list.add(map);
+			           	    
 				  }
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -177,7 +151,7 @@ protected void onCreate(Bundle savedInstanceState) {
     }
     
     public void setstatus(List<Map<String, Object>> list){
-    	   orderListview=(ListView) findViewById(R.id.orderListview);
+    	   orderListview=(MyListView) findViewById(R.id.orderListview);
 		   orderListview.setAdapter(new manipulationAdapter(manipulationActivty.this, list));
 			 orderListview.setOnItemClickListener(new OnItemClickListener() {
 					@Override
@@ -204,7 +178,6 @@ protected void onCreate(Bundle savedInstanceState) {
 						
 						inten.putExtras(bundle);
 						startActivity(inten);
-						Log.e("tt", arg0.toString());
 						}
 					});
 		  

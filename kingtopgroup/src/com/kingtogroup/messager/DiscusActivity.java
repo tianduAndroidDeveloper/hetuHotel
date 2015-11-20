@@ -1,6 +1,12 @@
 package com.kingtogroup.messager;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -16,17 +22,21 @@ import android.widget.TextView;
 
 import com.kingtopgroup.R;
 import com.kingtopgroup.activty.MainActionBarActivity;
+import com.kingtopgroup.constant.ConstanceUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 
 public class DiscusActivity extends MainActionBarActivity {
-	private String json;
-	 private ViewPager mPager;
+	    private String json;
+	    private ViewPager mPager;
 	    private ArrayList<Fragment> fragmentsList;
 	    private ImageView ivBottomLine;
 	    private TextView tvTab1, tvTab2, tvTab3, tvTab4;
 
 	    private int currIndex = 0;
-	      private int position_one;
+	    private int position_one;
 	    private int position_two;
 	    private int position_three;
 	    private Resources resources;
@@ -39,7 +49,8 @@ public class DiscusActivity extends MainActionBarActivity {
 	        resources = getResources();
 	       this.json = getIntent().getStringExtra("json");
 	        initTextView();
-	        initViewPager();
+	        getDate();
+	       // initViewPager();
 	       
 	       
 	    }
@@ -57,25 +68,90 @@ public class DiscusActivity extends MainActionBarActivity {
 	        tvTab4.setOnClickListener(new MyOnClickListener(3));
 	    }
 
-	    private void initViewPager() {
+	    private void initViewPager(String date) {
 	        mPager = (ViewPager) findViewById(R.id.vPager);
 	        fragmentsList = new ArrayList<Fragment>();
 	        LayoutInflater mInflater = getLayoutInflater();
 	        View activityView = mInflater.inflate(R.layout.discus_layout_tab, null);
-
-	        Fragment activityfragment = ChildFragment.newInstance("Hello tab1.");
-	        Fragment groupFragment = ChildFragment.newInstance("Hello tab2.");
-	        Fragment friendsFragment=ChildFragment.newInstance("Hello tab3.");
-	        Fragment chatFragment=ChildFragment.newInstance("Hello tab4.");
-
-	        fragmentsList.add(activityfragment);
-	        fragmentsList.add(groupFragment);
-	        fragmentsList.add(friendsFragment);
-	        fragmentsList.add(chatFragment);
 	        
-	        mPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
-	        mPager.setCurrentItem(0);
-	        mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+	        
+	        JSONObject obj;
+	        try {
+	        	obj = new JSONObject(date);
+	        	//全部
+	        	String ReviewTotalList=obj.getString("ReviewTotalList");
+	        	JSONArray array=new JSONArray(ReviewTotalList);
+	        	tvTab1.setText(array.length());
+	        	Fragment ReviewTotalListfragment = ChildFragment.newInstance(ReviewTotalList);
+
+	        	//好评
+	        	String ReviewGoodList=obj.getString("ReviewGoodList");
+	        	JSONArray array2=new JSONArray(ReviewGoodList);
+	        	tvTab2.setText(array2.length());
+	        	Fragment ReviewGoodListfragment= ChildFragment.newInstance(ReviewGoodList);
+	        	
+	        	//中评
+	        	String ReviewMiddleList=obj.getString("ReviewMiddleList");
+	        	JSONArray array3=new JSONArray(ReviewMiddleList);
+	        	tvTab3.setText(array3.length());
+	        	Fragment ReviewMiddleListfragment=ChildFragment.newInstance(ReviewMiddleList);
+	        	
+	        	//差评
+	        	String ReviewBadList=obj.getString("ReviewBadList");
+	        	JSONArray array4=new JSONArray(ReviewBadList);
+	        	tvTab4.setText(array4.length());
+	        	Fragment ReviewBadListFragment=ChildFragment.newInstance(ReviewBadList);
+
+	        	fragmentsList.add(ReviewTotalListfragment);
+	        	fragmentsList.add(ReviewGoodListfragment);
+	        	fragmentsList.add(ReviewMiddleListfragment);
+	        	fragmentsList.add(ReviewBadListFragment);
+
+	        	mPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
+	        	mPager.setCurrentItem(0);
+	        	mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+	        } catch (JSONException e) {
+	        	// TODO Auto-generated catch block
+	        	e.printStackTrace();
+	        }
+	       
+	      
+	    }
+	    
+	    private void getDate(){
+	    	try {
+	    		JSONObject obj=new JSONObject(json);
+				String storeid=obj.getString("storeid");
+				RequestParams params=AsyncHttpCilentUtil.getParams();
+				params.put("massagerid", storeid);
+				AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_masserger_list_url, params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						if(arg0==200){
+							String date =new String(arg2);
+							//try {
+								//JSONObject obj=new JSONObject(date);
+								//String ReviewTotalList=obj.getString("ReviewTotalList");
+								initViewPager(date);
+							//} catch (JSONException e) {
+							//	e.printStackTrace();
+							//}
+						}
+					}
+					
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+						
+					}
+				});
+				
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	
+	   
+	    
 	    }
 
 	   
