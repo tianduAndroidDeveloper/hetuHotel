@@ -113,10 +113,12 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			holder.tv_money.setText("￥" + serviceItem.get("marketprice"));
 			String uri = (String) serviceItem.get("order_item_image1");
 			ImageLoader.getInstance().displayImage(uri, holder.imageView1);
+			
 			ShipAddress address = addresses.get(position);
 			holder.tv_address.setText("详细地址：" + address.Address);
 			holder.tv_phone.setText("联系电话：" + address.Phone);
 			holder.tv_contactor.setText("联系人：" + address.Consignee);
+			
 			ManagerBean bean = massages.get(position);
 			holder.tv_name.setText(bean.name + " " + bean.sex);
 			holder.tv_location.setText("位置：" + bean.address);

@@ -1,7 +1,11 @@
 package com.kingtopgroup.activty;
 
+import java.util.HashMap;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,11 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.kingtogroup.domain.ShipAddress;
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
-import com.kingtopgroup.activty.MeOrderActivity.ViewHolder;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ConfirmOrderActivity extends MainActionBarActivity {
 	ListView lv;
+	List<HashMap<String, Object>> serviceItems;
+	List<ShipAddress> addresses;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -29,6 +38,9 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	void init() {
 		lv = (ListView) findViewById(R.id.lv);
 		lv.setAdapter(new MyListViewAdapter());
+		
+		serviceItems = UserBean.getUSerBean().getServiceItems();
+		addresses = UserBean.getUSerBean().getAddresses();
 	}
 
 	class ViewHolder {
@@ -88,8 +100,33 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 						.findViewById(R.id.tv_ordermoney);
 				convertView.setTag(holder);
 			}
-			View v = View.inflate(ConfirmOrderActivity.this, R.layout.item_product, null);
-			holder.ll.addView(v);
+			HashMap<String, Object> serviceItem = serviceItems.get(position);
+			View rl = View.inflate(ConfirmOrderActivity.this, R.layout.item_product, null);
+			TextView tv_type = (TextView) rl.findViewById(R.id.tv_type);
+			TextView tv_people = (TextView) rl.findViewById(R.id.tv_people);
+			TextView tv_count = (TextView) rl.findViewById(R.id.tv_count);
+			TextView tv_time = (TextView) rl.findViewById(R.id.tv_time);
+			TextView tv_sum = (TextView) rl.findViewById(R.id.tv_sum);
+			TextView tv_money = (TextView) rl.findViewById(R.id.tv_money);
+			ImageView imageView1 = (ImageView) rl.findViewById(R.id.imageView1);
+
+			tv_people.setVisibility(View.GONE);
+			tv_type.setText("项目：" + serviceItem.get("name"));
+			tv_count.setText("数量：" + serviceItem.get("beginnum"));
+			tv_sum.setText(serviceItem.get("name") + "x" + serviceItem.get("beginnum"));
+			int count = Integer.parseInt((String)serviceItem.get("beginnum"));
+			int price = Integer.parseInt((String)serviceItem.get("marketprice"));
+			tv_money.setText("￥" + count * price);
+			String uri = (String) serviceItem.get("order_item_image1");
+			ImageLoader.getInstance().displayImage(uri, imageView1);
+			holder.ll.addView(rl);
+			
+			ShipAddress address = addresses.get(position);
+			holder.tv_address.setText("详细地址：" + address.Address);
+			holder.tv_phone.setText("联系电话：" + address.Phone);
+			holder.tv_name.setText("联系人：" + address.Consignee);
+			
+			holder.tv_ordermoney.setText("￥" + count * price);
 			return convertView;
 		}
 
