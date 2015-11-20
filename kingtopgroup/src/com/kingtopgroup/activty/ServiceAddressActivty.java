@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.aps.ad;
+import com.kingtogroup.domain.ShipAddress;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
@@ -28,7 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class ServiceAddressActivty extends MainActionBarActivity implements OnClickListener {
+public class ServiceAddressActivty extends MainActionBarActivity implements
+		OnClickListener {
 	private TextView service_phone, service_address_street,
 			service_address_streets_num, service_address_person,
 			service_address_mark;
@@ -61,6 +64,7 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 		service_address_next_button.setOnClickListener(this);
 
 		add_or_reduce = (LinearLayout) findViewById(R.id.add_or_reduce);
+		add_or_reduce.setOnClickListener(this);
 
 		// ÊÖ»úºÅ
 		service_phone = (TextView) findViewById(R.id.service_phone);
@@ -98,6 +102,13 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 		service_address_name.setText((CharSequence) map.get("person"));
 		service_address_phone.setText((CharSequence) map.get("phone"));
 		service_address_address.setText((CharSequence) map.get("street"));
+		
+		ShipAddress address = new ShipAddress();
+		address.Consignee = (String) map.get("person");
+		address.Phone = (String) map.get("phone");
+		address.Address = (String) map.get("street");
+		
+		UserBean.getUSerBean().putAddress(address);
 
 	}
 
@@ -181,7 +192,7 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.for_other:
-			//add_or_reduce.setVisibility(View.GONE);
+			// add_or_reduce.setVisibility(View.GONE);
 			break;
 
 		case R.id.for_me:// Òþ²Ø
@@ -196,10 +207,27 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 			break;
 
 		case R.id.add_address:
+			break;
+		case R.id.add_or_reduce:
 			Intent inten = new Intent(this, AddAddressActivty.class);
-			startActivity(inten);
+
+			startActivityForResult(inten, 0);
 			break;
 
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			ShipAddress address = (ShipAddress) data.getExtras().get("address");
+
+			service_address_name.setText(address.Consignee);
+			service_address_phone.setText(address.Phone);
+			service_address_address.setText(address.Address);
+			UserBean.getUSerBean().putAddress(address);
 		}
 
 	}
@@ -211,12 +239,12 @@ public class ServiceAddressActivty extends MainActionBarActivity implements OnCl
 
 	@Override
 	public void titleButtonClick(View v) {
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		
+
 	}
 
 	@Override
