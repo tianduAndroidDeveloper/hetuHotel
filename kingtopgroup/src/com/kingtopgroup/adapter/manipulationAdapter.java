@@ -68,12 +68,18 @@ public class manipulationAdapter extends BaseAdapter {
 			holder.order_item_time = (TextView) convertView
 					.findViewById(R.id.time);
 			holder.item_id = (LinearLayout) convertView
-					.findViewById(R.id.item_id);
+					.findViewById(R.id.main);
 			holder.beginnum = (TextView) convertView
 					.findViewById(R.id.order_item_person);
 			holder.order_item_price = (TextView) convertView
 					.findViewById(R.id.order_item_price);
 			convertView.setTag(holder);
+		}
+		String name = ItemInfoList.get(position).get("name").toString();
+		if(name.length()>7){
+		holder.item_id.setOrientation(LinearLayout.VERTICAL);
+		}else{
+			holder.item_id.setOrientation(LinearLayout.HORIZONTAL);
 		}
 
 		holder.order_item_name.setId(Integer.parseInt((String) ItemInfoList

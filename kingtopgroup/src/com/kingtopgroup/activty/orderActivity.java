@@ -71,22 +71,24 @@ public class orderActivity extends TabActivity implements
 	}
 
 	private void initTabs(JSONObject object) {
-		Intent intent = new Intent();
+		Intent intent1 = new Intent();
 		// 推拿
 		TabHost.TabSpec tabSpec0 = tabhost.newTabSpec("推拿");
 		tabSpec0.setIndicator("推拿");
-		intent.setClass(this, manipulationActivty.class);
-		intent.putExtra("json", object.toString());
-
+		intent1.setClass(this, manipulationActivty.class);
+		intent1.putExtra("json", object.optJSONArray("MassagesList").toString());
+		intent1.putExtra("lubo", true);
 		// object.optJSONArray("MassagesList").toString());
-		tabSpec0.setContent(intent);
+		tabSpec0.setContent(intent1);
 		tabhost.addTab(tabSpec0);
 
 		// 足疗
+		Intent intent2 = new Intent();
 		TabHost.TabSpec tabSpec5 = tabhost.newTabSpec("足疗");
 		tabSpec5.setIndicator("足疗");
-		tabSpec5.setContent(new Intent(orderActivity.this,
-				pedicureActivty.class));
+		intent2.setClass(this, manipulationActivty.class);
+		intent2.putExtra("json", object.optJSONArray("PedicuresList").toString());
+		tabSpec5.setContent(intent2);
 		tabhost.addTab(tabSpec5);
 
 		// 推拿师
@@ -98,11 +100,12 @@ public class orderActivity extends TabActivity implements
 		tabhost.setCurrentTab(0);
 
 		// 订制
+		Intent intent4 = new Intent();
 		TabHost.TabSpec tabSpec4 = tabhost.newTabSpec("推拿师");
 		tabSpec4.setIndicator("推拿师");
-		intent.setClass(this, messageActivty.class);
-		intent.putExtra("json", object.optJSONArray("MassagersList").toString());
-		tabSpec4.setContent(intent);
+		intent4.setClass(this, messageActivty.class);
+		intent4.putExtra("json", object.optJSONArray("MassagersList").toString());
+		tabSpec4.setContent(intent4);
 		tabhost.addTab(tabSpec4);
 	}
 
@@ -122,6 +125,7 @@ public class orderActivity extends TabActivity implements
 								initTabs(jObject);
 							} catch (Exception e) {
 								e.printStackTrace();
+								
 								Toast.makeText(orderActivity.this, "请求失败，请重试",
 										Toast.LENGTH_LONG).show();
 							}
