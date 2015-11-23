@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,26 +26,30 @@ import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class PreferActivity extends MainActionBarActivity {
-	private static final String TAG = "PreferActivity";
+public class CheckPreferActivity extends MainActionBarActivity {
+	private static final String TAG = "CheckPreferActivity";
 	ListView lv;
+	View progress;
 	MyListViewAdapter adapter;
 	List<CouponEntity> coupons = new ArrayList<CouponEntity>();
 
 	@Override
+	@SuppressLint("InflateParams")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_prefer);
-		titleButton.setText("”≈ª›»Ø");
+		setContentView(R.layout.activity_check_prefer);
+		titleButton.setText(" π”√”≈ª›»Ø");
 		init();
 	}
 
 	void init() {
 		lv = (ListView) findViewById(R.id.lv);
+		progress = findViewById(R.id.progress);
 		requestData();
 	}
 
 	void requestData() {
+		progress.setVisibility(View.VISIBLE);
 		UserBean userBead = UserBean.getUSerBean();
 		String uid = userBead.getUid();
 		if (TextUtils.isEmpty(uid))
@@ -52,7 +57,7 @@ public class PreferActivity extends MainActionBarActivity {
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		String url = "http://kingtopgroup.com/api/ucenter/GetCouponListByUid?uid="
-				+ uid + "&type=" + "0";
+				+ uid + "&type=" + "3";
 		client.get(url, null, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -62,13 +67,16 @@ public class PreferActivity extends MainActionBarActivity {
 					parseToEntity(data);
 				} else {
 					toastMsg("«Î«Û ß∞‹£¨«Î÷ÿ ‘");
+					progress.setVisibility(View.GONE);
 				}
+
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 					Throwable arg3) {
 				toastMsg("«Î«Û ß∞‹£¨«Î÷ÿ ‘");
+				progress.setVisibility(View.GONE);
 			}
 		});
 	}
@@ -78,8 +86,8 @@ public class PreferActivity extends MainActionBarActivity {
 
 			@Override
 			public void run() {
-				Toast.makeText(PreferActivity.this, msg, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(CheckPreferActivity.this, msg,
+						Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -95,11 +103,11 @@ public class PreferActivity extends MainActionBarActivity {
 				int money = obj.getInt("money");
 				String name = obj.getString("name");
 				int state = obj.getInt("state");
-				coupons.add(new CouponEntity(couponId, name, money, useExpireTime, state));
+				coupons.add(new CouponEntity(couponId, name, money,
+						useExpireTime, state));
 			}
 			fillData();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -112,6 +120,7 @@ public class PreferActivity extends MainActionBarActivity {
 		} else {
 			adapter.notifyDataSetChanged();
 		}
+		progress.setVisibility(View.GONE);
 	}
 
 	class ViewHolder {
@@ -141,7 +150,7 @@ public class PreferActivity extends MainActionBarActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			if (convertView == null)
-				convertView = View.inflate(PreferActivity.this,
+				convertView = View.inflate(CheckPreferActivity.this,
 						R.layout.item_coupon, null);
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			if (holder == null) {
@@ -176,6 +185,10 @@ public class PreferActivity extends MainActionBarActivity {
 
 	}
 
+	public void ok(View v) {
+
+	}
+
 	@Override
 	public void backButtonClick(View v) {
 		finish();
@@ -183,16 +196,17 @@ public class PreferActivity extends MainActionBarActivity {
 
 	@Override
 	public void titleButtonClick(View v) {
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		
+
 	}
 
 	@Override
 	public Boolean showHeadView() {
 		return true;
 	}
+
 }

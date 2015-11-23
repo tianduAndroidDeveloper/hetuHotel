@@ -10,23 +10,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
-import com.kingtopgroup.adapter.ManagerAdapter2;
+import com.kingtopgroup.adapter.ManagerAdapter;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ManagerBean;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
@@ -35,29 +32,29 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.ToastUtils;
 
-public class ChioceManagerActivty extends MainActionBarActivity {
-	private static final String TAG = "ChioceManagerActivty";
-	List<ManagerBean> managerBean;
-	private ListView manager_listview;
-	private TextView orderDate;
-	private View headerView;
-	private View progress;
+public class MoreMassagers extends MainActionBarActivity {
+	private static final String TAG = "MoreMassagers";
+	ListView lv;
+	List<ManagerBean> massageList;
+	View progress;
 
 	@Override
+	@SuppressLint("InflateParams")
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.chioce_manager);
-		titleButton.setText("选择推拿师");
+		setContentView(R.layout.activity_more_massage);
+		titleButton.setText("更多推拿师");
+		init();
+	}
 
+	void init() {
+		lv = (ListView) findViewById(R.id.lv);
 		progress = findViewById(R.id.progress);
-		
+		requestData();
+	}
+
+	void requestData() {
 		progress.setVisibility(View.VISIBLE);
-		manager_listview = (ListView) findViewById(R.id.manager_listview);
-		headerView = View.inflate(this, R.layout.header_massager, null);
-		manager_listview.addHeaderView(headerView);
-		addFooter();
-		orderDate = (TextView) headerView.findViewById(R.id.orderDate);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
 		params.put("opid", UserBean.getUSerBean().getOpid());
@@ -77,8 +74,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 								JSONObject psinfo = obj.getJSONObject("PSinfo");
 								String ServiceDate = psinfo
 										.getString("ServiceDate");
-								formatDate(ServiceDate);
-								managerBean = new ArrayList<ManagerBean>();
+								massageList = new ArrayList<ManagerBean>();
 								// ManagerBean manager=new ManagerBean();
 								ManagerBean managerAny = null;
 								for (int i = 0; i < array.length(); i++) {
@@ -109,20 +105,20 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 											.getString("Sex");
 									manager.sex = Sex;
 
-									managerBean.add(manager);
+									massageList.add(manager);
 									if (name.equals("任意推拿师"))
 										managerAny = manager;
 								}
 								if (managerAny != null) {
-									managerBean.remove(managerAny);
-									managerBean.add(0, managerAny);
+									massageList.remove(managerAny);
+									massageList.add(0, managerAny);
 								}
 
-								setAdapter(managerBean);
-
+								fillData();
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
+							progress.setVisibility(View.GONE);
 
 						}
 
@@ -131,49 +127,31 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						// TODO Auto-generated method stub
+						Toast.makeText(MoreMassagers.this, "请求失败，请重试！",
+								Toast.LENGTH_SHORT).show();
+						progress.setVisibility(View.GONE);
 
 					}
 				});
-
-		
 	}
 
-	void addFooter() {
-		int dp20 = Utils.dp2px(this, 20);
-		int dp10 = Utils.dp2px(this, 10);
-		LinearLayout ll = new LinearLayout(this);
-		ll.setGravity(Gravity.CENTER);
-		ll.setPadding(dp20, dp20, dp20, dp20);
-		ll.setBackgroundColor(getResources().getColor(R.color.gray_light));
-		TextView tv = new TextView(this);
-		tv.setBackgroundResource(R.drawable.personal_bg);
-		tv.setPadding(dp10, dp10, dp10, dp10);
-		tv.setTextColor(Color.RED);
-		tv.setText("没有合适的推拿师?去看看更多");
-		ll.addView(tv);
-		manager_listview.addFooterView(ll);
+	ManagerAdapter adapter;
+
+	void fillData() {
+		adapter = new ManagerAdapter(this, massageList, massageList.size());
 		Button btn = new Button(this);
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		btn.setBackgroundResource(R.drawable.red_bg);
 		btn.setTextColor(Color.WHITE);
 		btn.setText("下一步");
-		btn.setLayoutParams(params);
-		manager_listview.addFooterView(btn);
-		
-		tv.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				more();
-			}
-		});
-		
+		lv.addFooterView(btn);
+		lv.setAdapter(adapter);
+
 		btn.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
 				if (adapter.getCheckedCount() == 0) {
-					Toast.makeText(ChioceManagerActivty.this, "您还没有选择推拿师哦",
+					Toast.makeText(MoreMassagers.this, "您还没有选择推拿师哦",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -185,19 +163,15 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					getChecked = checked.substring(0, checked.indexOf(","));
 				} else {
 					getChecked = checked;
-				}//
+				}
 				if (Integer.parseInt(count) < adapter.getCheckedCount()) {
-					// Integer.parseInt(count) > adapter.getCheckedCount() &&
-					// Integer.parseInt(getChecked)==5
-					ToastUtils.show(ChioceManagerActivty.this,
-							"你选择推拿师的数量与购买项目的数量不等！");
+					ToastUtils.show(MoreMassagers.this, "你选择推拿师的数量与购买项目的数量不等！");
 				} else {
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", UserBean.getUSerBean().getOpid());
-					params.put("MassagerId", getChecked);
+					params.put("StoreId", getChecked);
 					params.put("MasagerIdList", checked);
-
 					AsyncHttpCilentUtil.getInstance().post(
 							ConstanceUtil.set_manager_list, params,
 							new AsyncHttpResponseHandler() {
@@ -206,22 +180,18 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 								public void onSuccess(int arg0, Header[] arg1,
 										byte[] arg2) {
 									String data = new String(arg2);
-									
 									try {
 										JSONObject obj = new JSONObject(data);
 										String ActionMessage = obj
 												.getString("ActionMessage");
 										if (ActionMessage.equals("设置成功")) {
 											Intent inten = new Intent(
-													ChioceManagerActivty.this,
+													MoreMassagers.this,
 													CommitActivity.class);
 											startActivity(inten);
 										} else {
-											// ToastUtils.show(this,
-											// "網絡錯誤，請稍後再試");
 										}
 									} catch (JSONException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 
@@ -234,22 +204,9 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 								}
 							});
 				}
+
 			}
 		});
-	}
-
-	void formatDate(String date) {
-		String[] time = date.split("T");
-		orderDate.setText(time[0] + " " + time[1]);
-	}
-
-	private ManagerAdapter2 adapter;
-
-	private void setAdapter(List<ManagerBean> list) {
-		int showCount = list.size() > 5 ? 5 : list.size();
-		adapter = new ManagerAdapter2(this, list, showCount);
-		manager_listview.setAdapter(adapter);
-		progress.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -270,11 +227,6 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 	@Override
 	public Boolean showHeadView() {
 		return true;
-	}
-
-	public void more() {
-		Intent intent = new Intent(this, MoreMassagers.class);
-		this.startActivity(intent);
 	}
 
 }

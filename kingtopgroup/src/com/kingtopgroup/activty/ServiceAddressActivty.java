@@ -272,10 +272,14 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			ShipAddress address = (ShipAddress) data.getExtras().get("address");
-
+			
 			service_address_name.setText(address.Consignee);
 			service_address_phone.setText(address.Phone);
 			service_address_address.setText(address.Address);
+			service_phone.setText(address.Phone);
+			service_address_street.setText(address.Address);
+			service_address_person.setText(address.Consignee);
+			
 			UserBean.getUSerBean().putAddress(address);
 		}
 

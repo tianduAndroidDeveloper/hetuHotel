@@ -39,7 +39,7 @@
         android:layout_below="@+id/name"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/logo"
-        android:drawableLeft="@drawable/loc"
+        android:drawableLeft="@drawable/location"
         android:drawablePadding="5dp"
         android:gravity="center"
         android:text="645.78公里" />
