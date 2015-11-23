@@ -128,7 +128,7 @@
                         android:background="@drawable/shape_rb_pop2"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="給自己預約"
+                        android:text="给自己预约"
                         android:textColor="@drawable/tab_order_text_btn" />
 
                     <RadioButton
@@ -139,7 +139,7 @@
                         android:background="@drawable/shape_rb_pop3"
                         android:button="@null"
                         android:gravity="center"
-                        android:text="給他人預約"
+                        android:text="给他人预约"
                         android:textColor="@drawable/tab_order_text_btn" />
                 </RadioGroup>
 

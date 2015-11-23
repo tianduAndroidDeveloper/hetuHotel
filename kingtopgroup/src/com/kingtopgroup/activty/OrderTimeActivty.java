@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,6 +38,7 @@ import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeActivty extends MainActionBarActivity {
+	private static final String TAG = "OrderTimeActivty";
 	private GridView order_time_gridview;
 	private RadioGroup rg;
 	private List<Map<String, Object>> list;
@@ -166,17 +168,18 @@ public class OrderTimeActivty extends MainActionBarActivity {
 								list.add(map);
 							}
 							setAdapter(list, "ValidDay_0");
-							progress.setVisibility(View.GONE);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
+						progress.setVisibility(View.GONE);
 
 					}
 
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						Toast.makeText(OrderTimeActivty.this, "获取时间失败，请重试", Toast.LENGTH_SHORT).show();
+						Toast.makeText(OrderTimeActivty.this, "获取时间失败，请重试",
+								Toast.LENGTH_SHORT).show();
 						progress.setVisibility(View.GONE);
 					}
 

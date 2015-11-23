@@ -1,6 +1,9 @@
 package com.kingtopgroup.util.stevenhu.android.phone.bean;
 
-public class ManagerBean {
+import java.io.Serializable;
+
+public class ManagerBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public String name;
 	public String sex;
 	public String address;
