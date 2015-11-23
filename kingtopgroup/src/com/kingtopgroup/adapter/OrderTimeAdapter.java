@@ -42,10 +42,14 @@ public class OrderTimeAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private LinearLayout.LayoutParams params;
 	private List<Map<String, Object>> nameList;
+	private boolean isToDay = false;
+	private CallBack mCallBack;
 
-	public OrderTimeAdapter(Context context, List<Map<String, Object>> nameList) {
+	public OrderTimeAdapter(Context context, List<Map<String, Object>> nameList,boolean isToDay,CallBack callBack) {
 		this.context = context;
 		this.nameList = nameList;
+		this.isToDay = isToDay;
+		this.mCallBack = callBack;
 		inflater = LayoutInflater.from(context);
 		params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -80,9 +84,11 @@ public class OrderTimeAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) conveView.getTag();
 		}
 
-
+		if(isToDay){
 		try {
+			
 			String section = (String) nameList.get(arg0).get("TimeSection");
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
 			Date d2 = sdf.parse(section);
 			String section2 = sdf.format(new Date());
@@ -96,6 +102,11 @@ public class OrderTimeAdapter extends BaseAdapter {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
+		}else{
+			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
+			viewHolder.buttoTime.setTextColor(Color.WHITE);	
+			viewHolder.buttoTime.setEnabled(true);
+		}
 
 		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get(
 				"TimeSection"));
@@ -103,51 +114,10 @@ public class OrderTimeAdapter extends BaseAdapter {
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
-				RequestParams params = AsyncHttpCilentUtil.getParams();
-				params.put("Uid", UserBean.getUSerBean().getUid());
-				params.put("Opid", UserBean.getUSerBean().getOpid());
-				params.put("Stsid", nameList.get(arg0).get("StsId"));
-
-				// 使用默认时区和语言环境获得一个日历
-				Calendar cale = Calendar.getInstance();
-				// 将Calendar类型转换成Date类型
-				java.util.Date tasktime = cale.getTime();
-				// 设置日期输出的格式
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				params.put("ServiceDate", df.format(tasktime));
-				params.put("Couponid", UserBean.getUSerBean().getCouponid());
-				params.put("Couponmoney", "0");
-				AsyncHttpCilentUtil.getInstance().post(
-						ConstanceUtil.ser_service_time, params,
-						new AsyncHttpResponseHandler() {
-
-							@Override
-							public void onSuccess(int arg0, Header[] arg1,
-									byte[] arg2) {
-								String date = new String(arg2);
-								try {
-									JSONObject obj = new JSONObject(date);
-									String ActionMessage = obj
-											.getString("ActionMessage");
-									if (ActionMessage.equals("服务时间设置成功，返回Opid")) {
-										Intent intent = new Intent(context,
-												ChioceManagerActivty.class);
-										context.startActivity(intent);
-									}
-								} catch (JSONException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-
-							@Override
-							public void onFailure(int arg0, Header[] arg1,
-									byte[] arg2, Throwable arg3) {
-								// TODO Auto-generated method stub
-
-							}
-						});
+				if(mCallBack != null){
+					mCallBack.callBack(nameList.get(arg0).get("StsId").toString());
+				}
+				
 
 			}
 		});
@@ -157,5 +127,10 @@ public class OrderTimeAdapter extends BaseAdapter {
 	class ViewHolder {
 		Button buttoTime;
 	}
+	public interface CallBack{
+		void callBack(String stid);
+	}
 
 }
+
+

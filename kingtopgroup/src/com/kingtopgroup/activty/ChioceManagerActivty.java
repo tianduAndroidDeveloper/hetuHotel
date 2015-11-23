@@ -155,7 +155,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", UserBean.getUSerBean().getOpid());
-					params.put("StoreId", getChecked);
+					params.put("MassagerId", getChecked);
 					params.put("MasagerIdList", checked);
 
 					AsyncHttpCilentUtil.getInstance().post(
@@ -166,6 +166,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 								public void onSuccess(int arg0, Header[] arg1,
 										byte[] arg2) {
 									String data = new String(arg2);
+									
 									try {
 										JSONObject obj = new JSONObject(data);
 										String ActionMessage = obj
