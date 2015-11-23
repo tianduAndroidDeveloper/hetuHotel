@@ -1,10 +1,12 @@
 package com.kingtopgroup.adapter;
 
-import java.sql.Date;
 import java.text.ChoiceFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.http.Header;
@@ -36,7 +38,6 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeAdapter extends BaseAdapter {
-	private static final String TAG = "OrderTimeAdapter";
 	private Context context;
 	private LayoutInflater inflater;
 	private LinearLayout.LayoutParams params;
@@ -74,101 +75,85 @@ public class OrderTimeAdapter extends BaseAdapter {
 			viewHolder = new ViewHolder();
 			viewHolder.buttoTime = (Button) conveView
 					.findViewById(R.id.order_time_time);
-			/*viewHolder.buttoTime.setBackgroundColor(conveView.getResources()
-					.getColor(R.color.red));*/
 			conveView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) conveView.getTag();
 		}
 
-		Time t = new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料
-		t.setToNow(); // 取得系统时间。
-		/*
-		 * int year = t.year; int month = t.month; int date = t.monthDay;
-		 */
-	
-		int hour = t.hour;
-		int minute = t.minute;
-		int equationTime = hour * 60 + minute;
 
-		String times = (String) nameList.get(arg0).get("TimeSection");
-		int index = times.indexOf(":");
-		String st = times.substring(0, index);
-		String endTime = times.substring(index + 1, times.length());
-
-		int getHour = Integer.parseInt(st);
-		int getminter = Integer.parseInt(endTime);
-
-		int getTime = getHour * 60 + getminter;
-		int checked = equationTime - getTime;
-
-		if (checked > 0) {
-			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
-			viewHolder.buttoTime.setTextColor(Color.BLACK);
-			viewHolder.buttoTime.setClickable(false);
-		} else if ((getTime - equationTime) > 60) {
-			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
-			viewHolder.buttoTime.setTextColor(Color.WHITE);
-		} else if ((getTime - equationTime) < 60) {
-			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_gb_pop);
-			viewHolder.buttoTime.setTextColor(Color.BLACK);
-			viewHolder.buttoTime.setClickable(false);
-		} else if ((getTime - equationTime) == 60) {
-			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
-			viewHolder.buttoTime.setTextColor(Color.WHITE);
+		try {
+			String section = (String) nameList.get(arg0).get("TimeSection");
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+			Date d2 = sdf.parse(section);
+			String section2 = sdf.format(new Date());
+			Date d1 = sdf.parse(section2);
+			viewHolder.buttoTime
+					.setBackgroundResource(d1.before(d2) ? R.drawable.shape_select_pop
+							: R.drawable.shape_gb_pop);
+			viewHolder.buttoTime.setTextColor(d1.before(d2) ? Color.WHITE
+					: Color.BLACK);
+			viewHolder.buttoTime.setEnabled(d1.before(d2));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
+
 		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get(
 				"TimeSection"));
+		
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				
-				RequestParams params=AsyncHttpCilentUtil.getParams();
+
+				RequestParams params = AsyncHttpCilentUtil.getParams();
 				params.put("Uid", UserBean.getUSerBean().getUid());
-				params.put("Opid",UserBean.getUSerBean().getOpid());
-				params.put("Stsid",  nameList.get(arg0).get("StsId"));
-				
-				
-				//使用默认时区和语言环境获得一个日历  
-				Calendar cale = Calendar.getInstance();  
-				//将Calendar类型转换成Date类型  
-				java.util.Date tasktime= cale.getTime();  
-				//设置日期输出的格式  
-				SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
+				params.put("Opid", UserBean.getUSerBean().getOpid());
+				params.put("Stsid", nameList.get(arg0).get("StsId"));
+
+				// 使用默认时区和语言环境获得一个日历
+				Calendar cale = Calendar.getInstance();
+				// 将Calendar类型转换成Date类型
+				java.util.Date tasktime = cale.getTime();
+				// 设置日期输出的格式
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				params.put("ServiceDate", df.format(tasktime));
-				params.put("Couponid",UserBean.getUSerBean().getCouponid());
-				params.put("Couponmoney","0");
-				AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.ser_service_time, params,new AsyncHttpResponseHandler() {
-					
-					@Override
-					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						String date =new String(arg2);
-						try {
-							JSONObject obj=new JSONObject(date);
-							String ActionMessage=obj.getString("ActionMessage");
-							if(ActionMessage.equals("服务时间设置成功，返回Opid")){
-								Intent intent = new Intent(context, ChioceManagerActivty.class);
-								context.startActivity(intent);
+				params.put("Couponid", UserBean.getUSerBean().getCouponid());
+				params.put("Couponmoney", "0");
+				AsyncHttpCilentUtil.getInstance().post(
+						ConstanceUtil.ser_service_time, params,
+						new AsyncHttpResponseHandler() {
+
+							@Override
+							public void onSuccess(int arg0, Header[] arg1,
+									byte[] arg2) {
+								String date = new String(arg2);
+								try {
+									JSONObject obj = new JSONObject(date);
+									String ActionMessage = obj
+											.getString("ActionMessage");
+									if (ActionMessage.equals("服务时间设置成功，返回Opid")) {
+										Intent intent = new Intent(context,
+												ChioceManagerActivty.class);
+										context.startActivity(intent);
+									}
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					
-					@Override
-					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-				
-				
-				
+
+							@Override
+							public void onFailure(int arg0, Header[] arg1,
+									byte[] arg2, Throwable arg3) {
+								// TODO Auto-generated method stub
+
+							}
+						});
+
 			}
 		});
 		return conveView;
 	}
+
 	class ViewHolder {
 		Button buttoTime;
 	}

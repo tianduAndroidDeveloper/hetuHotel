@@ -32,8 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChioceManagerActivty extends Activity {
-	private static final String TAG = "ChioceManagerActivty";
+public class ChioceManagerActivty extends MainActionBarActivity {
 	List<ManagerBean> managerBean;
 	private ListView manager_listview;
 	private Button manager_next_button;
@@ -44,6 +43,7 @@ public class ChioceManagerActivty extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chioce_manager);
+		titleButton.setText("选择推拿师");
 
 		manager_listview = (ListView) findViewById(R.id.manager_listview);
 
@@ -132,18 +132,23 @@ public class ChioceManagerActivty extends Activity {
 		manager_next_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				
+				if (adapter.getCheckedCount() == 0) {
+					Toast.makeText(ChioceManagerActivty.this, "您还没有选择推拿师哦",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				String count = UserBean.getUSerBean().getBuyCount();
 				Integer.parseInt(count);
-				String checked=adapter.getCheckedIds();
+				String checked = adapter.getCheckedIds();
 				String getChecked;
-				if(checked.indexOf(",")!=-1){
-					getChecked=checked.substring(0,checked.indexOf(","));
-				}else{
-					getChecked=checked;
+				if (checked.indexOf(",") != -1) {
+					getChecked = checked.substring(0, checked.indexOf(","));
+				} else {
+					getChecked = checked;
 				}//
 				if (Integer.parseInt(count) < adapter.getCheckedCount()) {
-					//Integer.parseInt(count) > adapter.getCheckedCount() && Integer.parseInt(getChecked)==5
+					// Integer.parseInt(count) > adapter.getCheckedCount() &&
+					// Integer.parseInt(getChecked)==5
 					ToastUtils.show(ChioceManagerActivty.this,
 							"你選擇推拿師的數量與購買項目的數量不等！");
 				} else {
@@ -151,35 +156,43 @@ public class ChioceManagerActivty extends Activity {
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", UserBean.getUSerBean().getOpid());
 					params.put("StoreId", getChecked);
-					params.put("MasagerIdList",checked);
-					
-					  AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.set_manager_list, params,new AsyncHttpResponseHandler() {
-					  
-					  @Override public void onSuccess(int arg0, Header[] arg1,
-					  byte[] arg2) { 
-						  String data=new String(arg2);
-						  try {
-							JSONObject obj=new JSONObject(data);
-							String ActionMessage=obj.getString("ActionMessage");
-							if(ActionMessage.equals("设置成功")){
-								Intent inten = new Intent(ChioceManagerActivty.this,
-										SubmitOrderActivty.class);
-								startActivity(inten);
-							}else{
-								//ToastUtils.show(this, "網絡錯誤，請稍後再試");
-							}
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						  
-					  
-					  }
-					  
-					  @Override public void onFailure(int arg0, Header[] arg1,
-					  byte[] arg2, Throwable arg3) { // TODO Auto-generated
-					  
-					  } });
+					params.put("MasagerIdList", checked);
+
+					AsyncHttpCilentUtil.getInstance().post(
+							ConstanceUtil.set_manager_list, params,
+							new AsyncHttpResponseHandler() {
+
+								@Override
+								public void onSuccess(int arg0, Header[] arg1,
+										byte[] arg2) {
+									String data = new String(arg2);
+									try {
+										JSONObject obj = new JSONObject(data);
+										String ActionMessage = obj
+												.getString("ActionMessage");
+										if (ActionMessage.equals("设置成功")) {
+											Intent inten = new Intent(
+													ChioceManagerActivty.this,
+													CommitActivity.class);
+											startActivity(inten);
+										} else {
+											// ToastUtils.show(this,
+											// "網絡錯誤，請稍後再試");
+										}
+									} catch (JSONException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+
+								}
+
+								@Override
+								public void onFailure(int arg0, Header[] arg1,
+										byte[] arg2, Throwable arg3) { // TODO
+																		// Auto-generated
+
+								}
+							});
 				}
 			}
 		});
@@ -190,6 +203,26 @@ public class ChioceManagerActivty extends Activity {
 	private void setAdapter(List<ManagerBean> list) {
 		adapter = new ManagerAdapter(this, list);
 		manager_listview.setAdapter(adapter);
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		return true;
 	}
 
 }

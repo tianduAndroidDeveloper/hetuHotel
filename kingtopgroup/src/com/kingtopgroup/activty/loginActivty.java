@@ -40,10 +40,8 @@ public class loginActivty extends Activity implements OnClickListener {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// 获得实例对象
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
@@ -96,7 +94,6 @@ public class loginActivty extends Activity implements OnClickListener {
 								output("用户名或密码错误");
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

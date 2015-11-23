@@ -32,4 +32,5 @@
 	</div>
         
     </string>
+    <string name="shared_preference">Kingroup_Shared_Preference</string>
 </resources>

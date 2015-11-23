@@ -2,52 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/all"
-    android:orientation="vertical" >
+    android:background="@color/gray_light"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/red"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="選擇推拿師"
-                android:textColor="@color/white" />
-        </LinearLayout>
+            android:text="请确认推拿师" />
 
         <TextView
+            android:id="@+id/orderDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/red_border_rectangle"
             android:gravity="center"
-            android:text="請確認選擇推拿的推拿師" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/linear_boder"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:id="@+id/orderDate"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="11月13日" />
-        </LinearLayout>
+            android:padding="5dp"
+            android:text="11月13日" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,19 +40,21 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="推拿師" />
 
             <ImageView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray"
-                android:padding="5dp" />
+                android:background="@color/gray_light" />
 
             <ListView
-                
                 android:id="@+id/manager_listview"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:dividerHeight="1dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -92,19 +74,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/manager_next_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:padding="10dp"
-        android:background="@color/white">
-
-        <Button
-            android:id="@+id/manager_next_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_bg"
-            android:text="下一步"
-            android:textColor="@color/white" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:text="下一步"
+        android:textColor="@color/white" />
 
 </LinearLayout>
