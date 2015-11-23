@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/manipulations"
+    android:layout_width="match_parent"
+    android:layout_height="180dip"
+    android:layout_margin="10dp"
+    android:orientation="horizontal" >
+
+    <fragment
+        android:id="@+id/fragment_cycle_viewpager_content"
+        android:name="cn.androiddevelop.cycleviewpager.lib.CycleViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="180dip" />
+
+</RelativeLayout>
