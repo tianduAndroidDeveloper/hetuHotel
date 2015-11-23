@@ -37,7 +37,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AddAddressActivty extends Activity implements OnClickListener {
+public class AddAddressActivty extends MainActionBarActivity implements OnClickListener {
 
 	private TextView add_Address;
 	private ListView add_listView;
@@ -54,6 +54,7 @@ public class AddAddressActivty extends Activity implements OnClickListener {
 		setContentView(R.layout.add_address);
 
 		ll_add = (LinearLayout) findViewById(R.id.ll_add);
+		titleButton.setText("—°‘Òµÿ÷∑");
 		add_Address = (TextView) findViewById(R.id.add_address);
 		add_listView = (ListView) findViewById(R.id.address_listview);
 		add_Address.setOnClickListener(this);
@@ -209,6 +210,30 @@ public class AddAddressActivty extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		Intent inten = new Intent(this, AddAddressAddActivty.class);
 		startActivity(inten);
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		// TODO Auto-generated method stub
+		this.finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

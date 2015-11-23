@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.constant.finalBitmapUtil;
@@ -51,6 +52,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private RadioButton service_content, service_scope, you_must_know;
 	private TextView product_item_name, product_item_price, product_item_time,
 			product_item_begin_num, product_item_need;
+	private ProgressBar pb;
 	private TextView service_item_content, service_sub_price,
 			produt_item_price;
 	private String ApplyDescriptio = null;
@@ -58,7 +60,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String XiaDanContext = null;
 	private String Description = null;
 	private String TuiNaContext = null;
-	private ACache acache;
+	//private ACache acache;
 	private TextView service_num_webview;
 	JSONObject obj = null;
 	// private ProgressBar service_progressbar;
@@ -69,8 +71,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_num);
 		titleButton.setText("选择数量");
-		acache = ACache.get(this);
-
+		//acache = ACache.get(this);
+		pb = (ProgressBar) findViewById(R.id.progressBar);
 		Intent inten = this.getIntent();
 		Bundle bundel = inten.getExtras();
 		String name = bundel.getString("name");
@@ -115,12 +117,12 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		service_scope.setOnClickListener(this);
 		you_must_know.setOnClickListener(this);
 
-		// getDate(pid);
-		if (getDate(pid) == null) {
+		 getDate(pid);
+		/*if (getDate(pid) == null) {
 			if (acache.getAsJSONObject("service_num") != null) {
 				ObjectToListmap(acache.getAsJSONObject("service_num"));
 			}
-		}
+		}*/
 
 		// ==========================================进度条=============================================
 		// service_progressbar=(ProgressBar)
@@ -140,7 +142,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		// 图片轮播
 		LunboImageUtil lb = new LunboImageUtil();
 		lb.initialize(this, imageUrls, cycleViewPager);
-		acache = ACache.get(this);
+		//acache = ACache.get(this);
 
 		// ----------------------------服务内容-------------------------------------
 
@@ -150,7 +152,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("pid", pid);
-
+		pb.setVisibility(View.VISIBLE);
 		AsyncHttpCilentUtil.getInstance().get(this,
 				ConstanceUtil.service_item_url, params,
 				new AsyncHttpResponseHandler() {
@@ -158,10 +160,11 @@ public class ServieNumActivty extends MainActionBarActivity implements
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						// service_progressbar.setVisibility(View.GONE);
+						pb.setVisibility(View.GONE);
 						try {
 							String date = new String(arg2);
 							obj = new JSONObject(date);
-							acache.put("service_num", obj);  
+							//acache.put("service_num", obj);  
 							JSONObject obj1 = (JSONObject) obj
 									.get("ProductInfo");
 							// 适用范围
@@ -195,8 +198,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						// TODO Auto-generated method stub
-
+						pb.setVisibility(View.GONE);
+						Utils.showToast(ServieNumActivty.this, "获取项目信息失败，请重试!");
 					}
 
 				});
@@ -228,13 +231,14 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	@Override
 	public void onClick(View arg0) {
 		String num = service_num_button.getText().toString();
-		String price = produt_item_price.getText().toString() + ".00";
-		int index = price.indexOf(".");
+		String price = produt_item_price.getText().toString();// + ".00";
+		/*int index = price.indexOf(".");
 		if(index!=-1){
 			price = price.substring(1, index);
 		}else{
 			price = price.substring(1, price.length());
-		}
+		}*/
+		price = price.substring(1, price.length());
 		
 
 		switch (arg0.getId()) {
@@ -252,9 +256,9 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 		case R.id.service_add_button:// 数量增加按钮
 			Integer nus = Integer.parseInt(num) + 1;
-			Integer subprice = (Integer.parseInt(price)) * nus;
+			float subprice = (Float.parseFloat(price)) * nus;
 			service_num_button.setText(nus + "");
-			service_sub_price.setText("合计:￥" + subprice + "");
+			service_sub_price.setText("合计:￥" + Utils.stringToFloat(subprice) + "");
 			break;
 
 		case R.id.service_reduce_button:// 数量减少按钮
@@ -262,9 +266,9 @@ public class ServieNumActivty extends MainActionBarActivity implements
 				ToastUtils.show(this, "数量不能少于1");
 			} else {
 				int nu = Integer.parseInt(num) - 1;
-				int sub = Integer.parseInt(price) * nu;
+				float sub = Float.parseFloat(price) * nu;
 				service_num_button.setText(nu + "");
-				service_sub_price.setText("合计:￥" + sub + "");
+				service_sub_price.setText("合计:￥" + Utils.stringToFloat(sub) + "");
 			}
 			break;
 
@@ -297,27 +301,32 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			params.put("ItemIdList", ItemIdList);
 			params.put("Uid", Uid);
 			// params.put("Content-Type", "application/json; charset=utf-8");
+			pb.setVisibility(View.VISIBLE);
 			AsyncHttpCilentUtil.getInstance().post(
 					"http://kingtopgroup.com/api/item/AddItemToCart", params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int arg0, Header[] arg1,
 								byte[] arg2) {
+							pb.setVisibility(View.GONE);
 							if (arg0 == 200) {
 								try {
 									String date = new String(arg2);
 									JSONObject obj = new JSONObject(date);
 									String ReturnValue = obj
 											.getString("ReturnValue");
+									
 									if (ReturnValue.equals("0")) {
 										// ToastUtils.show(this,
 										// "亲，服务器忙，请稍后重试");
+										Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
 									} else {
 										// 保存订单号
 										UserBean.getUSerBean().setOpid(
 												ReturnValue);
 										
 										Intent intent = new Intent(ServieNumActivty.this, ServiceAddressActivty.class);
+										intent.putExtra("opid", ReturnValue);
 										startActivity(intent);
 									}
 								} catch (JSONException e) {
@@ -332,7 +341,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 						public void onFailure(int arg0, Header[] arg1,
 								byte[] arg2, Throwable arg3) {
 							// TODO Auto-generated method stub
-
+							pb.setVisibility(View.GONE);
+							Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
 						}
 
 					});

@@ -26,6 +26,10 @@ public  class ConstanceUtil {
 	//設置推拿師
 	public static  String set_manager_list="http://kingtopgroup.com/api/item/SetServiceMassage";
 	
+	//設置服務地址
+	
+	public static String ser_service_address="http://kingtopgroup.com/api/item/SetServiceAddress";
+	
 	//設置服務時間
 	
 	public static String ser_service_time="http://kingtopgroup.com/api/item/SetServiceTime";
