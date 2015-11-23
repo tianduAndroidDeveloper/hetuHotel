@@ -207,9 +207,6 @@ public class manipulationActivty extends Activity {
 				String pid = objs.getJSONObject(i).getString("pid");
 
 				String storeid = objs.getJSONObject(i).getString("storeid");
-				// String CouponId = obj.getString("CouponId");
-
-				// UserBean.getUSerBean().setCouponid(CouponId);
 
 				map.put("name", pname);
 				map.put("time", weight);

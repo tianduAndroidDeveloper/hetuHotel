@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/linear_boder"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/shuzi_yuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1" >
+            </TextView>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:src="@color/gray" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/shuzi_yuan"
+                android:gravity="center"
+                android:text="2" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@color/gray" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/add_yuan"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/red" >
+            </TextView>
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_prefer"
+        style="@style/Personal_TextView"
+        android:drawableLeft="@drawable/prefer"
+        android:text="优惠券" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp" >
+        <CheckBox 
+            android:id="@+id/cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:button="@drawable/frame_checkbox"/>
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/membership_card"
+            android:text="会员卡"
+            android:drawablePadding="5dp"/>
+        <TextView 
+            android:layout_below="@+id/cb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*去个人中心充值享有更多优惠哦！"
+            android:textColor="@color/red"/>
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp" >
+        <TextView 
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/money_symbol"
+            android:text="支付方式"
+            android:drawablePadding="5dp"
+            android:layout_marginBottom="5dp"/>
+        
+        <CheckBox 
+            android:layout_below="@+id/tv"
+            android:id="@+id/cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:button="@drawable/checkbox_bg"
+            android:checked="true"
+            android:focusable="false"/>
+        <TextView 
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
+            android:layout_below="@+id/tv"
+            android:drawableLeft="@drawable/wachat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="微信支付"
+            />
+    </RelativeLayout>
+    
+
+</LinearLayout>

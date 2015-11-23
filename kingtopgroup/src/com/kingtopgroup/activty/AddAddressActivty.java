@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
@@ -42,6 +43,7 @@ public class AddAddressActivty extends Activity implements OnClickListener {
 	private ListView add_listView;
 	Map<String, Object> map = null;
 	private List<Map<String, Object>> addressList;
+	private LinearLayout ll_add;
 
 	// List<Map<String,Object>> list=null;
 
@@ -51,16 +53,26 @@ public class AddAddressActivty extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_address);
 
+		ll_add = (LinearLayout) findViewById(R.id.ll_add);
 		add_Address = (TextView) findViewById(R.id.add_address);
 		add_listView = (ListView) findViewById(R.id.address_listview);
 		add_Address.setOnClickListener(this);
+		ll_add.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(AddAddressActivty.this, AddAddressActivity.class);
+				AddAddressActivty.this.startActivity(intent);
+			}
+		});
 
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		getDate();
-
-		// add_listView.setAdapter(new SimpleAdapter(this, getDate(),
-		// R.layout.address_item, new
-		// String[]{"name","phone","detail_address","isDeafult"}, new
-		// int[]{R.id.name,R.id.phone,R.id.detail_address}));
 	}
 
 	private void setdate(List<Map<String, Object>> list) {
