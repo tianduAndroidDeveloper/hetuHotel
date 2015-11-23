@@ -25,6 +25,7 @@ import com.kingtopgroup.activty.MainActionBarActivity;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 
@@ -48,6 +49,8 @@ public class DiscusActivity extends MainActionBarActivity {
 	        titleButton.setText("评论页");
 	        resources = getResources();
 	       this.json = getIntent().getStringExtra("json");
+	      
+	       
 	        initTextView();
 	        getDate();
 	       // initViewPager();
@@ -81,25 +84,25 @@ public class DiscusActivity extends MainActionBarActivity {
 	        	//全部
 	        	String ReviewTotalList=obj.getString("ReviewTotalList");
 	        	JSONArray array=new JSONArray(ReviewTotalList);
-	        	tvTab1.setText(array.length());
+	        	tvTab1.setText("全部("+array.length()+")");
 	        	Fragment ReviewTotalListfragment = ChildFragment.newInstance(ReviewTotalList);
 
 	        	//好评
 	        	String ReviewGoodList=obj.getString("ReviewGoodList");
 	        	JSONArray array2=new JSONArray(ReviewGoodList);
-	        	tvTab2.setText(array2.length());
+	        	tvTab2.setText("好评("+array2.length()+")");
 	        	Fragment ReviewGoodListfragment= ChildFragment.newInstance(ReviewGoodList);
 	        	
 	        	//中评
 	        	String ReviewMiddleList=obj.getString("ReviewMiddleList");
 	        	JSONArray array3=new JSONArray(ReviewMiddleList);
-	        	tvTab3.setText(array3.length());
+	        	tvTab3.setText("中评("+array3.length()+")");
 	        	Fragment ReviewMiddleListfragment=ChildFragment.newInstance(ReviewMiddleList);
 	        	
 	        	//差评
 	        	String ReviewBadList=obj.getString("ReviewBadList");
 	        	JSONArray array4=new JSONArray(ReviewBadList);
-	        	tvTab4.setText(array4.length());
+	        	tvTab4.setText("差评("+array4.length()+")");
 	        	Fragment ReviewBadListFragment=ChildFragment.newInstance(ReviewBadList);
 
 	        	fragmentsList.add(ReviewTotalListfragment);

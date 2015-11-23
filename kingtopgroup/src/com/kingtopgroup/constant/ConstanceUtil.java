@@ -16,7 +16,7 @@ public  class ConstanceUtil {
 	
 	public static String get_address_list_url="http://kingtopgroup.com/api/ucenter/GetShipAddressList";
 
-  //获取服务时间
+   //获取服务时间
 	
 	public static String get_sesrvice_time="http://kingtopgroup.com/api/item/GetServiceTime";
 	
@@ -32,5 +32,8 @@ public  class ConstanceUtil {
 	
 	//评价列表
 	public static String get_masserger_list_url="http://kingtopgroup.com/api/ucenter/MassagerReview";
+	
+	//推拿师项目详细信息
+	public static String get_masserger_detail_list="http://kingtopgroup.com/api/massager/massager";
 
 }
