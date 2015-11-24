@@ -39,12 +39,11 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
-<<<<<<< HEAD
+
 public class OrderTimeActivty extends MainActionBarActivity implements OrderTimeAdapter.CallBack{
-=======
-public class OrderTimeActivty extends MainActionBarActivity {
+
 	private static final String TAG = "OrderTimeActivty";
->>>>>>> 86aa5ae662e0a57bd6589fce4c0cb289925dd546
+
 	private GridView order_time_gridview;
 	private RadioGroup rg;
 	private List<Map<String, Object>> list;
@@ -127,7 +126,7 @@ public class OrderTimeActivty extends MainActionBarActivity {
 
 		@Override
 		public void onCheckedChanged(RadioGroup arg0, int arg1) {
-
+			System.out.println("checked="+arg1);
 			switch (arg1) {
 			case 1:
 				//setTime();
@@ -183,10 +182,7 @@ public class OrderTimeActivty extends MainActionBarActivity {
 								list.add(map);
 							}
 							setAdapter(list, "ValidDay_0");
-<<<<<<< HEAD
-							
-=======
->>>>>>> 86aa5ae662e0a57bd6589fce4c0cb289925dd546
+
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -228,7 +224,10 @@ public class OrderTimeActivty extends MainActionBarActivity {
 				list = new ArrayList<Map<String, Object>>();
 				for (int i = 0; i < array.length(); i++) {
 					Map<String, Object> map = new HashMap<String, Object>();
-					String TimeSection = array.getJSONObject(i).getString(
+					String StsId = array.optJSONObject(i)
+							.optString("StsId");
+					map.put("StsId", StsId);
+					String TimeSection = array.optJSONObject(i).optString(
 							"TimeSection");
 					map.put("TimeSection", TimeSection.trim());
 					list.add(map);

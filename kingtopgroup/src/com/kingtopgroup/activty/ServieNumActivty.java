@@ -342,6 +342,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 								byte[] arg2, Throwable arg3) {
 							// TODO Auto-generated method stub
 							pb.setVisibility(View.GONE);
+							Log.d(ServieNumActivty.this.getClass().getName(), new String(arg2));
 							Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
 						}
 

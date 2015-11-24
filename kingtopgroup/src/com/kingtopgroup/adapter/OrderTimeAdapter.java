@@ -114,6 +114,7 @@ public class OrderTimeAdapter extends BaseAdapter {
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				System.out.println(nameList.get(arg0));
 				if(mCallBack != null){
 					mCallBack.callBack(nameList.get(arg0).get("StsId").toString());
 				}
