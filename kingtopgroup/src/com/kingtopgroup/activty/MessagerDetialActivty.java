@@ -214,8 +214,10 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 					long arg3) {
 				HashMap<String, Object> obj = (HashMap<String, Object>) arg0
 						.getItemAtPosition(arg2);
-				String messager_name=(String) name.getText();
-				
+				String messager_name=(String) name.getText().toString().trim();
+				int index=messager_name.indexOf("");
+				int index1=messager_name.indexOf("",index+3);
+			    messager_name=messager_name.substring(0, index1);
 				String pid = (String) obj.get("pid");
 				String storeid = (String) obj.get("storeid");
 				String name = (String) obj.get("name");

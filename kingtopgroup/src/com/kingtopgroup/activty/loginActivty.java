@@ -32,7 +32,7 @@ public class loginActivty extends Activity implements OnClickListener {
 	private RequestParams params;
 	private SharedPreferences sp;
 	private CheckBox auto_login;
-	
+
 	View progress_login;
 
 	private TextView register_button;
@@ -44,15 +44,11 @@ public class loginActivty extends Activity implements OnClickListener {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		loginActivity=this;
-		progress_login=findViewById(R.id.progress_login);
-		
-		
+		loginActivity = this;
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
-		
-		
+		progress_login = findViewById(R.id.progress_login);
 
 		// 获得实例对象
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
@@ -66,7 +62,6 @@ public class loginActivty extends Activity implements OnClickListener {
 		register_button.setOnClickListener(this);
 		loginsubmit.setOnClickListener(this);
 		textView1.setOnClickListener(this);
-		
 
 	}
 
@@ -87,7 +82,7 @@ public class loginActivty extends Activity implements OnClickListener {
 			// "http://kingtopgroup.com/api/account/login?mobile=13888973311&password=HT13888973311"
 			String post = "http://kingtopgroup.com/api/account/login?mobile="
 					+ mobile + "&password=" + passwords + "";
-			
+
 			progress_login.setVisibility(View.VISIBLE);
 			client.post(post, null, new AsyncHttpResponseHandler() {
 				@Override

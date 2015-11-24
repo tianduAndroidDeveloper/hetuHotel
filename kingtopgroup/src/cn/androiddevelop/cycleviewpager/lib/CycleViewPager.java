@@ -52,7 +52,7 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener {
 			Bundle savedInstanceState) {
 		View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.view_cycle_viewpager_contet, null);
-
+		
 		viewPager = (BaseViewPager) view.findViewById(R.id.viewPager);
 		indicatorLayout = (LinearLayout) view
 				.findViewById(R.id.layout_viewpager_indicator);

@@ -10,11 +10,13 @@ import org.json.JSONObject;
 
 import com.aps.ad;
 import com.kingtogroup.domain.ShipAddress;
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.ning.http.client.AsyncHttpClient;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.StringUtils;
 import com.stevenhu.android.phone.utils.ToastUtils;
@@ -27,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -36,12 +39,14 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 			service_address_streets_num, service_address_person,
 			service_address_mark;
 	private LinearLayout add_or_reduce;
-	private ImageView add_address;
+	private LinearLayout add_address;
 	Map<String, Object> map = null;
 	private TextView service_address_name, service_address_phone,
 			service_address_address;
 	private Button service_address_next_button;
 	private RadioButton service_address_for_me, service_address_for_other;
+	private ProgressBar pb;
+	private String opid,serviceSelf = "1";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_address);
 		titleButton.setText("选择地址");
-
+		opid = getIntent().getStringExtra("opid");
 		// 为他人预约
 		service_address_for_other = (RadioButton) findViewById(R.id.for_other);
 		service_address_for_other.setOnClickListener(this);
@@ -81,15 +86,15 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		// 备注
 		service_address_mark = (TextView) findViewById(R.id.service_address_mark);
 
-		add_address = (ImageView) findViewById(R.id.add_address);
+		add_address = (LinearLayout) findViewById(R.id.add_address);
 
 		service_address_name = (TextView) findViewById(R.id.service_address_name);
 
 		service_address_phone = (TextView) findViewById(R.id.service_address_phone);
 
 		service_address_address = (TextView) findViewById(R.id.service_address_address);
-
-		add_address.setOnClickListener(this);
+		pb = (ProgressBar) findViewById(R.id.progressBar);
+		//add_address.setOnClickListener(this);
 		getDate();
 
 	}
@@ -116,11 +121,13 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		// 获取默认地址
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
+		pb.setVisibility(View.VISIBLE);
 		AsyncHttpCilentUtil.getInstance().get(this,
 				ConstanceUtil.get_address_list_url, params,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						pb.setVisibility(View.GONE);
 						if (arg0 == 200) {
 							try {
 								String date = new String(arg2);
@@ -159,7 +166,8 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
 						// TODO Auto-generated method stub
-
+						pb.setVisibility(View.GONE);
+						//Utils.showToast(ServiceAddressActivty.this, "网络请求出错，请重试！");
 					}
 				});
 
@@ -193,21 +201,24 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		switch (arg0.getId()) {
 		case R.id.for_other:
 			// add_or_reduce.setVisibility(View.GONE);
+			serviceSelf = "0";
 			break;
 
 		case R.id.for_me:// 隐藏
-			add_or_reduce.setVisibility(View.VISIBLE);
+			serviceSelf = "1";
+			//add_or_reduce.setVisibility(View.VISIBLE);
 			break;
 
 		case R.id.service_address_next_button:
 			if (isEmpty()) {
-				Intent intent = new Intent(this, OrderTimeActivty.class);
-				startActivity(intent);
+				doPost();
+				/*Intent intent = new Intent(this, OrderTimeActivty.class);
+				startActivity(intent);*/
 			}
 			break;
 
-		case R.id.add_address:
-			break;
+		/*case R.id.add_address:
+			break;*/
 		case R.id.add_or_reduce:
 			Intent inten = new Intent(this, AddAddressActivty.class);
 
@@ -217,16 +228,58 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		}
 
 	}
+	
+	private void doPost(){
+		RequestParams rp = new RequestParams();
+		rp.add("uid", UserBean.getUSerBean().getUid());
+		rp.add("opid", this.opid);
+		rp.add("mobile", service_phone.getText().toString());
+		rp.add("address", service_address_street.getText().toString());
+		rp.add("doorno", service_address_streets_num.getText().toString());
+		rp.add("consignee", service_address_person.getText().toString());
+		rp.add("remark", service_address_mark.getText().toString());
+		rp.add("seviceself", serviceSelf);
+		AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.ser_service_address, rp, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject obj = new JSONObject(new String(arg2));
+					if(obj.optInt("ReturnValue") > 0){
+						Intent intent = new Intent(ServiceAddressActivty.this, OrderTimeActivty.class);
+						intent.putExtra("opid", opid);
+						startActivity(intent);
+						return;
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Utils.showToast(ServiceAddressActivty.this, "设置服务地址失败");
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				Utils.showToast(ServiceAddressActivty.this, "设置服务地址失败");
+			}
+		});
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			ShipAddress address = (ShipAddress) data.getExtras().get("address");
-
+			
 			service_address_name.setText(address.Consignee);
 			service_address_phone.setText(address.Phone);
 			service_address_address.setText(address.Address);
+			service_phone.setText(address.Phone);
+			service_address_street.setText(address.Address);
+			service_address_person.setText(address.Consignee);
+			
 			UserBean.getUSerBean().putAddress(address);
 		}
 

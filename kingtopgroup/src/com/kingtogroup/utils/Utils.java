@@ -1,5 +1,7 @@
 package com.kingtogroup.utils;
 
+import java.math.BigDecimal;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +11,10 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Utils {
 	public static final String TAG = "Utils";
@@ -83,6 +87,26 @@ public class Utils {
 	
 	public static String assembleImageUri(String name, String id){
 		return "http://kingtopgroup.com/upload/store/" + id + "/product/show/thumb190_190/" + name;
+	}
+	
+	public static void showToast(Context context,String msg){
+		Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	}
+	
+	public static String stringToFloat(float f){
+		BigDecimal b = new BigDecimal(f);
+		float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+		String str = String.valueOf(f1);
+		while(str.contains(".")){
+			if(str.endsWith("0") || str.endsWith(".")){
+				str = str.substring(0, str.length()-1);
+			}else {
+				break;
+			}
+		}
+	return str;
 	}
 
 }

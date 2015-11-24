@@ -1,5 +1,6 @@
 package com.kingtopgroup.activty;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -26,6 +28,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.adapter.OrderTimeAdapter;
 import com.kingtopgroup.adapter.OrderTommoroTimeAdapter;
@@ -36,12 +39,15 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
-public class OrderTimeActivty extends MainActionBarActivity {
+public class OrderTimeActivty extends MainActionBarActivity implements OrderTimeAdapter.CallBack{
+
 	private GridView order_time_gridview;
 	private RadioGroup rg;
 	private List<Map<String, Object>> list;
 	private View progress;
-	private ACache acache;
+	//private ACache acache;
+	private JSONObject mJsonObject;
+	private String opid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class OrderTimeActivty extends MainActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_time);
 		titleButton.setText("选择时间");
+		this.opid = getIntent().getStringExtra("opid");
 		init();
 	}
 
@@ -64,10 +71,10 @@ public class OrderTimeActivty extends MainActionBarActivity {
 		RadioButton rbs = (RadioButton) rg.getChildAt(rg.getChildCount() - 1);
 		rbs.setText(getWeekOfDay());
 
-		acache = ACache.get(this);
+		//acache = ACache.get(this);
 
-		order_time_gridview
-				.setOnItemClickListener(new MyGridViewItemClickListener());
+		//order_time_gridview
+				//.setOnItemClickListener(new MyGridViewItemClickListener());
 	}
 
 	class MyGridViewItemClickListener implements OnItemClickListener {
@@ -119,7 +126,8 @@ public class OrderTimeActivty extends MainActionBarActivity {
 
 			switch (arg1) {
 			case 1:
-				setTime();
+				//setTime();
+				getOtherDays("ValidDay_0");
 				break;
 
 			case 2:
@@ -142,41 +150,47 @@ public class OrderTimeActivty extends MainActionBarActivity {
 
 	public void setTime() {
 		progress.setVisibility(View.VISIBLE);
-		String oid = UserBean.getUSerBean().getOpid();
+		
 		RequestParams params = AsyncHttpCilentUtil.getParams();
-		params.put("opid", oid);
+		params.put("opid", opid);
 		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_sesrvice_time,
 				params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						progress.setVisibility(View.GONE);
 						try {
 							String date = new String(arg2);
-							JSONObject obj = new JSONObject(date);
-							acache.put("service_time", obj);
-							array = obj.getJSONArray("ValidDay_0");
+							mJsonObject = new JSONObject(date);
+							
+							//acache.put("service_time", obj);
+							array = mJsonObject.optJSONArray("ValidDay_0");
+							if(array == null){
+								return ;
+							}
 							list = new ArrayList<Map<String, Object>>();
 							for (int i = 0; i < array.length(); i++) {
 								Map<String, Object> map = new HashMap<String, Object>();
-								String TimeSection = array.getJSONObject(i)
-										.getString("TimeSection");
-								String StsId = array.getJSONObject(i)
-										.getString("StsId");
+								String TimeSection = array.optJSONObject(i)
+										.optString("TimeSection");
+								String StsId = array.optJSONObject(i)
+										.optString("StsId");
 								map.put("StsId", StsId);
 								map.put("TimeSection", TimeSection.trim());
 								list.add(map);
 							}
 							setAdapter(list, "ValidDay_0");
-							progress.setVisibility(View.GONE);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
+						progress.setVisibility(View.GONE);
 
 					}
 
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						Toast.makeText(OrderTimeActivty.this, "获取时间失败，请重试", Toast.LENGTH_SHORT).show();
+						Toast.makeText(OrderTimeActivty.this, "获取时间失败，请重试",
+								Toast.LENGTH_SHORT).show();
 						progress.setVisibility(View.GONE);
 					}
 
@@ -187,19 +201,22 @@ public class OrderTimeActivty extends MainActionBarActivity {
 	private void setAdapter(List<Map<String, Object>> list, String day) {
 		order_time_gridview = (GridView) findViewById(R.id.order_time_listview);
 		if (day.equals("ValidDay_0")) {
-			order_time_gridview.setAdapter(new OrderTimeAdapter(this, list));
+			order_time_gridview.setAdapter(new OrderTimeAdapter(this, list,true,this));
 		} else {
-			order_time_gridview.setAdapter(new OrderTommoroTimeAdapter(this,
-					list));
+			//order_time_gridview.setAdapter(new OrderTommoroTimeAdapter(this,
+					//list));
+			order_time_gridview.setAdapter(new OrderTimeAdapter(this, list,false,this));
 		}
 	}
 
 	private void getOtherDays(String ValidDay_1) {
-		if (acache.getAsJSONObject("service_time") != null) {
-			JSONObject obj = acache.getAsJSONObject("service_time");
+		if (mJsonObject != null) {
+			
 			JSONArray array;
 			try {
-				array = obj.getJSONArray(ValidDay_1);
+				array = mJsonObject.getJSONArray(ValidDay_1);
+				if(array == null)
+					return;
 				list = new ArrayList<Map<String, Object>>();
 				for (int i = 0; i < array.length(); i++) {
 					Map<String, Object> map = new HashMap<String, Object>();
@@ -235,5 +252,60 @@ public class OrderTimeActivty extends MainActionBarActivity {
 	@Override
 	public Boolean showHeadView() {
 		return true;
+	}
+
+	@Override
+	public void callBack(String stid) {
+		RequestParams params = AsyncHttpCilentUtil.getParams();
+		params.put("Uid", UserBean.getUSerBean().getUid());
+		params.put("Opid", opid);
+		params.put("Stsid", stid);
+
+		// 使用默认时区和语言环境获得一个日历
+		Calendar cale = Calendar.getInstance();
+		// 将Calendar类型转换成Date类型
+		java.util.Date tasktime = cale.getTime();
+		// 设置日期输出的格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		params.put("ServiceDate", df.format(tasktime));
+		params.put("Couponid", UserBean.getUSerBean().getCouponid());
+		params.put("Couponmoney", "0");
+		progress.setVisibility(View.VISIBLE);
+		AsyncHttpCilentUtil.getInstance().post(
+				ConstanceUtil.ser_service_time, params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, Header[] arg1,
+							byte[] arg2) {
+						progress.setVisibility(View.GONE);
+						String date = new String(arg2);
+						try {
+							JSONObject obj = new JSONObject(date);
+							String ActionMessage = obj
+									.getString("ActionMessage");
+							if (ActionMessage.equals("服务时间设置成功，返回Opid")) {
+								Intent intent = new Intent(OrderTimeActivty.this,
+										ChioceManagerActivty.class);
+								intent.putExtra("opid", opid);
+								startActivity(intent);
+								return;
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						Utils.showToast(OrderTimeActivty.this, "设置服务时间失败，请重试!");
+					}
+
+					@Override
+					public void onFailure(int arg0, Header[] arg1,
+							byte[] arg2, Throwable arg3) {
+						// TODO Auto-generated method stub
+						progress.setVisibility(View.GONE);
+						Utils.showToast(OrderTimeActivty.this, "设置服务时间失败，请重试!");
+					}
+				});
+		
 	}
 }

@@ -30,6 +30,8 @@
            android:text="合计：￥78.00"
            android:textColor="@color/red"/>
        <TextView 
+           android:clickable="true"
+           android:onClick="confirm"
            android:id="@+id/tv_pay"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
