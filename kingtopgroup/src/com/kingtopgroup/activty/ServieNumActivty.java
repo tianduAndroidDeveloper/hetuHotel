@@ -39,6 +39,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -60,19 +61,22 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String XiaDanContext = null;
 	private String Description = null;
 	private String TuiNaContext = null;
-	//private ACache acache;
+	// private ACache acache;
 	private TextView service_num_webview;
 	JSONObject obj = null;
 	// private ProgressBar service_progressbar;
-	private TextView service_num_button,service_add_button, service_reduce_button, service_num_next_button;
+	private TextView service_num_button, service_add_button,
+			service_reduce_button, service_num_next_button;
+	private LinearLayout main;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_num);
 		titleButton.setText("选择数量");
-		//acache = ACache.get(this);
+		// acache = ACache.get(this);
 		pb = (ProgressBar) findViewById(R.id.progressBar);
+		main = (LinearLayout) findViewById(R.id.main);
 		Intent inten = this.getIntent();
 		Bundle bundel = inten.getExtras();
 		String name = bundel.getString("name");
@@ -83,6 +87,9 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		String price = bundel.getString("price");
 
 		product_item_name = (TextView) findViewById(R.id.product_item_name);
+
+		main.setOrientation(name.length() > 7 ? LinearLayout.VERTICAL
+				: LinearLayout.HORIZONTAL);
 		product_item_name.setText(name);
 		product_item_price = (TextView) findViewById(R.id.product_item_price);
 		product_item_price.setText("￥" + price);
@@ -117,12 +124,12 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		service_scope.setOnClickListener(this);
 		you_must_know.setOnClickListener(this);
 
-		 getDate(pid);
-		/*if (getDate(pid) == null) {
-			if (acache.getAsJSONObject("service_num") != null) {
-				ObjectToListmap(acache.getAsJSONObject("service_num"));
-			}
-		}*/
+		getDate(pid);
+		/*
+		 * if (getDate(pid) == null) { if (acache.getAsJSONObject("service_num")
+		 * != null) { ObjectToListmap(acache.getAsJSONObject("service_num")); }
+		 * }
+		 */
 
 		// ==========================================进度条=============================================
 		// service_progressbar=(ProgressBar)
@@ -142,7 +149,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		// 图片轮播
 		LunboImageUtil lb = new LunboImageUtil();
 		lb.initialize(this, imageUrls, cycleViewPager);
-		//acache = ACache.get(this);
+		// acache = ACache.get(this);
 
 		// ----------------------------服务内容-------------------------------------
 
@@ -164,7 +171,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 						try {
 							String date = new String(arg2);
 							obj = new JSONObject(date);
-							//acache.put("service_num", obj);  
+							// acache.put("service_num", obj);
 							JSONObject obj1 = (JSONObject) obj
 									.get("ProductInfo");
 							// 适用范围
@@ -182,10 +189,10 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 							service_item_content.setText(Html
 									.fromHtml(Description));
-							
-							 service_num_webview.setText(Html.fromHtml(TuiNaContext));
-							
-							
+
+							service_num_webview.setText(Html
+									.fromHtml(TuiNaContext));
+
 							Log.i(TAG, TuiNaContext);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -220,7 +227,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			TuiNaContext = obj.getString("TuiNaContext");
 
 			service_item_content.setText(Html.fromHtml(Description));
-			 service_num_webview.setText(Html.fromHtml(TuiNaContext));
+			service_num_webview.setText(Html.fromHtml(TuiNaContext));
 			Log.i(TAG, TuiNaContext);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -232,14 +239,12 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	public void onClick(View arg0) {
 		String num = service_num_button.getText().toString();
 		String price = produt_item_price.getText().toString();// + ".00";
-		/*int index = price.indexOf(".");
-		if(index!=-1){
-			price = price.substring(1, index);
-		}else{
-			price = price.substring(1, price.length());
-		}*/
+		/*
+		 * int index = price.indexOf("."); if(index!=-1){ price =
+		 * price.substring(1, index); }else{ price = price.substring(1,
+		 * price.length()); }
+		 */
 		price = price.substring(1, price.length());
-		
 
 		switch (arg0.getId()) {
 		case R.id.service_scope:// 服务范围
@@ -258,7 +263,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			Integer nus = Integer.parseInt(num) + 1;
 			float subprice = (Float.parseFloat(price)) * nus;
 			service_num_button.setText(nus + "");
-			service_sub_price.setText("合计:￥" + Utils.stringToFloat(subprice) + "");
+			service_sub_price.setText("合计:￥" + Utils.stringToFloat(subprice)
+					+ "");
 			break;
 
 		case R.id.service_reduce_button:// 数量减少按钮
@@ -268,7 +274,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 				int nu = Integer.parseInt(num) - 1;
 				float sub = Float.parseFloat(price) * nu;
 				service_num_button.setText(nu + "");
-				service_sub_price.setText("合计:￥" + Utils.stringToFloat(sub) + "");
+				service_sub_price.setText("合计:￥" + Utils.stringToFloat(sub)
+						+ "");
 			}
 			break;
 
@@ -315,17 +322,20 @@ public class ServieNumActivty extends MainActionBarActivity implements
 									JSONObject obj = new JSONObject(date);
 									String ReturnValue = obj
 											.getString("ReturnValue");
-									
+
 									if (ReturnValue.equals("0")) {
 										// ToastUtils.show(this,
 										// "亲，服务器忙，请稍后重试");
-										Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
+										Utils.showToast(ServieNumActivty.this,
+												"亲，服务器忙，请稍后重试");
 									} else {
 										// 保存订单号
 										UserBean.getUSerBean().setOpid(
 												ReturnValue);
-										
-										Intent intent = new Intent(ServieNumActivty.this, ServiceAddressActivty.class);
+
+										Intent intent = new Intent(
+												ServieNumActivty.this,
+												ServiceAddressActivty.class);
 										intent.putExtra("opid", ReturnValue);
 										startActivity(intent);
 									}
@@ -342,11 +352,12 @@ public class ServieNumActivty extends MainActionBarActivity implements
 								byte[] arg2, Throwable arg3) {
 							// TODO Auto-generated method stub
 							pb.setVisibility(View.GONE);
-							Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
+							Utils.showToast(ServieNumActivty.this,
+									"亲，服务器忙，请稍后重试");
 						}
 
 					});
-			
+
 			break;
 		}
 	}
@@ -358,12 +369,12 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 	@Override
 	public void titleButtonClick(View v) {
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		
+
 	}
 
 	@Override

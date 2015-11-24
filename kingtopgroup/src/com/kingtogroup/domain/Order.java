@@ -11,8 +11,8 @@ public class Order implements Serializable{
 	public String osn;
 	public int uid;
 	public int orderstate;
-	public int orderamount;
-	public int surplusmoney;
+	public double orderamount;
+	public double surplusmoney;
 	public int parentid;
 	public int isreview;
 	public String addtime;

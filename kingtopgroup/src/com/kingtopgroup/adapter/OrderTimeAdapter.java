@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -44,16 +45,16 @@ public class OrderTimeAdapter extends BaseAdapter {
 	private List<Map<String, Object>> nameList;
 	private boolean isToDay = false;
 	private CallBack mCallBack;
+	String date;
 
-	public OrderTimeAdapter(Context context, List<Map<String, Object>> nameList,boolean isToDay,CallBack callBack) {
+	public OrderTimeAdapter(Context context, List<Map<String, Object>> nameList, boolean isToDay, CallBack callBack, String date) {
 		this.context = context;
 		this.nameList = nameList;
 		this.isToDay = isToDay;
 		this.mCallBack = callBack;
+		this.date = date;
 		inflater = LayoutInflater.from(context);
-		params = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
+		params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 	}
 
 	@Override
@@ -77,60 +78,54 @@ public class OrderTimeAdapter extends BaseAdapter {
 		if (conveView == null) {
 			conveView = inflater.inflate(R.layout.oreder_time_item, null);
 			viewHolder = new ViewHolder();
-			viewHolder.buttoTime = (Button) conveView
-					.findViewById(R.id.order_time_time);
+			viewHolder.buttoTime = (Button) conveView.findViewById(R.id.order_time_time);
 			conveView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) conveView.getTag();
 		}
 
-		if(isToDay){
-		try {
-			
-			String section = (String) nameList.get(arg0).get("TimeSection");
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
-			Date d2 = sdf.parse(section);
-			String section2 = sdf.format(new Date());
-			Date d1 = sdf.parse(section2);
-			viewHolder.buttoTime
-					.setBackgroundResource(d1.before(d2) ? R.drawable.shape_select_pop
-							: R.drawable.shape_gb_pop);
-			viewHolder.buttoTime.setTextColor(d1.before(d2) ? Color.WHITE
-					: Color.BLACK);
-			viewHolder.buttoTime.setEnabled(d1.before(d2));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		}else{
+		if (isToDay) {
+			try {
+
+				String[] sections = (String.valueOf(nameList.get(arg0).get("TimeSection"))).split(":");
+				int minute = Integer.parseInt(sections[1]) - 30;
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.CHINA);
+				Date d2 = sdf.parse(sections[0] + ":" + minute);
+				String section2 = sdf.format(new Date());
+				Date d1 = sdf.parse(section2);
+				viewHolder.buttoTime.setBackgroundResource(d1.before(d2) ? R.drawable.shape_select_pop : R.drawable.shape_gb_pop);
+				viewHolder.buttoTime.setTextColor(d1.before(d2) ? Color.WHITE : Color.BLACK);
+				viewHolder.buttoTime.setEnabled(d1.before(d2));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		} else {
 			viewHolder.buttoTime.setBackgroundResource(R.drawable.shape_select_pop);
-			viewHolder.buttoTime.setTextColor(Color.WHITE);	
+			viewHolder.buttoTime.setTextColor(Color.WHITE);
 			viewHolder.buttoTime.setEnabled(true);
 		}
 
-		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get(
-				"TimeSection"));
-		
+		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get("TimeSection"));
+		viewHolder.buttoTime.setTag((CharSequence) nameList.get(arg0).get("TimeSection"));
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
+			
 			@Override
-			public void onClick(View view) {
-				if(mCallBack != null){
-					mCallBack.callBack(nameList.get(arg0).get("StsId").toString());
-				}
-				
-
+			public void onClick(View arg0) {
+				Intent intent = new Intent(context, ChioceManagerActivty.class);
+				intent.putExtra("date", date + " " + arg0.getTag());
+				context.startActivity(intent);
 			}
 		});
+		
 		return conveView;
 	}
 
 	class ViewHolder {
 		Button buttoTime;
 	}
-	public interface CallBack{
+
+	public interface CallBack {
 		void callBack(String stid);
 	}
 
 }
-
-

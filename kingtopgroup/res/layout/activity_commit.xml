@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/textview_red_bg"
                 android:textColor="@color/white"
-                android:text="提交订单"/>
+                android:text="确认订单"/>
         </LinearLayout>
     </LinearLayout>
 
