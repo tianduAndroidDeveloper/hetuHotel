@@ -63,11 +63,6 @@ public class manipulationActivty extends Activity {
 			"http://kingtopgroup.com/mobile/images/banner02.jpg",
 			"http://kingtopgroup.com/mobile/images/banner03.jpg" };
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -207,9 +202,6 @@ public class manipulationActivty extends Activity {
 				String pid = objs.getJSONObject(i).getString("pid");
 
 				String storeid = objs.getJSONObject(i).getString("storeid");
-				// String CouponId = obj.getString("CouponId");
-
-				// UserBean.getUSerBean().setCouponid(CouponId);
 
 				map.put("name", pname);
 				map.put("time", weight);

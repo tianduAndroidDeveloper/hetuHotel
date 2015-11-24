@@ -40,9 +40,11 @@ import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 
+
 public class OrderTimeActivty extends MainActionBarActivity implements OrderTimeAdapter.CallBack{
 
 	private static final String TAG = "OrderTimeActivty";
+
 
 	private GridView order_time_gridview;
 	private RadioGroup rg;

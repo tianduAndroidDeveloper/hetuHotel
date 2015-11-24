@@ -28,7 +28,7 @@ public class ChildFragment extends Fragment {
     private ListView discus_listview;
     private List<DiscusBean> discusBean;
 
-    static ChildFragment newInstance(String s) {
+    public static ChildFragment newInstance(String s) {
         ChildFragment newFragment = new ChildFragment();
         Bundle bundle = new Bundle();
         bundle.putString("hello", s);

@@ -1,215 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:fillViewport="true" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gray_light"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:padding="10dp" >
-
-            <requestFocus />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/linear_boder"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp" >
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/shuzi_yuan" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="1" >
-                    </TextView>
-                </FrameLayout>
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="5dp"
-                    android:src="@color/gray" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/shuzi_yuan" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="2" >
-                    </TextView>
-                </FrameLayout>
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@color/gray" />
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/add_yuan" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="提交"
-                        android:textColor="@color/red" >
-                    </TextView>
-                </FrameLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_prefer"
-                style="@style/Personal_TextView"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/prefer"
-                android:text="优惠券" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/edittext_bg"
-                android:orientation="vertical"
-                android:padding="10dp" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/membership_card"
-                    android:drawablePadding="5dp"
-                    android:text="会员卡" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="*去个人中心充值享有更多优惠哦！"
-                    android:textColor="@color/red" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/edittext_bg"
-                android:padding="10dp" >
-
-                <TextView
-                    android:id="@+id/tv_way"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/money_symbol"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:text="支付方式" />
-
-                <TextView
-                    android:id="@+id/tv_wechat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_way"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:drawableLeft="@drawable/wachat"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:text="微信支付" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/tv_wechat"
-                    android:layout_alignParentRight="true"
-                    android:button="@drawable/checkbox_bg"
-                    android:checked="true" />
-            </RelativeLayout>
-
-            <com.kingtogroup.view.MyListView
-                android:id="@+id/lv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:cacheColorHint="#00000000"
-                android:divider="@null"
-                android:dividerHeight="5dp" />
-        </LinearLayout>
-    </ScrollView>
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:padding="10dp" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_total"
+        <ListView
+            android:layout_weight="1"
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:dividerHeight="5dp" />
+        <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="合计：￥78.00"
-            android:textColor="@color/red" />
-
-        <TextView
-            android:id="@+id/tv_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textview_red_bg"
-            android:padding="10dp"
-            android:text="去支付"
-            android:textColor="@color/white" />
+            android:padding="10dp">
+            <TextView 
+                android:id="@+id/tv_total"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="合计：￥78.00"
+                android:textColor="@color/red"/>
+            <TextView 
+                android:id="@+id/tv_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_red_bg"
+                android:textColor="@color/white"
+                android:text="提交订单"/>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <include
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/progress" />
+
+</RelativeLayout>

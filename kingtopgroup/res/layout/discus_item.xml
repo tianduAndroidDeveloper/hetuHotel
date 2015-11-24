@@ -39,10 +39,10 @@
     android:textColor="@color/gray"
     android:text="09/23/2015 14:55:23"/>
 
-<View android:layout_height="2dp"
+<!-- <View android:layout_height="2dp"
      android:padding="5dp"
     android:layout_width="fill_parent"
-    android:background="@color/gray"/>
+    android:background="@color/gray"/> -->
     
     
 </LinearLayout>

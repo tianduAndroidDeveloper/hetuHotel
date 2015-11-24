@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.kingtogroup.location.DistanceUtils;
 import com.kingtogroup.location.LastLocation;
-import com.kingtogroup.messager.DiscusActivity;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
