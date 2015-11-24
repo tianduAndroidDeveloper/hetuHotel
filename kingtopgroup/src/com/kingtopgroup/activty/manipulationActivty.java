@@ -170,7 +170,7 @@ public class manipulationActivty extends Activity {
 				UserBean.getUSerBean().setPid(pid);
 				UserBean.getUSerBean().setStoreRId(storeid);
 				UserBean.getUSerBean().putServiceItem(obj);
-
+				inten.putExtra("zuliao", !getIntent().getBooleanExtra("lubo", false));
 				inten.putExtras(bundle);
 				startActivity(inten);
 			}

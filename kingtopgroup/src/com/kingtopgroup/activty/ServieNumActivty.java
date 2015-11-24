@@ -33,6 +33,7 @@ import android.provider.SyncStateContract.Constants;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -63,6 +64,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String TuiNaContext = null;
 	private ACache acache;
 	private TextView service_num_webview, messager_name;
+	private LinearLayout main,extend;
+	private RadioButton water_other,water_self,wood_other,wood_self;
 	JSONObject obj = null;
 
 	LinearLayout manipulations;
@@ -95,7 +98,23 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			messager_name = (TextView) findViewById(R.id.messager_name);
 			messager_name.setText("ÍÆÄÃÊ¦:" + messager_names);
 		}
-
+		main = (LinearLayout) findViewById(R.id.main);
+		if(name.length()>7){
+			main.setOrientation(LinearLayout.VERTICAL);
+		}else{
+			main.setOrientation(LinearLayout.HORIZONTAL);
+		}
+		extend = (LinearLayout) findViewById(R.id.extend);
+		if(getIntent().getBooleanExtra("zuliao", false)){
+			View v = LayoutInflater.from(this).inflate(R.layout.zuliao_middle, null);
+			water_other = (RadioButton) v.findViewById(R.id.water_other);
+			water_self = (RadioButton) v.findViewById(R.id.water_sefl);
+			wood_other = (RadioButton) v.findViewById(R.id.wood_other);
+			wood_self = (RadioButton) v.findViewById(R.id.wood_self);
+			water_other.setChecked(true);
+			wood_other.setChecked(true);
+			extend.addView(v);
+		}
 		product_item_name = (TextView) findViewById(R.id.product_item_name);
 		product_item_name.setText(name);
 		product_item_price = (TextView) findViewById(R.id.product_item_price);

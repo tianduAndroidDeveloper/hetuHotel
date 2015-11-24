@@ -47,7 +47,7 @@ public class DiscusActivity extends MainActionBarActivity {
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.discus_layout);
-	        titleButton.setText("∆¿¬€“≥");
+	        titleButton.setText("∆¿¬€");
 	        resources = getResources();
 	       this.json = getIntent().getStringExtra("json");
 	      
