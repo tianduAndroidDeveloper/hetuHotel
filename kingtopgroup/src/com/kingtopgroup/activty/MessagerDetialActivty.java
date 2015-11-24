@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kingtogroup.messager.DiscusActivity;
 import com.kingtopgroup.R;
 import com.kingtopgroup.adapter.manipulationAdapter;
 import com.kingtopgroup.constant.ConstanceUtil;
@@ -51,6 +50,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.messager_detail);
 		titleButton.setText("推拿师详情");
+		all_discus = (TextView) findViewById(R.id.all_discus);
 		acache = ACache.get(this);
 		if (acache.getAsString("discus_json") != null) {
 			discus_json = acache.getAsString("discus_json");
@@ -64,6 +64,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 			count=ob.getString("discusCount");
 			discuss_count=(TextView) findViewById(R.id.discuss_count);
 			discuss_count.setText(count+"人评价");
+			all_discus.setText("全部评价:("+count+")");
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -71,7 +72,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		
 		
 
-		all_discus = (TextView) findViewById(R.id.all_discus);
+		
 		discus_tv = (TextView) findViewById(R.id.discus_tv);
 		photo = (ImageView) findViewById(R.id.headPhoto);
 		progress = findViewById(R.id.progress);
@@ -174,7 +175,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 				+ (obj2.optInt("Sex") == 0 ? "女" : "男"));
 
 		// 好评度
-		String discus_tvs = obj.optString("GoodPercent") + "%好评度";
+		String discus_tvs = obj.optString("GoodPercent") + "%好评度>";
 		discus_tv.setText(discus_tvs);
 
 		// 个人介绍
@@ -213,6 +214,8 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 					long arg3) {
 				HashMap<String, Object> obj = (HashMap<String, Object>) arg0
 						.getItemAtPosition(arg2);
+				String messager_name=(String) name.getText();
+				
 				String pid = (String) obj.get("pid");
 				String storeid = (String) obj.get("storeid");
 				String name = (String) obj.get("name");
@@ -223,12 +226,14 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 				Intent inten = new Intent(MessagerDetialActivty.this,
 						ServieNumActivty.class);
 				Bundle bundle = new Bundle();
+				bundle.putString("messager_name", messager_name);
 				bundle.putString("name", name);
 				bundle.putString("time", time);
 				bundle.putString("price", price);
 				bundle.putString("beginnum", beginnum);
 				bundle.putString("image", image);
 				bundle.putString("pid", pid);
+				bundle.putString("messagerDteail", "1");
 
 				UserBean.getUSerBean().setPid(pid);
 				UserBean.getUSerBean().setStoreRId(storeid);

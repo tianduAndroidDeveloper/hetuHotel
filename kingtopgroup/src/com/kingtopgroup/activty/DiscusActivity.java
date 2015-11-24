@@ -1,4 +1,4 @@
-package com.kingtogroup.messager;
+package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -20,8 +20,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kingtogroup.messager.ChildFragment;
+import com.kingtogroup.messager.CustomFragmentPagerAdapter;
 import com.kingtopgroup.R;
-import com.kingtopgroup.activty.MainActionBarActivity;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

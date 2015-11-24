@@ -38,6 +38,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -59,8 +60,10 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String Description = null;
 	private String TuiNaContext = null;
 	private ACache acache;
-	private TextView service_num_webview;
+	private TextView service_num_webview,messager_name;
 	JSONObject obj = null;
+	
+	LinearLayout manipulations;
 	// private ProgressBar service_progressbar;
 	private TextView service_num_button,service_add_button, service_reduce_button, service_num_next_button;
 
@@ -79,6 +82,16 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		String num = bundel.getString("beginnum");
 		String image = bundel.getString("image");
 		String price = bundel.getString("price");
+		String messagerDteail=bundel.getString("messagerDteail");
+	    String  messager_names=bundel.getString("messager_name");
+		if("".equals(messagerDteail) || messagerDteail==null){
+			
+		}else{
+			manipulations=(LinearLayout) findViewById(R.id.manipulations);
+			manipulations.setVisibility(View.GONE);
+			messager_name=(TextView) findViewById(R.id.messager_name);
+			messager_name.setText("推拿师:"+messager_names);
+		}
 
 		product_item_name = (TextView) findViewById(R.id.product_item_name);
 		product_item_name.setText(name);
@@ -130,16 +143,19 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 		// --------------------------------图片循环-----------------------------------------
 		// 需要循环的图片
+		
+		cycleViewPager = (CycleViewPager) getFragmentManager()
+				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 		String[] imageUrls = {
 				"http://kingtopgroup.com/mobile/images/banner01.jpg",
 				"http://kingtopgroup.com/mobile/images/banner02.jpg",
 				"http://kingtopgroup.com/mobile/images/banner03.jpg" };
 
-		cycleViewPager = (CycleViewPager) getFragmentManager()
-				.findFragmentById(R.id.fragment_cycle_viewpager_content);
+		
 		// 图片轮播
 		LunboImageUtil lb = new LunboImageUtil();
 		lb.initialize(this, imageUrls, cycleViewPager);
+		
 		acache = ACache.get(this);
 
 		// ----------------------------服务内容-------------------------------------

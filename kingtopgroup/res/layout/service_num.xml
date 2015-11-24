@@ -67,6 +67,12 @@
                         android:layout_height="wrap_content"
                         android:text="￥39.00"
                         android:textColor="@color/red" />
+                    
+                    <TextView android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:paddingTop="5dp"
+                        android:text="ldkcld"
+                        android:id="@+id/messager_name"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,6 +98,8 @@
                         android:layout_height="wrap_content"
                         android:text="（两人起订）"
                         android:textColor="@color/red" />
+                    
+                    
                 </LinearLayout>
             </LinearLayout>
 

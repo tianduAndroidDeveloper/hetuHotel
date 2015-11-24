@@ -56,11 +56,6 @@ public class manipulationActivty extends Activity {
 	private View progress;
 	private static final AsyncHttpClient client = new AsyncHttpClient();
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
