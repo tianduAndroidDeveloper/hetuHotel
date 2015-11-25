@@ -99,7 +99,7 @@ public class ManagerAdapter2 extends BaseAdapter {
 		if (bean.sex.equals("1")) {
 			sex = "ÄÐ";
 		} else {
-			sex = "Å®";
+			sex = "Å®";  
 		}
 		holder.sex.setText(sex);
 		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId

@@ -9,6 +9,8 @@
     <ListView android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:padding="10dp"
-        android:id="@+id/discus_listview"/>
+        android:id="@+id/discus_listview"
+        android:cacheColorHint="#ffffff"
+        android:scrollbars="none"/>
 
 </LinearLayout>

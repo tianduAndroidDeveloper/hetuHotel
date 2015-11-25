@@ -24,6 +24,7 @@ import com.stevenhu.android.phone.utils.ToastUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -256,12 +257,14 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				Log.d(ServiceAddressActivty.this.getClass().getName(), new String(arg2) + " =" +  UserBean.getUSerBean().getUid() + " opid=" + opid);
 				Utils.showToast(ServiceAddressActivty.this, "设置服务地址失败");
 			}
 			
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				// TODO Auto-generated method stub
+				Log.d(ServiceAddressActivty.this.getClass().getName(), new String(arg2));
 				Utils.showToast(ServiceAddressActivty.this, "设置服务地址失败");
 			}
 		});

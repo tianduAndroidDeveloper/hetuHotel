@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +44,13 @@ public class orderActivity extends TabActivity implements
 		message = (RadioButton) findViewById(R.id.message);
 		orders = (RadioButton) findViewById(R.id.orders);
 		location = (TextView) findViewById(R.id.order);
+		//字体设置
+		Typeface mTypeface = Typeface.createFromAsset(getAssets(), "fonts/kaiti.ttf");
+		manipulation.setTypeface(mTypeface);
+		pedicure.setTypeface(mTypeface);
+		message.setTypeface(mTypeface);
+		orders.setTypeface(mTypeface);
+		location.setTypeface(mTypeface);
 		initLocation();
 
 		tabs = (TabWidget) findViewById(android.R.id.tabs);
