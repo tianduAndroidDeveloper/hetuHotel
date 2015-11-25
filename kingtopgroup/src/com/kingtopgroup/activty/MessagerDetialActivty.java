@@ -45,6 +45,8 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 	private List<Map<String, Object>> list = null;
 	ImageView photo;
 	View progress;
+	View pv;
+	LinearLayout messager_detail_listview,messager_discus_lin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +56,28 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		
         discus_listview = (ListView) findViewById(R.id.discus_listview);
 		//给listview添加头部
-				View pv=LayoutInflater.from(this).inflate(R.layout.messager_detail_title, null);
+				pv=LayoutInflater.from(this).inflate(R.layout.messager_detail_title, null);
 				discus_listview.addHeaderView(pv);	
+				
+	    messager_detail_listview=(LinearLayout) pv.findViewById(R.id.messager_detail_listview);
+	    messager_detail_listview.setOnClickListener(null);
+	    
+	    
 		titleButton.setText("推拿师详情");
-		all_discus = (TextView) findViewById(R.id.all_discus);
+		all_discus = (TextView) pv.findViewById(R.id.all_discus);
 		acache = ACache.get(this);
 		if (acache.getAsString("discus_json") != null) {
 			discus_json = acache.getAsString("discus_json");
 		}
+		
+		
 		String StoreId = getIntent().getStringExtra("json");
 		String count="";
 		try {
 			JSONObject ob = new JSONObject(StoreId);
 			StoreId = ob.getString("storeid");
 			count=ob.getString("discusCount");
-			discuss_count=(TextView) findViewById(R.id.discuss_count);
+			discuss_count=(TextView) pv.findViewById(R.id.discuss_count);
 			discuss_count.setText(count+"人评价");
 			all_discus.setText("全部评价:("+count+")");
 		} catch (JSONException e1) {
@@ -76,14 +85,15 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 			e1.printStackTrace();
 		}
 		
-		discus_tv = (TextView) findViewById(R.id.discus_tv);
-		photo = (ImageView) findViewById(R.id.headPhoto);
+		discus_tv = (TextView) pv.findViewById(R.id.discus_tv);
+		photo = (ImageView) pv.findViewById(R.id.headPhoto);
 		progress = findViewById(R.id.progress);
 
-		all_discus.setOnClickListener(this);
-		discus_tv.setOnClickListener(this);
+		//all_discus.setOnClickListener(this);
+		//discus_tv.setOnClickListener(this);
 
-		
+		messager_discus_lin=(LinearLayout) pv.findViewById(R.id.messager_discus_lin);
+	    messager_discus_lin.setOnClickListener(this);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("massid", StoreId);
 		progress.setVisibility(View.VISIBLE);
@@ -172,7 +182,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 
 		JSONObject obj2 = (JSONObject) obj.opt("Massger");
 		// 姓名
-		name = (TextView) findViewById(R.id.name);
+		name = (TextView) pv.findViewById(R.id.name);
 		name.setText(obj2.optString("Name").trim() + "  "
 				+ (obj2.optInt("Sex") == 0 ? "女" : "男"));
 
@@ -182,17 +192,17 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 
 		// 个人介绍
 		String introduce = obj2.optString("Description");
-		person_introduce = (TextView) findViewById(R.id.person_introduce);
+		person_introduce = (TextView) pv.findViewById(R.id.person_introduce);
 		person_introduce.setText("个人介绍 :        " + introduce);
 
 		// 位置
 		String RegionName = obj.optString("RegionName");
-		address = (TextView) findViewById(R.id.address);
+		address = (TextView) pv.findViewById(R.id.address);
 		address.setText(RegionName);
 
 		// 职称
 		String RankTitles = obj.optString("RankTitle");
-		RankTitle = (TextView) findViewById(R.id.RankTitle);
+		RankTitle = (TextView) pv.findViewById(R.id.RankTitle);
 		RankTitle.setText(RankTitles);
 		// storeid
 		String store = obj2.optString("StoreId");
@@ -200,7 +210,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		// 照片
 		String photos = obj2.optString("Logo");// /upload/store/11/logo/thumb150_150/s_1509031744431521205.jpg// /upload/store/10/logo/thumb150_150/s_1509031744186077167.jpg
 		String uri = "http://kingtopgroup.com/upload/store/" + store + "/logo/thumb150_150/" + photos;
-		ImageLoader.getInstance().displayImage(uri, (ImageView)findViewById(R.id.headphoto));
+		ImageLoader.getInstance().displayImage(uri, (ImageView)pv.findViewById(R.id.headphoto));
 		
 		//评价数量
 		
@@ -252,14 +262,14 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.discus_tv:
-			Intent intent = new Intent(this, DiscusActivity.class);
+		case R.id.messager_discus_lin:
+			Intent intent = new Intent(MessagerDetialActivty.this, DiscusActivity.class);
 			intent.putExtra("json", discus_json);
 			startActivity(intent);
 			break;
 
 		case R.id.all_discus:
-			Intent intents = new Intent(this, DiscusActivity.class);
+			Intent intents = new Intent(MessagerDetialActivty.this, DiscusActivity.class);
 			intents.putExtra("json", discus_json);
 			startActivity(intents);
 			break;
