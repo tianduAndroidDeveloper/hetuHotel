@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -270,7 +271,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			if (holder == null)
 				holder = initHolder(convertView);
 			ServiceEntity service = services.get(position);
-			String uri = Utils.assembleImageUri(service.Logo, "5");
+			String uri = Utils.assembleImageUri(service.ShowImg, "5");
 			Log.i(TAG, uri);
 			ImageLoader.getInstance().displayImage(uri.trim(), holder.iv_service);
 			holder.tv_type.setText("项目：" + service.Name);
@@ -297,6 +298,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			TextView tv2 = (TextView) v.findViewById(R.id.tv2);
 			TextView tv3 = (TextView) v.findViewById(R.id.tv3);
 			ImageView iv2 = (ImageView) v.findViewById(R.id.imageView2);
+			iv2.setScaleType(ScaleType.CENTER_CROP);
 			try {
 				double distance = DistanceUtils.GetDistance(massageEntity.Point_X, massageEntity.Point_X, LastLocation.initInstance().getLatitude(), LastLocation.initInstance().getLongitude());
 				tv2.setText(String.valueOf(distance) + "公里");
@@ -304,7 +306,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				e.printStackTrace();
 			}
 			tv1.setText(massageEntity.Name);
-			String uri = "http://kingtopgroup.com/upload/store/" + service.Storeid + "/logo/thumb150_150/" + service.ShowImg;
+			String uri = "http://kingtopgroup.com/upload/store/" + service.Storeid + "/logo/thumb150_150/" + massageEntity.Logo;
 			Log.i(TAG, uri);
 			ImageLoader.getInstance().displayImage(uri.trim(), iv2);
 			ll.addView(v);

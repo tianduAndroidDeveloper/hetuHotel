@@ -171,8 +171,9 @@ class Adapter extends BaseAdapter {
 			this.location.setText(obj.optString("regionName").trim());
 			this.introduce.setText(obj.optString("description").trim());
 			this.level.setText(obj.optString("title").trim());
-			String uri = "http://kingtopgroup.com/upload/store/" + obj.optString("storeid")
-					+ "/logo/thumb150_150/" + obj.optString("logo");
+			//String uri = "http://kingtopgroup.com/upload/store/" + obj.optString("storeid")
+				//	+ "/logo/thumb150_150/" + obj.optString("logo");
+			String uri = String.format(mContext.getString(R.string.url_logoHost),obj.optInt("storeid")) + obj.optString("logo");
 			Log.i("messageActivty", uri);
 			ImageLoader.getInstance().displayImage(uri.trim(), this.headPhoto);
 			

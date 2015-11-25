@@ -36,7 +36,8 @@
             android:numStars="5"
             android:rating="5"
             android:stepSize="1"
-            android:max="5"/>
+            android:max="5"
+           />
 
         <EditText
             android:id="@+id/et_review"
@@ -62,7 +63,8 @@
             android:layout_below="@id/tip"
             android:layout_width="match_parent"
             android:layout_height="2dip"
-            android:background="@drawable/red_line"/>
+            android:background="@drawable/dash_line"
+            android:layerType="software"/>
 
         <TextView
             android:id="@+id/tv_star2"

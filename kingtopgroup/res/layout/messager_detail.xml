@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:makeramen="http://schemas.android.com/apk/res/com.kingtopgroup"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/all" >
 
-   <ScrollView
+    <ListView
+        android:id="@+id/discus_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_light"
-        android:orientation="vertical"
-        android:padding="10dp" >
-         -->
+        android:layout_marginBottom="10dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/all"
+        android:dividerHeight="5dp"
+        android:padding="10dp" />
 
-       
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/linear_boder" >
-
-                <com.kingtogroup.view.MyListView
-                    android:id="@+id/discus_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:cacheColorHint="#00000000"
-                    android:divider="@null"
-                    android:dividerHeight="5dp"
-                    android:padding="10dp" />
-            </LinearLayout>
-   </ScrollView> 
-    
-    <include 
+    <include
+        android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/progress"
-        android:id="@+id/progress"/>
+        layout="@layout/progress" />
 
 </RelativeLayout>
