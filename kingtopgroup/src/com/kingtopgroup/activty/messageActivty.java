@@ -132,13 +132,15 @@ class Adapter extends BaseAdapter {
 
 			// µã»÷Í·Ïñ
 			this.headPhoto.setOnClickListener(new OnClickListener() {
-
+				private ACache acache;
 				@Override
 				public void onClick(View v) {
 					JSONObject obj = (JSONObject) v.getTag();
 					Intent inten = new Intent(mContext,
 							MessagerDetialActivty.class);
 					inten.putExtra("json", obj.toString());
+					acache = ACache.get(mContext);
+					acache.put("discus_json", obj.toString());
 					//inten.putExtra("discount_num",v.getTag(12).toString());
 					mContext.startActivity(inten);
 

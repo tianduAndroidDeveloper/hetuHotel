@@ -131,7 +131,12 @@ public class ChildFragment extends Fragment {
 			}
 			holder.phone.setText(phone);
 			holder.content.setText(discusbean.get(arg0).contnet);
-			holder.date.setText(discusbean.get(arg0).date);
+			String date=discusbean.get(arg0).date;
+			int index =date.indexOf("T");
+			String date2=date.substring(0, index);
+			int t=date.indexOf(".");
+			String date1=date.substring(index+1,t);
+			holder.date.setText(date2+" "+date1);
 			return view;
 		}
 		
