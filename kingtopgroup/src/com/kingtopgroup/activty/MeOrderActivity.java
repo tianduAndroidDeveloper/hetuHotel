@@ -50,8 +50,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class MeOrderActivity extends MainActionBarActivity implements
-		OnClickListener {
+public class MeOrderActivity extends MainActionBarActivity implements OnClickListener {
 	private static final String TAG = "MeOrderActivity";
 	ListView lv;
 	View progress;
@@ -85,8 +84,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
-		String url = "http://kingtopgroup.com/api/ucenter/GetOrderList?uid="
-				+ uid + "&page=" + 1 + "&orderState=0";
+		String url = "http://kingtopgroup.com/api/ucenter/GetOrderList?uid=" + uid + "&page=" + 1 + "&orderState=0";
 		client.get(url, null, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -103,8 +101,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				toastMsg("请求失败，请重试！", 1);
 			}
 		});
@@ -119,8 +116,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 					ObjectMapper mapper = new ObjectMapper();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
-						Order order = mapper.readValue(obj.toString(),
-								Order.class);
+						Order order = mapper.readValue(obj.toString(), Order.class);
 						orders.add(order);
 					}
 				} catch (JSONException e) {
@@ -155,8 +151,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 						try {
 							JSONObject obj = array.getJSONObject(i);
 							ObjectMapper om = new ObjectMapper();
-							OrderProduct product = om.readValue(obj.toString(),
-									OrderProduct.class);
+							OrderProduct product = om.readValue(obj.toString(), OrderProduct.class);
 							for (int j = 0; j < orders.size(); j++) {
 								Order order = orders.get(j);
 								if (order.oid == product.Oid)
@@ -230,6 +225,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 		TextView tv_cancel;
 		LinearLayout ll;
 		TextView tv_ordermoney;
+		TextView tv_review;
 		CheckBox cb;
 	}
 
@@ -253,29 +249,21 @@ public class MeOrderActivity extends MainActionBarActivity implements
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
 			if (convertView == null)
-				convertView = View.inflate(MeOrderActivity.this,
-						R.layout.item_order, null);
+				convertView = View.inflate(MeOrderActivity.this, R.layout.item_order, null);
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			if (holder == null) {
 				holder = new ViewHolder();
-				holder.tv_order_num = (TextView) convertView
-						.findViewById(R.id.tv_num);
-				holder.tv_order_status = (TextView) convertView
-						.findViewById(R.id.tv_status);
+				holder.tv_order_num = (TextView) convertView.findViewById(R.id.tv_num);
+				holder.tv_order_status = (TextView) convertView.findViewById(R.id.tv_status);
 				holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
-				holder.tv_address = (TextView) convertView
-						.findViewById(R.id.tv_address);
-				holder.tv_phone = (TextView) convertView
-						.findViewById(R.id.tv_phone);
-				holder.tv_name = (TextView) convertView
-						.findViewById(R.id.tv_name);
-				holder.tv_cancel = (TextView) convertView
-						.findViewById(R.id.tv_cancle);
-				holder.img = (ImageView) convertView
-						.findViewById(R.id.imageView1);
+				holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+				holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_phone);
+				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+				holder.tv_cancel = (TextView) convertView.findViewById(R.id.tv_cancle);
+				holder.img = (ImageView) convertView.findViewById(R.id.imageView1);
 				holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
-				holder.tv_ordermoney = (TextView) convertView
-						.findViewById(R.id.tv_ordermoney);
+				holder.tv_ordermoney = (TextView) convertView.findViewById(R.id.tv_ordermoney);
+				holder.tv_review = (TextView) convertView.findViewById(R.id.tv_review);
 				convertView.setTag(holder);
 			}
 
@@ -322,19 +310,25 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				break;
 			}
 
-			holder.tv_cancel
-					.setVisibility(state.contains("等待付款") ? View.VISIBLE
-							: View.GONE);
-			holder.cb.setVisibility(state.contains("等待付款") ? View.VISIBLE
-					: View.GONE);
+			holder.tv_cancel.setVisibility(state.contains("等待付款") ? View.VISIBLE : View.GONE);
+			holder.tv_review.setVisibility(state.contains("已完成") ? View.VISIBLE : View.GONE);
+			holder.cb.setVisibility(state.contains("等待付款") ? View.VISIBLE : View.GONE);
 			holder.tv_order_status.setText(state);
 
+			holder.tv_review.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(MeOrderActivity.this, ReviewActivity.class);
+					intent.putExtra("oid", String.valueOf(order.oid));
+					MeOrderActivity.this.startActivity(intent);
+				}
+			});
 			List<OrderProduct> products = order.orderProducts;
 			holder.ll.removeAllViews();
 			for (int i = 0; i < products.size(); i++) {
 				OrderProduct product = products.get(i);
-				View rl = View.inflate(MeOrderActivity.this,
-						R.layout.item_product, null);
+				View rl = View.inflate(MeOrderActivity.this, R.layout.item_product, null);
 				TextView tv_type = (TextView) rl.findViewById(R.id.tv_type);
 				TextView tv_people = (TextView) rl.findViewById(R.id.tv_people);
 				TextView tv_count = (TextView) rl.findViewById(R.id.tv_count);
@@ -363,11 +357,10 @@ public class MeOrderActivity extends MainActionBarActivity implements
 
 				if (product.BrandId != 28 && state.contains("等待付款")) {
 					boolean flag1 = false;
-					if(TextUtils.isEmpty(product.ServiceTime))
+					if (TextUtils.isEmpty(product.ServiceTime))
 						flag1 = true;
 					String date = product.PServiceDate + product.ServiceTime;
-					SimpleDateFormat sdf1 = new SimpleDateFormat(
-							"yyyy年MM月dd日", Locale.CHINA);
+					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
 					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年MM月dd日HH:mm", Locale.CHINA);
 					Date d;
 					try {
@@ -389,8 +382,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 			holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 				@Override
-				public void onCheckedChanged(CompoundButton compoundButton,
-						boolean isChecked) {
+				public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 					if (isChecked) {
 						for (int i = 0; i < orders.size(); i++) {
 							Order order = orders.get(i);
@@ -422,8 +414,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 		ForegroundColorSpan blackSpan = new ForegroundColorSpan(Color.BLACK);
 
 		builder.setSpan(blackSpan, 0, count, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		builder.setSpan(graySpan, count, text.length(),
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		builder.setSpan(graySpan, count, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 		textView.setText(builder);
 	}
@@ -456,8 +447,7 @@ public class MeOrderActivity extends MainActionBarActivity implements
 				toastMsg("您还没有选择任何订单哦", 1);
 				return;
 			}
-			Intent intent = new Intent(MeOrderActivity.this,
-					PayInfoActivity.class);
+			Intent intent = new Intent(MeOrderActivity.this, PayInfoActivity.class);
 			intent.putExtra("order", orders.get(checkedPosition));
 			this.startActivity(intent);
 			break;

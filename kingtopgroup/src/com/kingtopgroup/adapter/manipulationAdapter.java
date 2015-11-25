@@ -96,8 +96,6 @@ public class manipulationAdapter extends BaseAdapter {
 		ImageLoader.getInstance().displayImage(
 				(String) ItemInfoList.get(position).get("order_item_image1"),
 				holder.order_item_image1);
-		// finalBitMap.display(holder.order_item_image1, (String) ItemInfoList
-		// .get(position).get("order_item_image1"));
 
 		return convertView;
 	}

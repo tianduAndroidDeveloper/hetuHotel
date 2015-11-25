@@ -61,7 +61,6 @@ class Adapter extends BaseAdapter {
 		try {
 			dataList = new JSONArray(json);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -74,13 +73,11 @@ class Adapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return dataList.optJSONObject(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 

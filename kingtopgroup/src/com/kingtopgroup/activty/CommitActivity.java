@@ -1,12 +1,8 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -19,7 +15,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
@@ -38,8 +33,10 @@ import android.widget.Toast;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingtogroup.domain.Order;
-import com.kingtogroup.domain.OrderProduct;
+import com.kingtogroup.domain.MassageEntity;
+import com.kingtogroup.domain.ServiceEntity;
+import com.kingtogroup.location.DistanceUtils;
+import com.kingtogroup.location.LastLocation;
 import com.kingtogroup.utils.ParserJSON;
 import com.kingtogroup.utils.ParserJSON.ParseListener;
 import com.kingtogroup.utils.Utils;
@@ -49,23 +46,23 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class CommitActivity extends MainActionBarActivity implements
-		OnClickListener {
+public class CommitActivity extends MainActionBarActivity implements OnClickListener {
 	private static final String TAG = "CommitActivity";
 	ListView lv;
 	View progress;
-	JSONObject object;
-	List<Order> orders = new ArrayList<Order>();
+	List<ServiceEntity> services = new ArrayList<ServiceEntity>();
+	List<MassageEntity> massages = new ArrayList<MassageEntity>();
 	MyListViewAdapter adapter;
 	TextView tv_commit;
 	TextView tv_total;
+	String opid;
 
 	@Override
 	@SuppressLint("InflateParams")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_commit);
-		titleButton.setText("提交订单");
+		titleButton.setText("确认订单");
 		init();
 	}
 
@@ -74,41 +71,92 @@ public class CommitActivity extends MainActionBarActivity implements
 		progress = findViewById(R.id.progress);
 		tv_commit = (TextView) findViewById(R.id.tv_commit);
 		tv_total = (TextView) findViewById(R.id.tv_total);
+		opid = String.valueOf(getIntent().getIntExtra("opid", -1));
+		tv_commit.setOnClickListener(this);
+		checkCardBalance();
 		addHeader();
 		requestData();
 	}
 
 	void addHeader() {
 		View v = View.inflate(this, R.layout.header_commit, null);
+		final CheckBox cb_shipcard = (CheckBox) v.findViewById(R.id.cb);
 		lv.addHeaderView(v);
 		TextView tv_prefer = (TextView) v.findViewById(R.id.tv_prefer);
 		tv_prefer.setOnClickListener(this);
+		cb_shipcard.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				if (balance < sum) {
+					toastMsg("您的会员卡余额不足，请充值", 1);
+					cb_shipcard.setChecked(false);
+				}
+			}
+		});
 	}
 
-	void requestData() {
+	double balance = -1;
+
+	double checkCardBalance() {
 		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
-		String url = "http://kingtopgroup.com/api/ucenter/GetOrderList?uid="
-				+ uid + "&page=" + 1 + "&orderState=0";
-		client.get(url, null, new AsyncHttpResponseHandler() {
+		String url = "http://kingtopgroup.com/api/ucenter/ShipCardList?uid=" + uid;
+		client.get(url, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				if (arg0 == 200) {
+					try {
+						JSONObject memberObject = new JSONObject(new String(arg2));
+						JSONObject account = memberObject.optJSONObject("Account");
+						balance = account.optDouble("CurrentAmount");
+					} catch (JSONException e) {
+						toastMsg("会员卡余额查询失败，请联系客服", 1);
+						e.printStackTrace();
+					}
+					progress.setVisibility(View.GONE);
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				toastMsg("会员卡余额查询失败，请重试", 1);
+				balance = -1;
+				progress.setVisibility(View.GONE);
+			}
+		});
+		return balance;
+	}
+
+	JSONObject object;
+
+	void requestData() {
+		if (opid.equals("-1"))
+			return;
+		progress.setVisibility(View.VISIBLE);
+		AsyncHttpClient client = new AsyncHttpClient();
+		String uid = UserBean.getUSerBean().getUid();
+		String url = "http://kingtopgroup.com/api/order/confirmorder?uid=" + uid + "&opid=" + opid;
+		client.post(url, null, new AsyncHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				if (arg0 == 200) {
 					try {
 						object = new JSONObject(new String(arg2));
-						JSONArray array = object.getJSONArray("OrderList");
+						JSONArray array = object.optJSONArray("ServiceInfoList");
 						parseToEntity(array);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+
 				}
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				toastMsg("请求失败，请重试！", 1);
 			}
 		});
@@ -123,9 +171,8 @@ public class CommitActivity extends MainActionBarActivity implements
 					ObjectMapper mapper = new ObjectMapper();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
-						Order order = mapper.readValue(obj.toString(),
-								Order.class);
-						orders.add(order);
+						ServiceEntity service = mapper.readValue(obj.toString(), ServiceEntity.class);
+						services.add(service);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -136,63 +183,35 @@ public class CommitActivity extends MainActionBarActivity implements
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				return orders;
+				return services;
 			}
 
 			@Override
 			public void onComplete(Object parseResult) {
 				if (parseResult != null) {
-					parseProduct();
+					parseMassages();
 				}
 			}
 		}).execute();
 	}
 
-	void parseProduct() {
-		try {
-			final JSONArray array = object.getJSONArray("OrderProductList");
-			new ParserJSON(new ParseListener() {
-
-				@Override
-				public Object onParse() {
-					for (int i = 0; i < array.length(); i++) {
-						try {
-							JSONObject obj = array.getJSONObject(i);
-							ObjectMapper om = new ObjectMapper();
-							OrderProduct product = om.readValue(obj.toString(),
-									OrderProduct.class);
-							for (int j = 0; j < orders.size(); j++) {
-								Order order = orders.get(j);
-								if (order.oid == product.Oid)
-									order.orderProducts.add(product);
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						} catch (JsonParseException e) {
-							e.printStackTrace();
-						} catch (JsonMappingException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-
-					}
-					return orders;
-				}
-
-				@Override
-				public void onComplete(Object parseResult) {
-					if (parseResult != null) {
-						fillData();
-					}
-
-				}
-			}).execute();
-		} catch (JSONException e) {
-			e.printStackTrace();
+	void parseMassages() {
+		JSONArray array = object.optJSONArray("MassagerInfoList");
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject object = array.optJSONObject(i);
+			MassageEntity massageEntity = new MassageEntity();
+			massageEntity.Description = object.optString("Description");
+			massageEntity.Logo = object.optString("Logo");
+			massageEntity.Name = object.optString("Name");
+			massageEntity.Point_X = object.optDouble("Point_X");
+			massageEntity.Point_Y = object.optDouble("Point_Y");
+			massages.add(massageEntity);
 		}
+		fillData();
 
 	}
+
+	double sum = 0;
 
 	void fillData() {
 		progress.setVisibility(View.GONE);
@@ -202,6 +221,11 @@ public class CommitActivity extends MainActionBarActivity implements
 		} else {
 			adapter.notifyDataSetChanged();
 		}
+		for (int i = 0; i < services.size(); i++) {
+			ServiceEntity service = services.get(i);
+			sum += service.ShopPrice;
+		}
+		tv_total.setText("合计：￥" + sum);
 	}
 
 	void toastMsg(String msg, int time) {
@@ -209,24 +233,23 @@ public class CommitActivity extends MainActionBarActivity implements
 	}
 
 	class ViewHolder {
-
-		TextView tv_order_num;
-		TextView tv_order_status;
+		ImageView iv_service;
+		TextView tv_type;
+		TextView tv_count;
+		TextView tv_time;
+		TextView tv_sum;
+		TextView tv_money;
+		LinearLayout ll_massagers;
 		TextView tv_address;
 		TextView tv_phone;
 		TextView tv_name;
-		ImageView img;
-		TextView tv_cancel;
-		LinearLayout ll;
-		TextView tv_ordermoney;
-		CheckBox cb;
 	}
 
 	class MyListViewAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
-			return orders.size();
+			return services.size();
 		}
 
 		@Override
@@ -242,166 +265,77 @@ public class CommitActivity extends MainActionBarActivity implements
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
 			if (convertView == null)
-				convertView = View.inflate(CommitActivity.this,
-						R.layout.item_order, null);
+				convertView = View.inflate(CommitActivity.this, R.layout.item_service, null);
 			ViewHolder holder = (ViewHolder) convertView.getTag();
-			if (holder == null) {
-				holder = new ViewHolder();
-				holder.tv_order_num = (TextView) convertView
-						.findViewById(R.id.tv_num);
-				holder.tv_order_status = (TextView) convertView
-						.findViewById(R.id.tv_status);
-				holder.ll = (LinearLayout) convertView.findViewById(R.id.ll);
-				holder.tv_address = (TextView) convertView
-						.findViewById(R.id.tv_address);
-				holder.tv_phone = (TextView) convertView
-						.findViewById(R.id.tv_phone);
-				holder.tv_name = (TextView) convertView
-						.findViewById(R.id.tv_name);
-				holder.tv_cancel = (TextView) convertView
-						.findViewById(R.id.tv_cancle);
-				holder.img = (ImageView) convertView
-						.findViewById(R.id.imageView1);
-				holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
-				holder.tv_ordermoney = (TextView) convertView
-						.findViewById(R.id.tv_ordermoney);
-				convertView.setTag(holder);
-			}
-
-			final Order order = orders.get(position);
-			holder.tv_name.setText("联系人：" + order.consignee);
-			holder.tv_phone.setText("电话：" + order.mobile);
-			holder.tv_address.setText("地址：" + order.address);
-			holder.tv_order_num.setText("订单号：" + order.osn);
-			holder.tv_ordermoney.setText("应付金额：￥" + order.orderamount);
-			String state = "订单状态：";
-			switch (order.orderstate) {
-			case 10:
-				state += "已提交";
-				break;
-			case 30:
-				state += "等待付款";
-				break;
-			case 50:
-				state += "待接单";
-				break;
-			case 70:
-				state += "已接单";
-				break;
-			case 90:
-				state += "服务中";
-				break;
-			case 110:
-				state += "已发货";
-				break;
-			case 140:
-				state += "已完成";
-				break;
-			case 160:
-				state += "已退款";
-				break;
-			case 180:
-				state += "锁定";
-				break;
-			case 200:
-				state += "取消";
-				break;
-
-			default:
-				break;
-			}
-
-			holder.tv_cancel
-					.setVisibility(state.contains("等待付款") ? View.VISIBLE
-							: View.GONE);
-			holder.cb.setVisibility(state.contains("等待付款") ? View.VISIBLE
-					: View.GONE);
-			holder.tv_order_status.setText(state);
-
-			List<OrderProduct> products = order.orderProducts;
-			holder.ll.removeAllViews();
-			for (int i = 0; i < products.size(); i++) {
-				OrderProduct product = products.get(i);
-				View rl = View.inflate(CommitActivity.this,
-						R.layout.item_product, null);
-				TextView tv_type = (TextView) rl.findViewById(R.id.tv_type);
-				TextView tv_people = (TextView) rl.findViewById(R.id.tv_people);
-				TextView tv_count = (TextView) rl.findViewById(R.id.tv_count);
-				TextView tv_time = (TextView) rl.findViewById(R.id.tv_time);
-				TextView tv_sum = (TextView) rl.findViewById(R.id.tv_sum);
-				TextView tv_money = (TextView) rl.findViewById(R.id.tv_money);
-				ImageView imageView1 = (ImageView) rl
-						.findViewById(R.id.imageView1);
-
-				tv_people.setText("推拿师：" + product.MassagerNames);
-				String time = product.PServiceDate + " " + product.ServiceTime;
-				tv_time.setText("预约时间：" + time);
-				tv_type.setText("项目：" + product.Name);
-				tv_count.setText("数量：" + product.BuyCount);
-				tv_sum.setText(product.Name + "x" + product.RealCount);
-				tv_money.setText("￥" + product.ShopPrice * product.RealCount);
-				String uri = Utils.assembleImageUri(product.ShowImg, "5");
-				Log.i(TAG, uri);
-				ImageLoader.getInstance().displayImage(uri, imageView1);
-
-				changeTextColor(tv_type, 3);
-				changeTextColor(tv_people, 4);
-				changeTextColor(tv_count, 3);
-				changeTextColor(tv_time, 5);
-
-				holder.ll.addView(rl);
-
-				if (product.BrandId != 28 && state.contains("等待付款")) {
-					boolean flag1 = false;
-					if (TextUtils.isEmpty(product.ServiceTime))
-						flag1 = true;
-					String date = product.PServiceDate + product.ServiceTime;
-					SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日",
-							Locale.CHINA);
-					SimpleDateFormat sdf2 = new SimpleDateFormat(
-							"yyyy年MM月dd日HH:mm", Locale.CHINA);
-					Date d;
-					try {
-						d = flag1 ? sdf1.parse(date) : sdf2.parse(date);
-						boolean flag2 = d.before(new Date());
-						if (flag2) {
-							holder.tv_order_status.setText("订单状态：预约时间已过");
-							holder.cb.setVisibility(View.GONE);
-							holder.tv_cancel.setVisibility(View.GONE);
-						}
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			holder.cb.setChecked(order.checked);
-
-			holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-				@Override
-				public void onCheckedChanged(CompoundButton compoundButton,
-						boolean isChecked) {
-					if (isChecked) {
-						for (int i = 0; i < orders.size(); i++) {
-							Order order = orders.get(i);
-							if (order.checked) {
-								order.checked = false;
-								break;
-							}
-						}
-					}
-
-					order.checked = isChecked;
-					fillData();
-				}
-			});
-
-			changeTextColor(holder.tv_name, 4);
-			changeTextColor(holder.tv_address, 3);
-			changeTextColor(holder.tv_phone, 3);
+			if (holder == null)
+				holder = initHolder(convertView);
+			ServiceEntity service = services.get(position);
+			String uri = Utils.assembleImageUri(service.Logo, "5");
+			Log.i(TAG, uri);
+			ImageLoader.getInstance().displayImage(uri.trim(), holder.iv_service);
+			holder.tv_type.setText("项目：" + service.Name);
+			holder.tv_count.setText("数量：" + service.BuyCount);
+			String[] date = service.ServiceDate.split("T");
+			holder.tv_time.setText("预约时间：" + date[0] + " " + service.TimeSection);
+			holder.tv_phone.setText("联系电话：" + service.Mobile);
+			holder.tv_sum.setText(service.Name + "x" + service.BuyCount);
+			holder.tv_name.setText("联系人：" + service.Consignee);
+			holder.tv_address.setText("通讯地址：" + service.Address);
+			holder.tv_money.setText("￥" + service.ShopPrice);
+			holder.ll_massagers.removeAllViews();
+			initMassageData(holder.ll_massagers, service);
+			spanTextColor(holder);
 			return convertView;
 		}
+	}
+
+	void initMassageData(LinearLayout ll, ServiceEntity service) {
+		for (int i = 0; i < massages.size(); i++) {
+			MassageEntity massageEntity = massages.get(i);
+			View v = View.inflate(this, R.layout.item_massager, null);
+			TextView tv1 = (TextView) v.findViewById(R.id.tv1);
+			TextView tv2 = (TextView) v.findViewById(R.id.tv2);
+			TextView tv3 = (TextView) v.findViewById(R.id.tv3);
+			ImageView iv2 = (ImageView) v.findViewById(R.id.imageView2);
+			try {
+				double distance = DistanceUtils.GetDistance(massageEntity.Point_X, massageEntity.Point_X, LastLocation.initInstance().getLatitude(), LastLocation.initInstance().getLongitude());
+				tv2.setText(String.valueOf(distance) + "公里");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			tv1.setText(massageEntity.Name);
+			String uri = "http://kingtopgroup.com/upload/store/" + service.Storeid + "/logo/thumb150_150/" + service.ShowImg;
+			Log.i(TAG, uri);
+			ImageLoader.getInstance().displayImage(uri.trim(), iv2);
+			ll.addView(v);
+
+		}
+	}
+
+	void spanTextColor(ViewHolder holder) {
+		changeTextColor(holder.tv_type, 3);
+		changeTextColor(holder.tv_count, 3);
+		changeTextColor(holder.tv_time, 5);
+		changeTextColor(holder.tv_name, 4);
+		changeTextColor(holder.tv_address, 5);
+		changeTextColor(holder.tv_phone, 5);
+	}
+
+	ViewHolder initHolder(View convertView) {
+		ViewHolder holder = new ViewHolder();
+		holder.tv_address = (TextView) convertView.findViewById(R.id.tv_address);
+		holder.iv_service = (ImageView) convertView.findViewById(R.id.imageView1);
+		holder.ll_massagers = (LinearLayout) convertView.findViewById(R.id.ll);
+		holder.tv_count = (TextView) convertView.findViewById(R.id.tv_count);
+		holder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
+		holder.tv_sum = (TextView) convertView.findViewById(R.id.tv_sum);
+		holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+		holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_phone);
+		holder.tv_type = (TextView) convertView.findViewById(R.id.tv_type);
+		holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+		convertView.findViewById(R.id.tv_people).setVisibility(View.GONE);
+		convertView.setTag(holder);
+		return holder;
 	}
 
 	void changeTextColor(TextView textView, int count) {
@@ -413,8 +347,7 @@ public class CommitActivity extends MainActionBarActivity implements
 		ForegroundColorSpan blackSpan = new ForegroundColorSpan(Color.BLACK);
 
 		builder.setSpan(blackSpan, 0, count, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		builder.setSpan(graySpan, count, text.length(),
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		builder.setSpan(graySpan, count, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 		textView.setText(builder);
 	}
@@ -426,10 +359,56 @@ public class CommitActivity extends MainActionBarActivity implements
 			Intent intent = new Intent(CommitActivity.this, CheckPreferActivity.class);
 			CommitActivity.this.startActivity(intent);
 			break;
+		case R.id.tv_commit:
+			confirmOrder();
+			break;
 
 		default:
 			break;
 		}
+	}
+
+	void confirmOrder() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		// uid,orderProductKeyList以“,”分开,payCreditCount=1,coupList=""以“,”分开
+		String uid = UserBean.getUSerBean().getUid();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < services.size(); i++) {
+			ServiceEntity service = services.get(i);
+			sb.append(service.Opid + ",");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=0";
+		Log.i(TAG, url);
+		client.post(url, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				if (arg0 == 200) {
+					try {
+						JSONObject orderObject = new JSONObject(new String(arg2));
+						Log.i(TAG, orderObject.toString());
+						int returnValue = orderObject.optInt("ReturnValue");
+						String msg = orderObject.optString("ActionMessage");
+						if (returnValue != 0) {
+							Intent intent = new Intent(CommitActivity.this, ConfirmOrderActivity.class);
+							intent.putExtra("oid", returnValue);
+							CommitActivity.this.startActivity(intent);
+						} else {
+							toastMsg(msg, 1);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				Log.i(TAG, new String(arg2));
+
+			}
+		});
 	}
 
 	@Override

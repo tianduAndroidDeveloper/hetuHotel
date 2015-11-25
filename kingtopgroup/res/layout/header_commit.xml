@@ -135,7 +135,9 @@
             android:layout_alignParentRight="true"
             android:button="@drawable/checkbox_bg"
             android:checked="true"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"/>
         <TextView 
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"

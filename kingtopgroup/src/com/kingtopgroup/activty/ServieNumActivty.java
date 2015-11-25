@@ -80,6 +80,7 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		titleButton.setText("选择数量");
 		// acache = ACache.get(this);
 		pb = (ProgressBar) findViewById(R.id.progressBar);
+		main = (LinearLayout) findViewById(R.id.main);
 		Intent inten = this.getIntent();
 		Bundle bundel = inten.getExtras();
 		String name = bundel.getString("name");
@@ -116,6 +117,9 @@ public class ServieNumActivty extends MainActionBarActivity implements
 			extend.addView(v);
 		}
 		product_item_name = (TextView) findViewById(R.id.product_item_name);
+
+		main.setOrientation(name.length() > 7 ? LinearLayout.VERTICAL
+				: LinearLayout.HORIZONTAL);
 		product_item_name.setText(name);
 		product_item_price = (TextView) findViewById(R.id.product_item_price);
 		product_item_price.setText("￥" + price);
@@ -379,10 +383,8 @@ public class ServieNumActivty extends MainActionBarActivity implements
 								byte[] arg2, Throwable arg3) {
 							// TODO Auto-generated method stub
 							pb.setVisibility(View.GONE);
-
-							Log.d(ServieNumActivty.this.getClass().getName(), new String(arg2));
-							Utils.showToast(ServieNumActivty.this, "亲，服务器忙，请稍后重试");
-
+							Utils.showToast(ServieNumActivty.this,
+									"亲，服务器忙，请稍后重试");
 						}
 
 					});
