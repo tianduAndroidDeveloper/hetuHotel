@@ -209,7 +209,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 	}
 
 	private void setDate() {
-
+	
 		discus_listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,

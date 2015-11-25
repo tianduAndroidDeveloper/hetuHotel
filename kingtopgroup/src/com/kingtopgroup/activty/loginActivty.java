@@ -99,6 +99,7 @@ public class loginActivty extends Activity implements OnClickListener {
 										indexActivity.class);
 								startActivity(intens);
 								UserBean.getUSerBean().setUid(Uid);
+								finish();
 							} else {
 								output("用户名或密码错误");
 							}

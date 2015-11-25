@@ -51,6 +51,15 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MeOrderActivity extends MainActionBarActivity implements OnClickListener {
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, arg1, arg2);
+		if(arg0==111 && arg1==200){
+			requestData();
+		}
+	}
+
 	private static final String TAG = "MeOrderActivity";
 	ListView lv;
 	View progress;
@@ -108,6 +117,7 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 	}
 
 	void parseToEntity(final JSONArray array) {
+		orders.clear();
 		new ParserJSON(new ParseListener() {
 
 			@Override
@@ -321,7 +331,7 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 				public void onClick(View arg0) {
 					Intent intent = new Intent(MeOrderActivity.this, ReviewActivity.class);
 					intent.putExtra("oid", String.valueOf(order.oid));
-					MeOrderActivity.this.startActivity(intent);
+					MeOrderActivity.this.startActivityForResult(intent, 111);
 				}
 			});
 			List<OrderProduct> products = order.orderProducts;

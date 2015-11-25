@@ -45,7 +45,7 @@ public class indexActivity extends TabActivity implements
 
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		loginActivty.loginActivity.finish();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
 
