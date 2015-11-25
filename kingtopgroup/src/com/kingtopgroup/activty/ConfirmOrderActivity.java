@@ -45,6 +45,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	MyListViewAdapter adapter;
 	JSONObject object;
 	List<Product> products = new ArrayList<Product>();
+	TextView tv_total;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -56,6 +57,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	}
 
 	void init() {
+		tv_total = (TextView) findViewById(R.id.tv_total);
 		lv = (ListView) findViewById(R.id.lv);
 		oid = String.valueOf(getIntent().getIntExtra("oid", 0));
 		requestData();
@@ -145,6 +147,12 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	}
 
 	void fillData() {
+		double sum = 0;
+		for (int i = 0; i < products.size(); i++) {
+			Product pro = products.get(i);
+			sum += pro.ShopPrice;
+		}
+		tv_total.setText("合计：￥" + sum);
 		if (adapter == null) {
 			adapter = new MyListViewAdapter();
 			lv.setAdapter(adapter);
@@ -209,7 +217,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 
 				tv_people.setText("推拿师：" + pro.MassagerNames);
 				tv_type.setText("项目：" + pro.Name);
-				tv_count.setText("数量："+ pro.BuyCount);
+				tv_count.setText("数量：" + pro.BuyCount);
 				tv_sum.setText(pro.Name + "x" + pro.BuyCount);
 				tv_money.setText("￥" + pro.ShopPrice);
 				tv_time.setText("预约时间：" + pro.ServiceDate.split("T")[0] + " " + pro.ServiceTime);
