@@ -75,9 +75,10 @@
                 android:drawableTop="@drawable/map"
                 android:gravity="center"
                 android:text="昆明"
-                android:textColor="@color/red"
+                android:textColor="@android:color/darker_gray"
                 android:background="@null"
                 android:textSize="10dip" 
+                
                 />
         </RadioGroup>
 
