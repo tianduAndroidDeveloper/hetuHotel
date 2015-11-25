@@ -56,7 +56,7 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg0 == 111 && arg1 == 200) {
-			requestData();
+			//requestData();
 		}
 	}
 

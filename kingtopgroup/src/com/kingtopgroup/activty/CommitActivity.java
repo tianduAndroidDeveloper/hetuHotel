@@ -379,6 +379,8 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			ServiceEntity service = services.get(i);
 			sb.append(service.Opid + ",");
 		}
+		if(sb.length()<1)
+			return;
 		sb.deleteCharAt(sb.length() - 1);
 		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=0";
 		Log.i(TAG, url);

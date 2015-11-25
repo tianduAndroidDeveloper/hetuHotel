@@ -39,6 +39,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 	private TextView orderDate;
 	private View headerView;
 	private View progress;
+	private Button btn;
 	String opid;
 	int buyCount = 0;
 
@@ -47,7 +48,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chioce_manager);
 		titleButton.setText("选择推拿师");
-
+		btn = (Button) findViewById(R.id.next);
 		opid = getIntent().getStringExtra("opid");
 
 		progress = findViewById(R.id.progress);
@@ -145,13 +146,13 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		tv.setText("没有合适的推拿师?去看看更多");
 		ll.addView(tv);
 		manager_listview.addFooterView(ll);
-		Button btn = new Button(this);
+		/*Button btn = new Button(this);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		btn.setBackgroundResource(R.drawable.red_bg);
 		btn.setTextColor(Color.WHITE);
 		btn.setText("下一步");
 		btn.setLayoutParams(params);
-		manager_listview.addFooterView(btn);
+		manager_listview.addFooterView(btn);*/
 
 		tv.setOnClickListener(new OnClickListener() {
 
