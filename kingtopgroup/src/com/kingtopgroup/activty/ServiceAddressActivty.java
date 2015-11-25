@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.apache.http.Header;
@@ -8,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aps.ad;
 import com.kingtogroup.domain.ShipAddress;
 import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
@@ -16,19 +16,16 @@ import com.kingtopgroup.constant.ConstanceUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.ning.http.client.AsyncHttpClient;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.StringUtils;
 import com.stevenhu.android.phone.utils.ToastUtils;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -40,7 +37,6 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 			service_address_streets_num, service_address_person,
 			service_address_mark;
 	private LinearLayout add_or_reduce;
-	private LinearLayout add_address;
 	Map<String, Object> map = null;
 	private TextView service_address_name, service_address_phone,
 			service_address_address;
@@ -55,7 +51,7 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_address);
 		titleButton.setText("选择地址");
-		opid = getIntent().getStringExtra("opid");
+		opid = String.valueOf(getIntent().getIntExtra("opid", 0));
 		// 为他人预约
 		service_address_for_other = (RadioButton) findViewById(R.id.for_other);
 		service_address_for_other.setOnClickListener(this);
@@ -87,8 +83,6 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		// 备注
 		service_address_mark = (TextView) findViewById(R.id.service_address_mark);
 
-		add_address = (LinearLayout) findViewById(R.id.add_address);
-
 		service_address_name = (TextView) findViewById(R.id.service_address_name);
 
 		service_address_phone = (TextView) findViewById(R.id.service_address_phone);
@@ -114,8 +108,6 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 		address.Phone = (String) map.get("phone");
 		address.Address = (String) map.get("street");
 		
-		UserBean.getUSerBean().putAddress(address);
-
 	}
 
 	private Map<String, Object> getDate() {
@@ -254,10 +246,8 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 						return;
 					}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Log.d(ServiceAddressActivty.this.getClass().getName(), new String(arg2) + " =" +  UserBean.getUSerBean().getUid() + " opid=" + opid);
 				Utils.showToast(ServiceAddressActivty.this, "设置服务地址失败");
 			}
 			
@@ -283,7 +273,6 @@ public class ServiceAddressActivty extends MainActionBarActivity implements
 			service_address_street.setText(address.Address);
 			service_address_person.setText(address.Consignee);
 			
-			UserBean.getUSerBean().putAddress(address);
 		}
 
 	}

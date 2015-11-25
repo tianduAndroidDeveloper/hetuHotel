@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,11 +19,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -38,14 +35,10 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeActivty extends MainActionBarActivity implements OrderTimeAdapter.CallBack {
-
-	private static final String TAG = "OrderTimeActivty";
-
 	private GridView order_time_gridview;
 	private RadioGroup rg;
 	private List<Map<String, Object>> list;
 	private View progress;
-	// private ACache acache;
 	private JSONObject mJsonObject;
 	private String opid;
 	SimpleDateFormat sdf;
@@ -252,7 +245,7 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 		// 设置日期输出的格式
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		params.put("ServiceDate", df.format(tasktime));
-		params.put("Couponid", UserBean.getUSerBean().getCouponid());
+		params.put("Couponid", 0);
 		params.put("Couponmoney", "0");
 		progress.setVisibility(View.VISIBLE);
 		AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.ser_service_time, params, new AsyncHttpResponseHandler() {
