@@ -77,10 +77,17 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 
 		lv.setAdapter(new MyListViewAdapter());
 		btn_pay.setOnClickListener(this);
+		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		requestData();
 	}
 
 	void requestData() {
+		orders.clear();
 		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
@@ -322,6 +329,46 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 					Intent intent = new Intent(MeOrderActivity.this, ReviewActivity.class);
 					intent.putExtra("oid", String.valueOf(order.oid));
 					MeOrderActivity.this.startActivity(intent);
+				}
+			});
+
+			holder.tv_cancel.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					progress.setVisibility(View.VISIBLE);
+					// 取消订单
+					AsyncHttpClient client = new AsyncHttpClient();
+					String uid = UserBean.getUSerBean().getUid();
+					String url = "http://kingtopgroup.com/api/order/cancelorder?uid=" + uid + "&oid=" + order.oid;
+					client.get(url, new AsyncHttpResponseHandler() {
+
+						@Override
+						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+							if (arg0 == 200) {
+								try {
+									JSONObject json = new JSONObject(new String(arg2));
+									int returnValue = json.optInt("ReturnValue");
+									String msg = json.optString("ActionMessage");
+									toastMsg(msg, 1);
+									if(returnValue == 1)
+										requestData();
+										
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								progress.setVisibility(View.GONE);
+								
+							}
+						}
+
+						@Override
+						public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+							toastMsg("请求失败，请重试", 1);
+							progress.setVisibility(View.GONE);
+
+						}
+					});
 				}
 			});
 			List<OrderProduct> products = order.orderProducts;

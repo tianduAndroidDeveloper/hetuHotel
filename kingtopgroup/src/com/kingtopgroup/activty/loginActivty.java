@@ -125,7 +125,8 @@ public class loginActivty extends Activity implements OnClickListener {
 			startActivity(inten);
 			break;
 		case R.id.textView1:
-			Intent intent = new Intent(this, FindPswActivity.class);
+			//Intent intent = new Intent(this, FindPswActivity.class);
+			Intent intent = new Intent(this, QuickLoginActivity.class);
 			startActivity(intent);
 			break;
 		}
