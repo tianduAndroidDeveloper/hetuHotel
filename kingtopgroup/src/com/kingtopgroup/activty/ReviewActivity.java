@@ -79,16 +79,10 @@ public class ReviewActivity extends MainActionBarActivity {
 				try {
 					JSONObject object = new JSONObject(new String(arg2));
 					JSONObject orderInfo = object.optJSONObject("OrderInfo");
-					//double money = orderInfo.optDouble("OrderAmount");
-					//tv_money.setText("гд" + String.valueOf(money));
 					JSONArray array = object.optJSONArray("OrderProductList");
 					if(array != null){
 						initProductList(array);
 					}
-					/*for (int i = 0; i < array.length(); i++) {
-						JSONObject product = array.optJSONObject(i);
-						recordId = product.optString("RecordId");
-					}*/
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

@@ -51,12 +51,9 @@ import android.widget.Toast;
 
 public class manipulationActivty extends Activity {
 
-	private ACache acache;
 	private CycleViewPager cycleViewPager;
 	private ListView orderListview;
 	private List<Map<String, Object>> list = null;
-	private View progress;
-	private static final AsyncHttpClient client = new AsyncHttpClient();
 	// 需要循环的图片
 	String[] imageUrls = {
 			"http://kingtopgroup.com/mobile/images/banner01.jpg",
@@ -66,13 +63,9 @@ public class manipulationActivty extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manipulationlistview);
 
-		progress = findViewById(R.id.progress);
-		// 缓存到Achace 中
-		acache = ACache.get(this);
 		orderListview = (ListView) findViewById(R.id.orderListview);
 		if(getIntent().getBooleanExtra("lubo", false)){
 		View pv = LayoutInflater.from(this).inflate(R.layout.photos_lubo, null);
@@ -119,7 +112,6 @@ public class manipulationActivty extends Activity {
 				String storeid = array.getJSONObject(i).getString("storeid");
 				String CouponId = obj.getString("CouponId");
 
-				UserBean.getUSerBean().setCouponid(CouponId);
 
 				map.put("name", pname);
 				map.put("time", weight);
@@ -167,9 +159,6 @@ public class manipulationActivty extends Activity {
 				bundle.putString("image", image);
 				bundle.putString("pid", pid);
 
-				UserBean.getUSerBean().setPid(pid);
-				UserBean.getUSerBean().setStoreRId(storeid);
-				UserBean.getUSerBean().putServiceItem(obj);
 				inten.putExtra("zuliao", !getIntent().getBooleanExtra("lubo", false));
 				inten.putExtras(bundle);
 				startActivity(inten);

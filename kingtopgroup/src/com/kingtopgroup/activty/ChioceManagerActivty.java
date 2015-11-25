@@ -1,9 +1,8 @@
 package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,54 +34,61 @@ import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.ToastUtils;
 
 public class ChioceManagerActivty extends MainActionBarActivity {
-	private static final String TAG = "ChioceManagerActivty";
 	List<ManagerBean> managerBean;
 	private ListView manager_listview;
 	private TextView orderDate;
 	private View headerView;
 	private View progress;
+	String opid;
+	int buyCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chioce_manager);
 		titleButton.setText("选择推拿师");
 
-		progress = findViewById(R.id.progress);
+		opid = getIntent().getStringExtra("opid");
 
-		progress.setVisibility(View.VISIBLE);
+		progress = findViewById(R.id.progress);
 		manager_listview = (ListView) findViewById(R.id.manager_listview);
+
 		headerView = View.inflate(this, R.layout.header_massager, null);
+		orderDate = (TextView) headerView.findViewById(R.id.orderDate);
+		orderDate.setText(getIntent().getStringExtra("date"));
 		manager_listview.addHeaderView(headerView);
 		addFooter();
-		orderDate = (TextView) headerView.findViewById(R.id.orderDate);
-		String time = getIntent().getStringExtra("date");
-		orderDate.setText(time);
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		requestData();
+	}
+
+	void requestData() {
+		progress.setVisibility(View.VISIBLE);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
-		params.put("opid", UserBean.getUSerBean().getOpid());
+		params.put("opid", opid);
 		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_manager_list_url, params, new AsyncHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				if (arg0 == 200) {
 					String date = new String(arg2);
-					Log.i(TAG, date);
 					try {
 						JSONObject obj = new JSONObject(date);
+						JSONObject PSinfo = obj.optJSONObject("PSinfo");
+						buyCount = PSinfo.optInt("BuyCount");
 						JSONArray array = obj.getJSONArray("MassageList");
-						JSONObject psinfo = obj.getJSONObject("PSinfo");
-						String ServiceDate = psinfo.getString("ServiceDate");
 						managerBean = new ArrayList<ManagerBean>();
-						// ManagerBean manager=new ManagerBean();
 						ManagerBean managerAny = null;
 						for (int i = 0; i < array.length(); i++) {
 							ManagerBean manager = new ManagerBean();
-							Map<String, Object> map = new HashMap<String, Object>();
 							String name = array.getJSONObject(i).getString("Name");
 							manager.name = name;
-							String MassagerId = array.getJSONObject(i).getString("Name");
 							String Logo = array.getJSONObject(i).getString("Logo");
 							manager.Logo = Logo;
 							String StoreId = array.getJSONObject(i).getString("StoreId");
@@ -94,7 +99,6 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 							manager.point_y = Point_Y;
 							String Address = array.getJSONObject(i).getString("Address");
 							manager.address = Address;
-							// manager.serviceDate=ServiceDate;
 							String Sex = array.getJSONObject(i).getString("Sex");
 							manager.sex = Sex;
 
@@ -112,6 +116,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					progress.setVisibility(View.GONE);
 
 				}
 
@@ -119,11 +124,11 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-				// TODO Auto-generated method stub
+				Toast.makeText(ChioceManagerActivty.this, "请求失败，请重试！", Toast.LENGTH_SHORT).show();
+				progress.setVisibility(View.GONE);
 
 			}
 		});
-
 	}
 
 	void addFooter() {
@@ -163,23 +168,19 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					Toast.makeText(ChioceManagerActivty.this, "您还没有选择推拿师哦", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				String count = UserBean.getUSerBean().getBuyCount();
-				Integer.parseInt(count);
 				String checked = adapter.getCheckedIds();
 				String getChecked;
 				if (checked.indexOf(",") != -1) {
 					getChecked = checked.substring(0, checked.indexOf(","));
 				} else {
 					getChecked = checked;
-				}//
-				if (Integer.parseInt(count) < adapter.getCheckedCount()) {
-					// Integer.parseInt(count) > adapter.getCheckedCount() &&
-					// Integer.parseInt(getChecked)==5
+				}
+				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
 				} else {
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
-					params.put("Opid", UserBean.getUSerBean().getOpid());
+					params.put("Opid", opid);
 					params.put("MassagerId", getChecked);
 					params.put("MasagerIdList", checked);
 
@@ -188,13 +189,11 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 						@Override
 						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 							String data = new String(arg2);
-							Log.i(TAG, data);
 							try {
 								JSONObject obj = new JSONObject(data);
 								String ActionMessage = obj.getString("ActionMessage");
 								int returnValue = obj.optInt("ReturnValue");
 								if (returnValue != 0) {
-									UserBean.getUSerBean().setOpid(String.valueOf(returnValue));
 									Intent inten = new Intent(ChioceManagerActivty.this, CommitActivity.class);
 									inten.putExtra("opid", returnValue);
 									startActivity(inten);
@@ -217,14 +216,12 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		});
 	}
 
-
 	private ManagerAdapter2 adapter;
 
 	private void setAdapter(List<ManagerBean> list) {
 		int showCount = list.size() > 5 ? 5 : list.size();
 		adapter = new ManagerAdapter2(this, list, showCount);
 		manager_listview.setAdapter(adapter);
-		progress.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -249,6 +246,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 
 	public void more() {
 		Intent intent = new Intent(this, MoreMassagers.class);
+		intent.putExtra("opid", opid);
 		this.startActivity(intent);
 	}
 

@@ -1,9 +1,8 @@
 package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -18,7 +17,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +35,8 @@ public class MoreMassagers extends MainActionBarActivity {
 	ListView lv;
 	List<ManagerBean> massageList;
 	View progress;
+	int buyCount = 0;
+	String opid;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -44,6 +44,7 @@ public class MoreMassagers extends MainActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_more_massage);
 		titleButton.setText("更多推拿师");
+		opid = getIntent().getStringExtra("opid");
 		init();
 	}
 
@@ -57,82 +58,66 @@ public class MoreMassagers extends MainActionBarActivity {
 		progress.setVisibility(View.VISIBLE);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
-		params.put("opid", UserBean.getUSerBean().getOpid());
-		AsyncHttpCilentUtil.getInstance().get(
-				ConstanceUtil.get_manager_list_url, params,
-				new AsyncHttpResponseHandler() {
+		params.put("opid", opid);
+		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_manager_list_url, params, new AsyncHttpResponseHandler() {
 
-					@Override
-					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						if (arg0 == 200) {
-							String date = new String(arg2);
-							Log.i(TAG, date);
-							try {
-								JSONObject obj = new JSONObject(date);
-								JSONArray array = obj
-										.getJSONArray("MassageList");
-								JSONObject psinfo = obj.getJSONObject("PSinfo");
-								String ServiceDate = psinfo
-										.getString("ServiceDate");
-								massageList = new ArrayList<ManagerBean>();
-								// ManagerBean manager=new ManagerBean();
-								ManagerBean managerAny = null;
-								for (int i = 0; i < array.length(); i++) {
-									ManagerBean manager = new ManagerBean();
-									Map<String, Object> map = new HashMap<String, Object>();
-									String name = array.getJSONObject(i)
-											.getString("Name");
-									manager.name = name;
-									String MassagerId = array.getJSONObject(i)
-											.getString("Name");
-									String Logo = array.getJSONObject(i)
-											.getString("Logo");
-									manager.Logo = Logo;
-									String StoreId = array.getJSONObject(i)
-											.getString("StoreId");
-									manager.StoreId = StoreId;
-									String Point_X = array.getJSONObject(i)
-											.getString("Point_X");
-									manager.point_x = Point_X;
-									String Point_Y = array.getJSONObject(i)
-											.getString("Point_Y");
-									manager.point_y = Point_Y;
-									String Address = array.getJSONObject(i)
-											.getString("Address");
-									manager.address = Address;
-									// manager.serviceDate=ServiceDate;
-									String Sex = array.getJSONObject(i)
-											.getString("Sex");
-									manager.sex = Sex;
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				if (arg0 == 200) {
+					String date = new String(arg2);
+					Log.i(TAG, date);
+					try {
+						JSONObject obj = new JSONObject(date);
+						JSONArray array = obj.getJSONArray("MassageList");
+						JSONObject psinfo = obj.getJSONObject("PSinfo");
+						buyCount = psinfo.optInt("BuyCount");
+						massageList = new ArrayList<ManagerBean>();
+						// ManagerBean manager=new ManagerBean();
+						ManagerBean managerAny = null;
+						for (int i = 0; i < array.length(); i++) {
+							ManagerBean manager = new ManagerBean();
+							String name = array.getJSONObject(i).getString("Name");
+							manager.name = name;
+							String Logo = array.getJSONObject(i).getString("Logo");
+							manager.Logo = Logo;
+							String StoreId = array.getJSONObject(i).getString("StoreId");
+							manager.StoreId = StoreId;
+							String Point_X = array.getJSONObject(i).getString("Point_X");
+							manager.point_x = Point_X;
+							String Point_Y = array.getJSONObject(i).getString("Point_Y");
+							manager.point_y = Point_Y;
+							String Address = array.getJSONObject(i).getString("Address");
+							manager.address = Address;
+							// manager.serviceDate=ServiceDate;
+							String Sex = array.getJSONObject(i).getString("Sex");
+							manager.sex = Sex;
 
-									massageList.add(manager);
-									if (name.equals("任意推拿师"))
-										managerAny = manager;
-								}
-								if (managerAny != null) {
-									massageList.remove(managerAny);
-									massageList.add(0, managerAny);
-								}
-
-								fillData();
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							progress.setVisibility(View.GONE);
-
+							massageList.add(manager);
+							if (name.equals("任意推拿师"))
+								managerAny = manager;
+						}
+						if (managerAny != null) {
+							massageList.remove(managerAny);
+							massageList.add(0, managerAny);
 						}
 
+						fillData();
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
+					progress.setVisibility(View.GONE);
 
-					@Override
-					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-							Throwable arg3) {
-						Toast.makeText(MoreMassagers.this, "请求失败，请重试！",
-								Toast.LENGTH_SHORT).show();
-						progress.setVisibility(View.GONE);
+				}
 
-					}
-				});
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				Toast.makeText(MoreMassagers.this, "请求失败，请重试！", Toast.LENGTH_SHORT).show();
+				progress.setVisibility(View.GONE);
+
+			}
+		});
 	}
 
 	ManagerAdapter adapter;
@@ -151,12 +136,9 @@ public class MoreMassagers extends MainActionBarActivity {
 			@Override
 			public void onClick(View arg0) {
 				if (adapter.getCheckedCount() == 0) {
-					Toast.makeText(MoreMassagers.this, "您还没有选择推拿师哦",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(MoreMassagers.this, "您还没有选择推拿师哦", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				String count = UserBean.getUSerBean().getBuyCount();
-				Integer.parseInt(count);
 				String checked = adapter.getCheckedIds();
 				String getChecked;
 				if (checked.indexOf(",") != -1) {
@@ -164,45 +146,41 @@ public class MoreMassagers extends MainActionBarActivity {
 				} else {
 					getChecked = checked;
 				}
-				if (Integer.parseInt(count) < adapter.getCheckedCount()) {
+				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(MoreMassagers.this, "你选择推拿师的数量与购买项目的数量不等！");
 				} else {
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
-					params.put("Opid", UserBean.getUSerBean().getOpid());
+					params.put("Opid", opid);
 					params.put("StoreId", getChecked);
 					params.put("MasagerIdList", checked);
-					AsyncHttpCilentUtil.getInstance().post(
-							ConstanceUtil.set_manager_list, params,
-							new AsyncHttpResponseHandler() {
+					AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.set_manager_list, params, new AsyncHttpResponseHandler() {
 
-								@Override
-								public void onSuccess(int arg0, Header[] arg1,
-										byte[] arg2) {
-									String data = new String(arg2);
-									try {
-										JSONObject obj = new JSONObject(data);
-										String ActionMessage = obj
-												.getString("ActionMessage");
-										if (ActionMessage.equals("设置成功")) {
-											Intent inten = new Intent(
-													MoreMassagers.this,
-													CommitActivity.class);
-											startActivity(inten);
-										} else {
-										}
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-
+						@Override
+						public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+							String data = new String(arg2);
+							try {
+								JSONObject obj = new JSONObject(data);
+								String ActionMessage = obj.getString("ActionMessage");
+								int returnValue = obj.optInt("ReturnValue");
+								if (returnValue != 0) {
+									Intent inten = new Intent(MoreMassagers.this, CommitActivity.class);
+									inten.putExtra("opid", returnValue);
+									startActivity(inten);
+								} else {
+									Toast.makeText(MoreMassagers.this, ActionMessage, Toast.LENGTH_SHORT).show();
 								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
 
-								@Override
-								public void onFailure(int arg0, Header[] arg1,
-										byte[] arg2, Throwable arg3) {
+						}
 
-								}
-							});
+						@Override
+						public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+
+						}
+					});
 				}
 
 			}

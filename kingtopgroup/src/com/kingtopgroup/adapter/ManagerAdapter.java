@@ -87,25 +87,20 @@ public class ManagerAdapter extends BaseAdapter {
 			sex = "Ů";
 		}
 		holder.sex.setText(sex);// http://kingtopgroup.com/upload/store/10/logo/thumb100_100/s_1509031744186077167.jpg
-		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId
-				+ "/logo/thumb150_150/" + bean.Logo;
+		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId + "/logo/thumb150_150/" + bean.Logo;
 		ImageLoader.getInstance().displayImage(uri, holder.logo);
-		holder.isChecked
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton arg0,
-							boolean arg1) {
+		holder.isChecked.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 
-						managerList.get(position).isChecked = arg1;
-						if (arg1 == true) {
-							checkedCount++;
-							UserBean.getUSerBean().putMassage(bean);
-						} else {
-							checkedCount--;
-							UserBean.getUSerBean().removeMassage(bean);
-						}
-					}
-				});
+				managerList.get(position).isChecked = arg1;
+				if (arg1 == true) {
+					checkedCount++;
+				} else {
+					checkedCount--;
+				}
+			}
+		});
 		holder.isChecked.setChecked(bean.isChecked);
 		return view;
 
@@ -131,7 +126,8 @@ public class ManagerAdapter extends BaseAdapter {
 			if (bean.isChecked)
 				sb.append(bean.StoreId + ",");
 		}
-		sb.deleteCharAt(sb.length() - 1);
+		if (sb.length() != 0)
+			sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
 

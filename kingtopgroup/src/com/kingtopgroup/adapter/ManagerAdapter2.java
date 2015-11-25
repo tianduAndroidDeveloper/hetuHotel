@@ -26,13 +26,8 @@ public class ManagerAdapter2 extends BaseAdapter {
 	private Context context;
 	private LayoutInflater inflater;
 	private List<ManagerBean> managerList;
-	static int checkedCount = 0;
 	public String masserger;
 	private int showCount;
-
-	public static void setCheckedCount(int checkedCount) {
-		ManagerAdapter2.checkedCount = checkedCount;
-	}
 
 	public ManagerAdapter2(Context context, List<ManagerBean> managerList,
 			int showCount) {
@@ -59,11 +54,6 @@ public class ManagerAdapter2 extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View view, ViewGroup arg2) {
-		/*
-		 * if (position == 0) { TextView tv = new TextView(context);
-		 * tv.setText("ÍÆÄÃÊ¦"); tv.setPadding(10, 10, 10, 10);
-		 * tv.setTextColor(Color.BLACK); return tv; }
-		 */
 		if (position == showCount) {
 			LinearLayout ll = new LinearLayout(context);
 			ll.setPadding(20, 20, 20, 20);
@@ -112,13 +102,6 @@ public class ManagerAdapter2 extends BaseAdapter {
 							boolean arg1) {
 
 						managerList.get(position).isChecked = arg1;
-						if (arg1 == true) {
-							checkedCount++;
-							UserBean.getUSerBean().putMassage(bean);
-						} else {
-							checkedCount--;
-							UserBean.getUSerBean().removeMassage(bean);
-						}
 					}
 				});
 		holder.isChecked.setChecked(bean.isChecked);
@@ -136,7 +119,13 @@ public class ManagerAdapter2 extends BaseAdapter {
 	}
 
 	public int getCheckedCount() {
-		return checkedCount;
+		int sum = 0;
+		for(int i = 0 ; i < managerList.size(); i++){
+			ManagerBean bean = managerList.get(i);
+			if(bean.isChecked)
+				sum++;
+		}
+		return sum;
 	}
 
 	public String getCheckedIds() {
