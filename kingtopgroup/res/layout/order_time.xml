@@ -125,6 +125,7 @@
                     android:orientation="horizontal" >
 
                     <RadioButton
+                        android:id="@+id/today"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="@drawable/shape_circle_rb"
@@ -134,6 +135,7 @@
                         android:textColor="@drawable/textcolor_selector" />
 
                     <RadioButton
+                        android:id="@+id/today1"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginLeft="30dp"
@@ -144,6 +146,7 @@
                         android:textColor="@drawable/textcolor_selector" />
 
                     <RadioButton
+                        android:id="@+id/today2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginLeft="30dp"
@@ -154,6 +157,7 @@
                         android:textColor="@drawable/textcolor_selector" />
 
                     <RadioButton
+                        android:id="@+id/today3"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginLeft="30dp"

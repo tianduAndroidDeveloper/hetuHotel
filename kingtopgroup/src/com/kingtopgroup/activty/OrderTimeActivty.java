@@ -111,22 +111,22 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 			SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
 			int dd = Integer.parseInt(sdf2.format(new Date()));
 			switch (arg1) {
-			case 1:
+			case R.id.today:
 				dayOfMonth = dd;
 				getOtherDays("ValidDay_0");
 				break;
 
-			case 2:
+			case R.id.today1:
 				dayOfMonth = dd + 1;
 				getOtherDays("ValidDay_1");
 				break;
 
-			case 3:
+			case R.id.today2:
 				dayOfMonth = dd + 2;
 				getOtherDays("ValidDay_2");
 				break;
 
-			case 4:
+			case R.id.today3:
 				dayOfMonth = dd + 3;
 				getOtherDays("ValidDay_3");
 				break;
@@ -163,8 +163,9 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 						map.put("TimeSection", TimeSection.trim());
 						list.add(map);
 
-						setAdapter(list, "ValidDay_0");
+						
 					}
+					setAdapter(list, "ValidDay_0");
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -191,7 +192,7 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 			order_time_gridview.setAdapter(new OrderTimeAdapter(this, list, false, this, date));
 		}
 	}
-
+   
 	private void getOtherDays(String ValidDay_1) {
 		if (mJsonObject != null) {
 
