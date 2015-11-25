@@ -14,11 +14,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,13 +51,17 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.messager_detail);
+		
+        discus_listview = (ListView) findViewById(R.id.discus_listview);
+		//给listview添加头部
+				View pv=LayoutInflater.from(this).inflate(R.layout.messager_detail_title, null);
+				discus_listview.addHeaderView(pv);	
 		titleButton.setText("推拿师详情");
 		all_discus = (TextView) findViewById(R.id.all_discus);
 		acache = ACache.get(this);
 		if (acache.getAsString("discus_json") != null) {
 			discus_json = acache.getAsString("discus_json");
 		}
-
 		String StoreId = getIntent().getStringExtra("json");
 		String count="";
 		try {
@@ -70,9 +76,6 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 			e1.printStackTrace();
 		}
 		
-		
-
-		
 		discus_tv = (TextView) findViewById(R.id.discus_tv);
 		photo = (ImageView) findViewById(R.id.headPhoto);
 		progress = findViewById(R.id.progress);
@@ -80,8 +83,7 @@ public class MessagerDetialActivty extends MainActionBarActivity implements OnCl
 		all_discus.setOnClickListener(this);
 		discus_tv.setOnClickListener(this);
 
-		discus_listview = (ListView) findViewById(R.id.discus_listview);
-
+		
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("massid", StoreId);
 		progress.setVisibility(View.VISIBLE);
