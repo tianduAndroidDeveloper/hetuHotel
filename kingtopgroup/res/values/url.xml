@@ -3,4 +3,5 @@
 
     <string name="url_getItemList">http://kingtopgroup.com/api/item/GetItemList</string>
     <string name="url_imgHost">http://kingtopgroup.com/upload/store/5/product/show/thumb190_190/</string>
+    <string name="url_logoHost">http://kingtopgroup.com/upload/store/%d/logo/thumb150_150/</string>
 </resources>

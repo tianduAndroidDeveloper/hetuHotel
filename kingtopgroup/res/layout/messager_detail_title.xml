@@ -119,7 +119,8 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/linear_boder"
                 android:orientation="horizontal"
-                android:padding="5dp" >
+                android:padding="10dp" 
+                >
 
                 <TextView
                     android:id="@+id/all_discus"
