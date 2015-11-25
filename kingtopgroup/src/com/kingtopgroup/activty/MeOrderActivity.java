@@ -55,7 +55,7 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
-		if(arg0==111 && arg1==200){
+		if (arg0 == 111 && arg1 == 200) {
 			requestData();
 		}
 	}
@@ -86,9 +86,9 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 
 		lv.setAdapter(new MyListViewAdapter());
 		btn_pay.setOnClickListener(this);
-		
+
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -331,7 +331,8 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 			holder.tv_review.setVisibility(state.contains("已完成") ? View.VISIBLE : View.GONE);
 			holder.cb.setVisibility(state.contains("等待付款") ? View.VISIBLE : View.GONE);
 			holder.tv_order_status.setText(state);
-
+			holder.tv_review.setText(order.isreview == 0 ? "去评价" : "您已评价");
+			holder.tv_review.setEnabled(order.isreview == 0);
 			holder.tv_review.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -361,14 +362,14 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 									int returnValue = json.optInt("ReturnValue");
 									String msg = json.optString("ActionMessage");
 									toastMsg(msg, 1);
-									if(returnValue == 1)
+									if (returnValue == 1)
 										requestData();
-										
+
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
 								progress.setVisibility(View.GONE);
-								
+
 							}
 						}
 

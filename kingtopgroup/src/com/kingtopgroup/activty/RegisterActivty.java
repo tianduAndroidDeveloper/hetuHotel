@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.kingtopgroup.R;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -65,16 +66,8 @@ public class RegisterActivty extends MainActionBarActivity {
 			return;
 		}
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = "http://kingtopgroup.com/api/account/register?mobile="
-				+ account + "&password=" + psw + "&ip=" + "127.1.1.0"
-				+ "&verifyCode=" + code;
-		Log.i(TAG, url);
-		RequestParams params = new RequestParams();
-		params.put("mobile", account);
-		params.put("password", psw);
-		params.put("ip", "127.1.1.0");
-		params.put("verifyCode", code);
-		client.post(url, params, new AsyncHttpResponseHandler() {
+		String url = "http://kingtopgroup.com/api/account/register?mobile=" + account + "&password=" + psw + "&ip=" + "127.1.1.0" + "&verifyCode=" + code;
+		client.post(url, new AsyncHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -82,19 +75,24 @@ public class RegisterActivty extends MainActionBarActivity {
 					try {
 						JSONObject obj = new JSONObject(new String(arg2));
 						String msg = obj.getString("Message");
-						toastMsg(msg, 0);
+						toastMsg(msg, 1);
+						String uid = String.valueOf(obj.optInt("Uid"));
+						if (!uid.equals("0")) {
+							UserBean.getUSerBean().setUid(uid);
+							finish();
+						}
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					
+
 				}
 
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
-				Log.i(TAG, new String(arg2));
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				toastMsg("«Î«Û ß∞‹£¨«Î÷ÿ ‘", 1);
 
 			}
 		});
@@ -131,8 +129,7 @@ public class RegisterActivty extends MainActionBarActivity {
 			}
 		};
 		countDownTimer.start();
-		String url = "http://kingtopgroup.com/api/account/GetVerifyMobile?mobile="
-				+ mobile;
+		String url = "http://kingtopgroup.com/api/account/GetVerifyMobile?mobile=" + mobile;
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(url, null, new AsyncHttpResponseHandler() {
 
@@ -142,8 +139,7 @@ public class RegisterActivty extends MainActionBarActivity {
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 
 			}
 		});
