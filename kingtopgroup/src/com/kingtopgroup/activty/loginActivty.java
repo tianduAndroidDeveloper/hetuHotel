@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,16 +33,22 @@ public class loginActivty extends Activity implements OnClickListener {
 	private SharedPreferences sp;
 	private CheckBox auto_login;
 
+	View progress_login;
+
 	private TextView register_button;
 	private TextView textView1;
 
 	private String mobile, passwords;
+	static loginActivty loginActivity;
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		loginActivity = this;
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
+		progress_login = findViewById(R.id.progress_login);
 
 		// 获得实例对象
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
@@ -75,6 +82,8 @@ public class loginActivty extends Activity implements OnClickListener {
 			// "http://kingtopgroup.com/api/account/login?mobile=13888973311&password=HT13888973311"
 			String post = "http://kingtopgroup.com/api/account/login?mobile="
 					+ mobile + "&password=" + passwords + "";
+
+			progress_login.setVisibility(View.VISIBLE);
 			client.post(post, null, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -97,11 +106,13 @@ public class loginActivty extends Activity implements OnClickListener {
 							e.printStackTrace();
 						}
 					}
+					progress_login.setVisibility(View.GONE);
 				}
 
 				@Override
 				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 						Throwable arg3) {
+					progress_login.setVisibility(View.GONE);
 					output("服务器忙，请稍后再试");
 
 				}

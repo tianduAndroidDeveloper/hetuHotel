@@ -58,7 +58,8 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		manager_listview.addHeaderView(headerView);
 		addFooter();
 		orderDate = (TextView) headerView.findViewById(R.id.orderDate);
-		orderDate.setText(getIntent().getStringExtra("date"));
+		String time = getIntent().getStringExtra("date");
+		orderDate.setText(time);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
 		params.put("opid", UserBean.getUSerBean().getOpid());

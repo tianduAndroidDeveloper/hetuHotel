@@ -44,6 +44,8 @@ public class indexActivity extends TabActivity implements
 	private List<Map<String, String>> listRight;
 
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		loginActivty.loginActivity.finish();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
 

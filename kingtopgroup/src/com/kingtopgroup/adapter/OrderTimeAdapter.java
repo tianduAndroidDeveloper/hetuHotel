@@ -1,42 +1,25 @@
 package com.kingtopgroup.adapter;
 
-import java.text.ChoiceFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.provider.ContactsContract.Contacts.Data;
-import android.provider.SyncStateContract.Constants;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.kingtopgroup.R;
-import com.kingtopgroup.activty.ChioceManagerActivty;
-import com.kingtopgroup.activty.OrderTimeActivty;
-import com.kingtopgroup.constant.ConstanceUtil;
-import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeAdapter extends BaseAdapter {
 	private Context context;
@@ -108,15 +91,17 @@ public class OrderTimeAdapter extends BaseAdapter {
 		viewHolder.buttoTime.setText((CharSequence) nameList.get(arg0).get("TimeSection"));
 		viewHolder.buttoTime.setTag((CharSequence) nameList.get(arg0).get("TimeSection"));
 		viewHolder.buttoTime.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(context, ChioceManagerActivty.class);
-				intent.putExtra("date", date + " " + arg0.getTag());
-				context.startActivity(intent);
+
+			public void onClick(View view) {
+				System.out.println(nameList.get(arg0));
+				if (mCallBack != null) {
+					String time = date + " " + view.getTag();
+					mCallBack.callBack(nameList.get(arg0).get("StsId").toString(), time);
+				}
+
 			}
 		});
-		
+
 		return conveView;
 	}
 
@@ -125,7 +110,7 @@ public class OrderTimeAdapter extends BaseAdapter {
 	}
 
 	public interface CallBack {
-		void callBack(String stid);
+		void callBack(String stid, String date);
 	}
 
 }

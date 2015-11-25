@@ -33,6 +33,7 @@ import android.provider.SyncStateContract.Constants;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -61,13 +62,16 @@ public class ServieNumActivty extends MainActionBarActivity implements
 	private String XiaDanContext = null;
 	private String Description = null;
 	private String TuiNaContext = null;
-	// private ACache acache;
-	private TextView service_num_webview;
+	private ACache acache;
+	private TextView service_num_webview, messager_name;
+	private LinearLayout main,extend;
+	private RadioButton water_other,water_self,wood_other,wood_self;
 	JSONObject obj = null;
+
+	LinearLayout manipulations;
 	// private ProgressBar service_progressbar;
 	private TextView service_num_button, service_add_button,
 			service_reduce_button, service_num_next_button;
-	private LinearLayout main;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,33 @@ public class ServieNumActivty extends MainActionBarActivity implements
 		String num = bundel.getString("beginnum");
 		String image = bundel.getString("image");
 		String price = bundel.getString("price");
+		String messagerDteail = bundel.getString("messagerDteail");
+		String messager_names = bundel.getString("messager_name");
+		if ("".equals(messagerDteail) || messagerDteail == null) {
 
+		} else {
+			manipulations = (LinearLayout) findViewById(R.id.manipulations);
+			manipulations.setVisibility(View.GONE);
+			messager_name = (TextView) findViewById(R.id.messager_name);
+			messager_name.setText("推拿师:" + messager_names);
+		}
+		main = (LinearLayout) findViewById(R.id.main);
+		if(name.length()>7){
+			main.setOrientation(LinearLayout.VERTICAL);
+		}else{
+			main.setOrientation(LinearLayout.HORIZONTAL);
+		}
+		extend = (LinearLayout) findViewById(R.id.extend);
+		if(getIntent().getBooleanExtra("zuliao", false)){
+			View v = LayoutInflater.from(this).inflate(R.layout.zuliao_middle, null);
+			water_other = (RadioButton) v.findViewById(R.id.water_other);
+			water_self = (RadioButton) v.findViewById(R.id.water_sefl);
+			wood_other = (RadioButton) v.findViewById(R.id.wood_other);
+			wood_self = (RadioButton) v.findViewById(R.id.wood_self);
+			water_other.setChecked(true);
+			wood_other.setChecked(true);
+			extend.addView(v);
+		}
 		product_item_name = (TextView) findViewById(R.id.product_item_name);
 
 		main.setOrientation(name.length() > 7 ? LinearLayout.VERTICAL
@@ -139,17 +169,18 @@ public class ServieNumActivty extends MainActionBarActivity implements
 
 		// --------------------------------图片循环-----------------------------------------
 		// 需要循环的图片
+
+		cycleViewPager = (CycleViewPager) getFragmentManager()
+				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 		String[] imageUrls = {
 				"http://kingtopgroup.com/mobile/images/banner01.jpg",
 				"http://kingtopgroup.com/mobile/images/banner02.jpg",
 				"http://kingtopgroup.com/mobile/images/banner03.jpg" };
 
-		cycleViewPager = (CycleViewPager) getFragmentManager()
-				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 		// 图片轮播
 		LunboImageUtil lb = new LunboImageUtil();
 		lb.initialize(this, imageUrls, cycleViewPager);
-		// acache = ACache.get(this);
+		acache = ACache.get(this);
 
 		// ----------------------------服务内容-------------------------------------
 

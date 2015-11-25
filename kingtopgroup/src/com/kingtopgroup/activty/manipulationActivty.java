@@ -63,11 +63,6 @@ public class manipulationActivty extends Activity {
 			"http://kingtopgroup.com/mobile/images/banner02.jpg",
 			"http://kingtopgroup.com/mobile/images/banner03.jpg" };
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +170,7 @@ public class manipulationActivty extends Activity {
 				UserBean.getUSerBean().setPid(pid);
 				UserBean.getUSerBean().setStoreRId(storeid);
 				UserBean.getUSerBean().putServiceItem(obj);
-
+				inten.putExtra("zuliao", !getIntent().getBooleanExtra("lubo", false));
 				inten.putExtras(bundle);
 				startActivity(inten);
 			}

@@ -39,6 +39,8 @@ import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class OrderTimeActivty extends MainActionBarActivity implements OrderTimeAdapter.CallBack {
 
+	private static final String TAG = "OrderTimeActivty";
+
 	private GridView order_time_gridview;
 	private RadioGroup rg;
 	private List<Map<String, Object>> list;
@@ -150,9 +152,8 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 
 					// acache.put("service_time", obj);
 					array = mJsonObject.optJSONArray("ValidDay_0");
-					if (array == null) {
+					if (array == null)
 						return;
-					}
 					list = new ArrayList<Map<String, Object>>();
 					for (int i = 0; i < array.length(); i++) {
 						Map<String, Object> map = new HashMap<String, Object>();
@@ -161,8 +162,9 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 						map.put("StsId", StsId);
 						map.put("TimeSection", TimeSection.trim());
 						list.add(map);
+
+						setAdapter(list, "ValidDay_0");
 					}
-					setAdapter(list, "ValidDay_0");
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -201,7 +203,9 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 				list = new ArrayList<Map<String, Object>>();
 				for (int i = 0; i < array.length(); i++) {
 					Map<String, Object> map = new HashMap<String, Object>();
-					String TimeSection = array.getJSONObject(i).getString("TimeSection");
+					String StsId = array.optJSONObject(i).optString("StsId");
+					map.put("StsId", StsId);
+					String TimeSection = array.optJSONObject(i).optString("TimeSection");
 					map.put("TimeSection", TimeSection.trim());
 					list.add(map);
 				}
@@ -235,7 +239,7 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 	}
 
 	@Override
-	public void callBack(String stid) {
+	public void callBack(String stid, final String time) {
 		RequestParams params = AsyncHttpCilentUtil.getParams();
 		params.put("Uid", UserBean.getUSerBean().getUid());
 		params.put("Opid", opid);
@@ -263,6 +267,7 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 					if (ActionMessage.equals("服务时间设置成功，返回Opid")) {
 						Intent intent = new Intent(OrderTimeActivty.this, ChioceManagerActivty.class);
 						intent.putExtra("opid", opid);
+						intent.putExtra("date", time);
 						startActivity(intent);
 						return;
 					}
