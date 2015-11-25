@@ -29,8 +29,7 @@ public class ManagerAdapter2 extends BaseAdapter {
 	public String masserger;
 	private int showCount;
 
-	public ManagerAdapter2(Context context, List<ManagerBean> managerList,
-			int showCount) {
+	public ManagerAdapter2(Context context, List<ManagerBean> managerList, int showCount) {
 		this.context = context;
 		this.managerList = managerList;
 		this.showCount = showCount;
@@ -58,8 +57,7 @@ public class ManagerAdapter2 extends BaseAdapter {
 			LinearLayout ll = new LinearLayout(context);
 			ll.setPadding(20, 20, 20, 20);
 			TextView tv = new TextView(context);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT);
+			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 			ll.setLayoutParams(params);
 			tv.setBackgroundResource(R.drawable.personal_bg);
 			tv.setPadding(10, 10, 10, 10);
@@ -89,21 +87,18 @@ public class ManagerAdapter2 extends BaseAdapter {
 		if (bean.sex.equals("1")) {
 			sex = "ÄÐ";
 		} else {
-			sex = "Å®";  
+			sex = "Å®";
 		}
 		holder.sex.setText(sex);
-		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId
-				+ "/logo/thumb150_150/" + bean.Logo;
+		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId + "/logo/thumb150_150/" + bean.Logo;
 		ImageLoader.getInstance().displayImage(uri.trim(), holder.logo);
-		holder.isChecked
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton arg0,
-							boolean arg1) {
+		holder.isChecked.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 
-						managerList.get(position).isChecked = arg1;
-					}
-				});
+				managerList.get(position).isChecked = arg1;
+			}
+		});
 		holder.isChecked.setChecked(bean.isChecked);
 		return view;
 
@@ -120,9 +115,9 @@ public class ManagerAdapter2 extends BaseAdapter {
 
 	public int getCheckedCount() {
 		int sum = 0;
-		for(int i = 0 ; i < managerList.size(); i++){
+		for (int i = 0; i < managerList.size(); i++) {
 			ManagerBean bean = managerList.get(i);
-			if(bean.isChecked)
+			if (bean.isChecked)
 				sum++;
 		}
 		return sum;
@@ -137,6 +132,11 @@ public class ManagerAdapter2 extends BaseAdapter {
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
+	}
+
+	public boolean isAnyChecked() {
+		ManagerBean bean = managerList.get(0);
+		return bean.isChecked;
 	}
 
 }

@@ -22,10 +22,10 @@ public class Product {
 	public String Name = "Ì«ÒÒ¼ç¾±ÍÆÄÃ";
 	public String Massagers = "5";
 	public String ShowImg = "ps_1508311452400952835.jpg";
-	public int DiscountPrice = 78;
-	public int ShopPrice = 78;
-	public int CostPrice = 78;
-	public int MarketPrice = 78;
+	public double DiscountPrice = 78;
+	public double ShopPrice = 78;
+	public double CostPrice = 78;
+	public double MarketPrice = 78;
 	public int Weight = 45;
 	public int IsReview = 0;
 	public int RealCount = 1;

@@ -76,12 +76,9 @@ public class loginActivty extends Activity implements OnClickListener {
 			params = new RequestParams();
 			params.put("mobile", mobile);
 			params.put("password", passwords);
-			// params.put("ip", "10.254.215.44");
 
 			AsyncHttpClient client = new AsyncHttpClient();
-			// "http://kingtopgroup.com/api/account/login?mobile=13888973311&password=HT13888973311"
-			String post = "http://kingtopgroup.com/api/account/login?mobile="
-					+ mobile + "&password=" + passwords + "";
+			String post = "http://kingtopgroup.com/api/account/login?mobile=" + mobile + "&password=" + passwords + "";
 
 			progress_login.setVisibility(View.VISIBLE);
 			client.post(post, null, new AsyncHttpResponseHandler() {
@@ -89,16 +86,15 @@ public class loginActivty extends Activity implements OnClickListener {
 				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 					if (arg0 == 200) {
 						try {
-							// data =JSONObject.parse(arg1);
 							String date = new String(arg2);
 							JSONObject obj = new JSONObject(date);
 							String Password = obj.getString("Password");
 							String Uid = obj.getString("Uid");
 							if (Password.equals("vaild")) {
-								Intent intens = new Intent(loginActivty.this,
-										indexActivity.class);
+								Intent intens = new Intent(loginActivty.this, indexActivity.class);
 								startActivity(intens);
 								UserBean.getUSerBean().setUid(Uid);
+								UserBean.getUSerBean().setAccount(mobile);
 								finish();
 							} else {
 								output("用户名或密码错误");
@@ -111,8 +107,7 @@ public class loginActivty extends Activity implements OnClickListener {
 				}
 
 				@Override
-				public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-						Throwable arg3) {
+				public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 					progress_login.setVisibility(View.GONE);
 					output("服务器忙，请稍后再试");
 
@@ -126,7 +121,7 @@ public class loginActivty extends Activity implements OnClickListener {
 			startActivity(inten);
 			break;
 		case R.id.textView1:
-			//Intent intent = new Intent(this, FindPswActivity.class);
+			// Intent intent = new Intent(this, FindPswActivity.class);
 			Intent intent = new Intent(this, QuickLoginActivity.class);
 			startActivity(intent);
 			break;
@@ -139,21 +134,19 @@ public class loginActivty extends Activity implements OnClickListener {
 		params.put("mobile", mobile);
 		params.put("password", passwords);
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.post("http://kingtopgroup.com/api/account/login", params,
-				new AsyncHttpResponseHandler() {
-					@Override
-					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-							Throwable arg3) {
-						// TODO Auto-generated method stub
+		client.post("http://kingtopgroup.com/api/account/login", params, new AsyncHttpResponseHandler() {
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
 
-					}
+			}
 
-					@Override
-					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						// TODO Auto-generated method stub
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
 
-					}
-				});
+			}
+		});
 		return null;
 	}
 
@@ -170,8 +163,7 @@ public class loginActivty extends Activity implements OnClickListener {
 			mobile = username.getText().toString();
 			passwords = password.getText().toString();
 
-			if (mobile != null && !mobile.equals("") && passwords != null
-					&& !passwords.equals("")) {
+			if (mobile != null && !mobile.equals("") && passwords != null && !passwords.equals("")) {
 				postLogin();
 			} else {
 				Editor editor = sp.edit();

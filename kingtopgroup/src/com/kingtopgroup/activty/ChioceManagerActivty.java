@@ -68,6 +68,8 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		requestData();
 	}
 
+	ManagerBean managerAny = null;
+
 	void requestData() {
 		progress.setVisibility(View.VISIBLE);
 		RequestParams params = AsyncHttpCilentUtil.getParams();
@@ -85,7 +87,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 						buyCount = PSinfo.optInt("BuyCount");
 						JSONArray array = obj.getJSONArray("MassageList");
 						managerBean = new ArrayList<ManagerBean>();
-						ManagerBean managerAny = null;
+
 						for (int i = 0; i < array.length(); i++) {
 							ManagerBean manager = new ManagerBean();
 							String name = array.getJSONObject(i).getString("Name");
@@ -178,7 +180,22 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 				}
 				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
+
 				} else {
+					if (buyCount != adapter.getCheckedCount()) {
+						if (adapter.isAnyChecked()) {
+							int cha = buyCount - adapter.getCheckedCount();
+							StringBuilder builder = new StringBuilder(checked);
+							for (int i = 0; i < cha; i++) {
+								builder.append("," + managerAny.StoreId);
+							}
+							checked = builder.toString();
+						} else {
+							ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
+							return;
+						}
+					}
+
 					RequestParams params = AsyncHttpCilentUtil.getParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", opid);
