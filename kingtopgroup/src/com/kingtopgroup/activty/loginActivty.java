@@ -27,7 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class loginActivty extends MainActionBarActivity implements OnClickListener {
+public class loginActivty extends Activity implements OnClickListener {
 	private EditText username, password;
 	private Button loginsubmit;
 
@@ -50,8 +50,6 @@ public class loginActivty extends MainActionBarActivity implements OnClickListen
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		titleButton.setText("µÇÂ½");
-		backButton.setVisibility(View.INVISIBLE);
 		init();
 	}
 
@@ -212,28 +210,5 @@ public class loginActivty extends MainActionBarActivity implements OnClickListen
 		return true;
 	}
 
-	@Override
-	public void backButtonClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void titleButtonClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rightButtonClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Boolean showHeadView() {
-		// TODO Auto-generated method stub
-		return true;
-	}
 
 }

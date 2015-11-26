@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,6 +40,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ConfirmOrderActivity extends MainActionBarActivity {
+	private static final String TAG = "ConfirmOrderActivity";
 	ListView lv;
 	OrderInfo info;
 	String oid;
@@ -70,6 +72,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
 		String url = "http://kingtopgroup.com/api/order/getorderinfo?uid=" + uid + "&oid=" + oid;
+		Log.i(TAG, url);
 		client.get(url, new AsyncHttpResponseHandler() {
 
 			@Override
