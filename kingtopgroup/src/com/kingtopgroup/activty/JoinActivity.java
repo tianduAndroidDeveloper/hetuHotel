@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class JoinActivity extends Activity implements OnClickListener {
+public class JoinActivity extends MainActionBarActivity implements OnClickListener {
 	EditText et_name;
 	RadioGroup rg_sex;
 	EditText et_phone;
@@ -42,6 +41,7 @@ public class JoinActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join);
+		titleButton.setText("加入点下下");
 		init();
 	}
 
@@ -169,6 +169,30 @@ public class JoinActivity extends Activity implements OnClickListener {
 			dialog.dismiss();
 			dialog = null;
 		}
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		// TODO Auto-generated method stub
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

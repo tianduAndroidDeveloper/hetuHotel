@@ -25,7 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class loginActivty extends Activity implements OnClickListener {
+public class loginActivty extends MainActionBarActivity implements OnClickListener {
 	private EditText username, password;
 	private Button loginsubmit;
 
@@ -49,7 +49,8 @@ public class loginActivty extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		progress_login = findViewById(R.id.progress_login);
-
+		titleButton.setText("登陆");
+		backButton.setVisibility(View.INVISIBLE);
 		// 获得实例对象
 		sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
 		username = (EditText) findViewById(R.id.username);
@@ -122,8 +123,8 @@ public class loginActivty extends Activity implements OnClickListener {
 			break;
 		case R.id.textView1:
 			// Intent intent = new Intent(this, FindPswActivity.class);
-			Intent intent = new Intent(this, QuickLoginActivity.class);
-			startActivity(intent);
+			/*Intent intent = new Intent(this, QuickLoginActivity.class);
+			startActivity(intent);*/
 			break;
 		}
 
@@ -173,6 +174,30 @@ public class loginActivty extends Activity implements OnClickListener {
 			}
 
 		}
+		return true;
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 }

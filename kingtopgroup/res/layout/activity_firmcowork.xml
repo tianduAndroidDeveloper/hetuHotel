@@ -14,7 +14,7 @@
 
         <requestFocus />
 
-        <RelativeLayout
+       <!--  <RelativeLayout
             android:id="@+id/ll_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,13 +37,13 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
+        </RelativeLayout> -->
 
         <ImageView
             android:id="@+id/iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/ll_title"
+            
             android:scaleType="centerCrop" />
 
         <LinearLayout
