@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity; 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingtogroup.domain.ShipAddress;
 import com.kingtogroup.utils.ParserJSON;
 import com.kingtogroup.utils.ParserJSON.ParseListener;
-import com.kingtogroup.view.MyListView;
 import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;

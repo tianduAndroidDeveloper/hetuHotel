@@ -2,6 +2,7 @@ package com.kingtopgroup.activty;
 
 import java.util.Date;
 
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +13,6 @@ import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

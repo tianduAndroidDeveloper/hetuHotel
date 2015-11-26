@@ -2,6 +2,7 @@ package com.kingtopgroup.activty;
 
 import java.util.List;
 
+
 import com.kimgtopgroup.application.AgentApplication;
 import com.kingtopgroup.R;
 import com.kingtopgroup.fragment.impl.BackHandledFragment;
@@ -11,7 +12,6 @@ import com.stevenhu.android.phone.utils.CustomProgressDialog;
 import com.stevenhu.android.phone.utils.SystemConntection;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -25,7 +25,6 @@ public class MyActivty extends FragmentActivity  implements BackHandledInterface
 	private WebView my_webview;
 	private SwipeRefreshLayout my_fresh;
 	private BackHandledFragment backHandled;
-	private ProgressDialog bar;
 	private CustomProgressDialog progressDialog = null;
 	private MainFrameTask mMainFrameTask = null;
 
@@ -194,7 +193,7 @@ private void stopProgressDialog(){
 
 
 public class MainFrameTask extends AsyncTask<Integer, String, Integer>{
-    private MyActivty mainFrame = null;
+    MyActivty mainFrame = null;
      
     public MainFrameTask(MyActivty mainFrame){
         this.mainFrame = mainFrame;

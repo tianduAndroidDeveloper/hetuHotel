@@ -48,7 +48,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CommitActivity extends MainActionBarActivity implements OnClickListener {
-	private static final String TAG = "CommitActivity";
 	ListView lv;
 	View progress;
 	List<ServiceEntity> services = new ArrayList<ServiceEntity>();
@@ -272,7 +271,6 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				holder = initHolder(convertView);
 			ServiceEntity service = services.get(position);
 			String uri = Utils.assembleImageUri(service.ShowImg, "5");
-			Log.i(TAG, uri);
 			ImageLoader.getInstance().displayImage(uri.trim(), holder.iv_service);
 			holder.tv_type.setText("项目：" + service.Name);
 			holder.tv_count.setText("数量：" + service.BuyCount);
@@ -296,7 +294,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			View v = View.inflate(this, R.layout.item_massager, null);
 			TextView tv1 = (TextView) v.findViewById(R.id.tv1);
 			TextView tv2 = (TextView) v.findViewById(R.id.tv2);
-			TextView tv3 = (TextView) v.findViewById(R.id.tv3);
+			// TextView tv3 = (TextView) v.findViewById(R.id.tv3);
 			ImageView iv2 = (ImageView) v.findViewById(R.id.imageView2);
 			iv2.setScaleType(ScaleType.CENTER_CROP);
 			try {
@@ -307,7 +305,6 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			}
 			tv1.setText(massageEntity.Name);
 			String uri = "http://kingtopgroup.com/upload/store/" + service.Storeid + "/logo/thumb150_150/" + massageEntity.Logo;
-			Log.i(TAG, uri);
 			ImageLoader.getInstance().displayImage(uri.trim(), iv2);
 			ll.addView(v);
 
@@ -372,18 +369,16 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 	void confirmOrder() {
 		AsyncHttpClient client = new AsyncHttpClient();
-		// uid,orderProductKeyList以“,”分开,payCreditCount=1,coupList=""以“,”分开
 		String uid = UserBean.getUSerBean().getUid();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < services.size(); i++) {
 			ServiceEntity service = services.get(i);
 			sb.append(service.Opid + ",");
 		}
-		if(sb.length()<1)
+		if (sb.length() < 1)
 			return;
 		sb.deleteCharAt(sb.length() - 1);
 		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=0";
-		Log.i(TAG, url);
 		client.post(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -391,7 +386,6 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				if (arg0 == 200) {
 					try {
 						JSONObject orderObject = new JSONObject(new String(arg2));
-						Log.i(TAG, orderObject.toString());
 						int returnValue = orderObject.optInt("ReturnValue");
 						String msg = orderObject.optString("ActionMessage");
 						if (returnValue != 0) {
@@ -409,8 +403,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-				Log.i(TAG, new String(arg2));
-
+				Toast.makeText(CommitActivity.this, "请求错误，请重试", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

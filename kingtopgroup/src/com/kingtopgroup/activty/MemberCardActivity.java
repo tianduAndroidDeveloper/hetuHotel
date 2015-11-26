@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.apache.http.Header;
@@ -21,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kingtogroup.domain.MemberCard;
-import com.kingtogroup.view.MyListView;
 import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;

@@ -7,7 +7,6 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -113,6 +112,7 @@ public class orderActivity extends TabActivity implements
 		tabSpec4.setIndicator("推拿师");
 		intent4.setClass(this, messageActivty.class);
 		intent4.putExtra("json", object.optJSONArray("MassagersList").toString());
+		intent4.putExtra("reviews", object.optJSONObject("ReviewCount").toString());
 		tabSpec4.setContent(intent4);
 		tabhost.addTab(tabSpec4);
 	}

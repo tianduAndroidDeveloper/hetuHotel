@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
- 
+ 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
@@ -48,51 +48,48 @@
 
         <activity
             android:name="com.kingtopgroup.activty.MainActivity"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.indexActivity"
-           
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.orderActivity"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.pedicureActivty"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.messageActivty"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.manipulationActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.loginActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -102,205 +99,208 @@
         <activity
             android:name="com.kingtopgroup.activty.MyActivty"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.CooperateActivt"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.MoreServiceAgreementActivty"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ChioceManagerActivty"
-            android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServiceScopeActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.AddAddressAddActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.SomeQuestionActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.AddAddressActivty"
             android:label="@string/app_name"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.AboutKingTopGroup"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.AddKingTopGroupActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.OrderForCustomerActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServieNumActivty"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.RegisterActivty"
-            android:label="@string/app_name" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.ServiceAddressActivty"
-            
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.OrderTimeActivty"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" >
         </activity>
         <activity
             android:name="com.kingtopgroup.activty.PersonalActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.PreferActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.ManageAddressActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.AddAddressActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.MeOrderActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.EditAddressActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.AgreementActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.AboutUSActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.MemberCardActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.SubmitOrderActivty"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.ShareActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.MessagerDetialActivty"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.PayInfoActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
-        <activity android:name="com.kingtopgroup.activty.FirmWorkActivity" 
-             android:theme="@style/Theme_Activity_Animation" 
+        <activity
+            android:name="com.kingtopgroup.activty.FirmWorkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
-        <activity android:name="com.kingtopgroup.activty.JoinActivity" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+        <activity
+            android:name="com.kingtopgroup.activty.JoinActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.CommonActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.CommitActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <!--
         <activity android:name="com.kingtopgroup.activty.FirmWorkActivity" />
-        <activity android:name="com.kingtopgroup.activty.JoinActivity" />
+        <activity android:name="com.kingtopgroup.activty.JoinActivity" />
         -->
         <activity
             android:name="com.kingtopgroup.activty.RangeActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
-        <activity android:name="com.kingtopgroup.activty.CoworkActivity" 
-             android:theme="@style/Theme_Activity_Animation" 
+        <activity
+            android:name="com.kingtopgroup.activty.CoworkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
-        <activity android:name="com.kingtopgroup.activty.MoreActivity" 
-             android:theme="@style/Theme_Activity_Animation" 
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+        <activity
+            android:name="com.kingtopgroup.activty.MoreActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
+            android:theme="@style/Theme_Activity_Animation"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.DiscusActivity"
             android:screenOrientation="portrait"
@@ -308,27 +308,28 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.ConfirmOrderActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.MoreMassagers"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.CheckPreferActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
         <activity
             android:name="com.kingtopgroup.activty.ReviewActivity"
-             android:theme="@style/Theme_Activity_Animation" 
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
-        <activity android:name="com.kingtopgroup.activty.QuickLoginActivity"
-             android:theme="@style/Theme_Activity_Animation" 
+        <activity
+            android:name="com.kingtopgroup.activty.QuickLoginActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme_Activity_Animation"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
     </application>
 

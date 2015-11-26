@@ -1,10 +1,10 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
