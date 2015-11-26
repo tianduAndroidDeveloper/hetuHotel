@@ -100,10 +100,10 @@ public class OrderTimeActivty extends MainActionBarActivity implements OrderTime
 	class MyRadioCheckChangeListener implements OnCheckedChangeListener {
 
 		@Override
-		public void onCheckedChanged(RadioGroup arg0, int arg1) {
+		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			SimpleDateFormat sdf2 = new SimpleDateFormat("dd");
 			int dd = Integer.parseInt(sdf2.format(new Date()));
-			switch (arg1) {
+			switch (checkedId) {
 			case R.id.today:
 				dayOfMonth = dd;
 				getOtherDays("ValidDay_0");

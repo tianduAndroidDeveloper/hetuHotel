@@ -28,7 +28,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class FirmWorkActivity extends Activity {
+public class FirmWorkActivity extends MainActionBarActivity {
 	ImageView iv;
 	EditText et_firm;
 	EditText et_address;
@@ -42,6 +42,7 @@ public class FirmWorkActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_firmcowork);
+		titleButton.setText("企业合作体验");
 		init();
 	}
 
@@ -176,6 +177,30 @@ public class FirmWorkActivity extends Activity {
 	
 	public void back(View v){
 		finish();
+	}
+
+	@Override
+	public void backButtonClick(View v) {
+		// TODO Auto-generated method stub
+		finish();
+	}
+
+	@Override
+	public void titleButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boolean showHeadView() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

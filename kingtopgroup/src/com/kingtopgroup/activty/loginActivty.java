@@ -2,6 +2,7 @@ package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -96,8 +97,8 @@ public class loginActivty extends Activity implements OnClickListener {
 			break;
 		case R.id.textView1:
 			// Intent intent = new Intent(this, FindPswActivity.class);
-			Intent intent = new Intent(this, QuickLoginActivity.class);
-			startActivity(intent);
+			/*Intent intent = new Intent(this, QuickLoginActivity.class);
+			startActivity(intent);*/
 			break;
 		}
 
@@ -208,4 +209,5 @@ public class loginActivty extends Activity implements OnClickListener {
 		}
 		return true;
 	}
+
 }
