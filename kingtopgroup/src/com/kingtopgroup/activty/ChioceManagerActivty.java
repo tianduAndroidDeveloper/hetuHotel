@@ -12,10 +12,10 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,6 +34,7 @@ import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.ToastUtils;
 
 public class ChioceManagerActivty extends MainActionBarActivity {
+	private static final String TAG = "ChioceManagerActivty";
 	List<ManagerBean> managerBean;
 	private ListView manager_listview;
 	private TextView orderDate;
@@ -45,6 +46,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chioce_manager);
 		titleButton.setText("选择推拿师");
@@ -148,13 +150,6 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 		tv.setText("没有合适的推拿师?去看看更多");
 		ll.addView(tv);
 		manager_listview.addFooterView(ll);
-		/*Button btn = new Button(this);
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		btn.setBackgroundResource(R.drawable.red_bg);
-		btn.setTextColor(Color.WHITE);
-		btn.setText("下一步");
-		btn.setLayoutParams(params);
-		manager_listview.addFooterView(btn);*/
 
 		tv.setOnClickListener(new OnClickListener() {
 
@@ -172,34 +167,20 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					return;
 				}
 				String checked = adapter.getCheckedIds();
-				String getChecked;
-				if (checked.indexOf(",") != -1) {
-					getChecked = checked.substring(0, checked.indexOf(","));
-				} else {
-					getChecked = checked;
-				}
+				
 				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
 
 				} else {
-					if (buyCount != adapter.getCheckedCount()) {
-						if (adapter.isAnyChecked()) {
-							int cha = buyCount - adapter.getCheckedCount();
-							StringBuilder builder = new StringBuilder(checked);
-							for (int i = 0; i < cha; i++) {
-								builder.append("," + managerAny.StoreId);
-							}
-							checked = builder.toString();
-						} else {
-							ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
-							return;
-						}
+					if (buyCount != adapter.getCheckedCount() && !adapter.isAnyChecked()) {
+						ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
+						return;
 					}
-
-					RequestParams params = AsyncHttpCilentUtil.getParams();
+					RequestParams params = new RequestParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", opid);
-					params.put("MassagerId", getChecked);
+					String MassagerId = checked.contains(",") ? checked.split(",")[0] : checked;
+					params.put("MassagerId", MassagerId);
 					params.put("MasagerIdList", checked);
 
 					AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.set_manager_list, params, new AsyncHttpResponseHandler() {

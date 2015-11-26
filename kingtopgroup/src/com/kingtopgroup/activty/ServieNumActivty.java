@@ -2,6 +2,7 @@ package com.kingtopgroup.activty;
 
 
 import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,10 +11,10 @@ import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 import com.kingtogroup.utils.Utils;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
-import com.kingtopgroup.constant.finalBitmapUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 import com.stevenhu.android.phone.utils.LunboImageUtil;
 import com.stevenhu.android.phone.utils.ToastUtils;
@@ -109,7 +110,8 @@ public class ServieNumActivty extends MainActionBarActivity implements OnClickLi
 		product_item_image = (ImageView) findViewById(R.id.product_item_image);
 		service_sub_price = (TextView) findViewById(R.id.service_sub_price);
 		service_sub_price.setText("ºÏ¼Æ£º£¤" + price);
-		finalBitmapUtil.getFinalBitmap(this).display(product_item_image, image);
+		ImageLoader.getInstance().displayImage(image, product_item_image);
+		//finalBitmapUtil.getFinalBitmap(this).display(product_item_image, image);
 
 		service_content = (RadioButton) findViewById(R.id.service_content);
 		service_scope = (RadioButton) findViewById(R.id.service_scope);

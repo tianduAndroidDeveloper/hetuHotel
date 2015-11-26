@@ -52,7 +52,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:text="有效期剩余10天"
         android:textColor="@color/white"
         android:textSize="10sp" />
 

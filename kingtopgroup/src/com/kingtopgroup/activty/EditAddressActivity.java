@@ -1,13 +1,12 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,7 +22,6 @@ import com.loopj.android.http.RequestParams;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 public class EditAddressActivity extends MainActionBarActivity implements OnClickListener {
-	private static final String TAG = "EditAddressActivity";
 	EditText et_address;
 	EditText et_name;
 	EditText et_phone;
@@ -106,7 +104,6 @@ public class EditAddressActivity extends MainActionBarActivity implements OnClic
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				Log.i(TAG, new String(arg2));
 				try {
 					JSONObject object = new JSONObject(new String(arg2));
 					int returnValue = object.getInt("ReturnValue");

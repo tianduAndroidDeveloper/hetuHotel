@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,10 +19,8 @@ import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 public class QuickLoginActivity extends MainActionBarActivity {
-	private static final String TAG = "QuickLoginActivity";
 	TextView tv_getcode;
 	EditText et_username;
 	EditText et_code;

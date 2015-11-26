@@ -26,7 +26,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class PreferActivity extends MainActionBarActivity {
-	private static final String TAG = "PreferActivity";
 	ListView lv;
 	MyListViewAdapter adapter;
 	List<CouponEntity> coupons = new ArrayList<CouponEntity>();
@@ -99,7 +98,6 @@ public class PreferActivity extends MainActionBarActivity {
 			}
 			fillData();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -156,7 +154,6 @@ public class PreferActivity extends MainActionBarActivity {
 				convertView.setTag(holder);
 			}
 			CouponEntity couponEntity = coupons.get(position);
-			Log.i(TAG, couponEntity.toString());
 			switch (couponEntity.getState()) {
 			case 1:
 			case 2:

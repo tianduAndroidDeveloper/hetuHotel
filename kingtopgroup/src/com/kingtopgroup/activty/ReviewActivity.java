@@ -2,13 +2,13 @@ package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
 
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,10 +29,7 @@ import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class ReviewActivity extends MainActionBarActivity {
 	private static final String TAG = "ReviewActivity";
@@ -78,7 +75,7 @@ public class ReviewActivity extends MainActionBarActivity {
 
 				try {
 					JSONObject object = new JSONObject(new String(arg2));
-					JSONObject orderInfo = object.optJSONObject("OrderInfo");
+					//JSONObject orderInfo = object.optJSONObject("OrderInfo");
 					JSONArray array = object.optJSONArray("OrderProductList");
 					if(array != null){
 						initProductList(array);
@@ -172,7 +169,7 @@ public class ReviewActivity extends MainActionBarActivity {
 					try {
 						JSONObject object = new JSONObject(new String(arg2));
 						String msg = object.optString("ActionMessage");
-						int returnValue = object.optInt("ReturnValue");
+						//int returnValue = object.optInt("ReturnValue");
 						Toast.makeText(ReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
 						//if (returnValue != 0)
 						setResult(200);

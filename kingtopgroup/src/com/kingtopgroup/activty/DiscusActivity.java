@@ -1,7 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -26,7 +25,6 @@ import com.kingtopgroup.R;
 import com.kingtopgroup.constant.ConstanceUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.stevenhu.android.phone.utils.ACache;
 import com.stevenhu.android.phone.utils.AsyncHttpCilentUtil;
 
 
@@ -75,8 +73,8 @@ public class DiscusActivity extends MainActionBarActivity {
 	    private void initViewPager(String date) {
 	        mPager = (ViewPager) findViewById(R.id.vPager);
 	        fragmentsList = new ArrayList<Fragment>();
-	        LayoutInflater mInflater = getLayoutInflater();
-	        View activityView = mInflater.inflate(R.layout.discus_layout_tab, null);
+	        //LayoutInflater mInflater = getLayoutInflater();
+	        //View activityView = mInflater.inflate(R.layout.discus_layout_tab, null);
 	        
 	        
 	        JSONObject obj;
