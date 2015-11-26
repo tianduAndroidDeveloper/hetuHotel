@@ -9,11 +9,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -164,17 +166,31 @@ public class CheckPreferActivity extends MainActionBarActivity {
 				holder.rl = (RelativeLayout) convertView.findViewById(R.id.rl);
 				convertView.setTag(holder);
 			}
-			CouponEntity couponEntity = coupons.get(position);
-			Log.i(TAG, couponEntity.toString());
+			final CouponEntity couponEntity = coupons.get(position);
 			switch (couponEntity.getState()) {
 			case 1:
 			case 2:
 				holder.rl.setBackgroundResource(R.drawable.coupon_b);
+				holder.rl.setTag(false);
 				break;
 			case 3:
 				holder.rl.setBackgroundResource(R.drawable.coupon);
+				holder.rl.setTag(true);
 				break;
 			}
+			holder.rl.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					boolean usable = (Boolean) arg0.getTag();
+					if (usable) {
+						Intent intent = new Intent();
+						intent.putExtra("couponId", couponEntity.getCouponId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+				}
+			});
 			holder.tv_deadline.setText("有效期剩余"
 					+ couponEntity.getUseExpireTime() + "天");
 			holder.tv_type.setText(couponEntity.getName());

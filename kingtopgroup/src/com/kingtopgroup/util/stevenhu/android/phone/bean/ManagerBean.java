@@ -9,8 +9,8 @@ public class ManagerBean implements Serializable{
 	public String address;
 	public boolean isChecked = false;
 	public String serviceDate;
-	public String point_x;
-	public String point_y;
+	public double point_x;
+	public double point_y;
 	public String Logo;
 	public String StoreId;
 	@Override

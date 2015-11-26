@@ -1,100 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <LinearLayout
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:layout_height="fill_parent" >
 
-        <RadioGroup
-            android:id="@+id/main_radio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#FFFFFF"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp" >
-
-            <RadioButton
-                android:id="@+id/manipulation"
-                android:layout_width="35dip"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rb_pop2"
-                android:button="@null"
-                android:gravity="center"
-                android:height="30dip"
-                android:text="推拿"
-                android:textColor="@drawable/tab_order_text_btn" />
-
-            <RadioButton
-                android:id="@+id/pedicure"
-                android:layout_width="35dip"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rb_pop"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:height="30dip"
-                android:text="足疗"
-                android:textColor="@drawable/tab_order_text_btn" />
-
-            <RadioButton
-                android:id="@+id/orders"
-                android:layout_width="35dip"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rb_pop"
-                android:button="@null"
-                android:gravity="center"
-                android:height="30dip"
-                android:text="订制"
-                android:textColor="@drawable/tab_order_text_btn" />
-
-            <RadioButton
-                android:id="@+id/message"
-                android:layout_width="35dip"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rb_pop3"
-                android:button="@null"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:height="30dip"
-                android:text="推拿师"
-                android:textColor="@drawable/tab_order_text_btn"
-                android:typeface="normal" />
-
-            <TextView
-                android:layout_marginLeft="5dip"
-                android:id="@+id/order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/map"
-                android:gravity="center"
-                android:text="昆明"
-                android:textColor="@android:color/darker_gray"
-                android:background="@null"
-                android:textSize="10dip" 
-                
-                />
-        </RadioGroup>
-
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </FrameLayout>
-
-        <!-- TabWidget管理所有的选项卡，id名是android指定的 -->
-
-        <TabWidget
-            android:id="@android:id/tabs"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:orientation="vertical" >
 
-</TabHost>
+            <RadioGroup
+                android:id="@+id/main_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <RadioButton
+                    android:id="@+id/manipulation"
+                    android:layout_width="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop2"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:height="30dip"
+                    android:text="推拿"
+                    android:textColor="@drawable/tab_order_text_btn" />
+
+                <RadioButton
+                    android:id="@+id/pedicure"
+                    android:layout_width="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    android:height="30dip"
+                    android:text="足疗"
+                    android:textColor="@drawable/tab_order_text_btn" />
+
+                <RadioButton
+                    android:id="@+id/orders"
+                    android:layout_width="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:height="30dip"
+                    android:text="订制"
+                    android:textColor="@drawable/tab_order_text_btn" />
+
+                <RadioButton
+                    android:id="@+id/message"
+                    android:layout_width="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rb_pop3"
+                    android:button="@null"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:height="30dip"
+                    android:text="推拿师"
+                    android:textColor="@drawable/tab_order_text_btn"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableTop="@drawable/map"
+                    android:gravity="center"
+                    android:text="昆明"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="10dip" />
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </FrameLayout>
+
+            <!-- TabWidget管理所有的选项卡，id名是android指定的 -->
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone" />
+        </LinearLayout>
+    </TabHost>
+	<include 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:id="@+id/progress"
+	    layout="@layout/progress"/>
+</RelativeLayout>

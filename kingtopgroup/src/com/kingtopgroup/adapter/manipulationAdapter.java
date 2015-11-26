@@ -31,8 +31,7 @@ public class manipulationAdapter extends BaseAdapter {
 	private Context context = null;
 	private FinalBitmap finalBitMap = null;
 
-	public manipulationAdapter(Context context,
-			List<Map<String, Object>> ItemInfoList) {
+	public manipulationAdapter(Context context, List<Map<String, Object>> ItemInfoList) {
 		finalBitMap = FinalBitmap.create(context);
 		this.inflater = LayoutInflater.from(context);
 		this.ItemInfoList = ItemInfoList;
@@ -61,41 +60,31 @@ public class manipulationAdapter extends BaseAdapter {
 		ViewHolder holder = (ViewHolder) convertView.getTag();
 		if (holder == null) {
 			holder = new ViewHolder();
-			holder.order_item_name = (TextView) convertView
-					.findViewById(R.id.order_item_name);
-			holder.order_item_image1 = (ImageView) convertView
-					.findViewById(R.id.order_item_image1);
-			holder.order_item_time = (TextView) convertView
-					.findViewById(R.id.time);
-			holder.item_id = (LinearLayout) convertView
-					.findViewById(R.id.main);
-			holder.beginnum = (TextView) convertView
-					.findViewById(R.id.order_item_person);
-			holder.order_item_price = (TextView) convertView
-					.findViewById(R.id.order_item_price);
+			holder.order_item_name = (TextView) convertView.findViewById(R.id.order_item_name);
+			holder.order_item_image1 = (ImageView) convertView.findViewById(R.id.order_item_image1);
+			holder.order_item_time = (TextView) convertView.findViewById(R.id.time);
+			holder.item_id = (LinearLayout) convertView.findViewById(R.id.main);
+			holder.beginnum = (TextView) convertView.findViewById(R.id.order_item_person);
+			holder.order_item_price = (TextView) convertView.findViewById(R.id.order_item_price);
+			holder.iv_attrvalue = (ImageView) convertView.findViewById(R.id.iv_attrvalue);
 			convertView.setTag(holder);
 		}
 		String name = ItemInfoList.get(position).get("name").toString();
-		if(name.length()>7){
-		holder.item_id.setOrientation(LinearLayout.VERTICAL);
-		}else{
+		if (name.length() > 7) {
+			holder.item_id.setOrientation(LinearLayout.VERTICAL);
+		} else {
 			holder.item_id.setOrientation(LinearLayout.HORIZONTAL);
 		}
 
-		holder.order_item_name.setId(Integer.parseInt((String) ItemInfoList
-				.get(position).get("pid")));
-		holder.order_item_name.setText((CharSequence) ItemInfoList
-				.get(position).get("name"));
-		holder.order_item_time.setText((CharSequence) ItemInfoList
-				.get(position).get("time") + "分钟");
-		holder.beginnum.setText("("
-				+ (CharSequence) ItemInfoList.get(position).get("beginnum")
-				+ "人起订)");
-		holder.order_item_price.setText("￥"
-				+ (CharSequence) ItemInfoList.get(position).get("marketprice"));
-		ImageLoader.getInstance().displayImage(
-				(String) ItemInfoList.get(position).get("order_item_image1"),
-				holder.order_item_image1);
+		holder.order_item_name.setId(Integer.parseInt((String) ItemInfoList.get(position).get("pid")));
+		holder.order_item_name.setText((CharSequence) ItemInfoList.get(position).get("name"));
+		holder.order_item_time.setText((CharSequence) ItemInfoList.get(position).get("time") + "分钟");
+		holder.beginnum.setText("(" + (CharSequence) ItemInfoList.get(position).get("beginnum") + "人起订)");
+		holder.order_item_price.setText("￥" + (CharSequence) ItemInfoList.get(position).get("marketprice"));
+		String attrvalue = (String) ItemInfoList.get(position).get("attrvalue");
+		if (attrvalue != null)
+			holder.iv_attrvalue.setImageResource(attrvalue.contains("坐") ? R.drawable.zuob : R.drawable.tang_yuan);
+		ImageLoader.getInstance().displayImage((String) ItemInfoList.get(position).get("order_item_image1"), holder.order_item_image1);
 
 		return convertView;
 	}
@@ -107,6 +96,7 @@ public class manipulationAdapter extends BaseAdapter {
 		TextView order_item_time;
 		ImageView order_item_image1;
 		TextView order_item_price;
+		ImageView iv_attrvalue;
 
 	}
 

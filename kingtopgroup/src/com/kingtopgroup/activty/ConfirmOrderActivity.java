@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -38,7 +39,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ConfirmOrderActivity extends MainActionBarActivity {
-	private static final String TAG = "ConfirmOrderActivity";
 	ListView lv;
 	OrderInfo info;
 	String oid;
@@ -46,6 +46,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	JSONObject object;
 	List<Product> products = new ArrayList<Product>();
 	TextView tv_total;
+	View progress;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -60,10 +61,12 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 		tv_total = (TextView) findViewById(R.id.tv_total);
 		lv = (ListView) findViewById(R.id.lv);
 		oid = String.valueOf(getIntent().getIntExtra("oid", 0));
+		progress = findViewById(R.id.progress);
 		requestData();
 	}
 
 	void requestData() {
+		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
 		String url = "http://kingtopgroup.com/api/order/getorderinfo?uid=" + uid + "&oid=" + oid;
@@ -75,13 +78,16 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 					object = new JSONObject(new String(arg2));
 					parseToEntity(object.optJSONObject("OrderInfo"));
 				} catch (JSONException e) {
+					Toast.makeText(ConfirmOrderActivity.this, "出现异常，请联系客服", Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
 				}
+				progress.setVisibility(View.GONE);
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-
+				Toast.makeText(ConfirmOrderActivity.this, "请求失败，请重试", Toast.LENGTH_SHORT).show();
+				progress.setVisibility(View.GONE);
 			}
 		});
 	}
@@ -107,7 +113,6 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 			@Override
 			public void onComplete(Object parseResult) {
 				if (parseResult != null) {
-					Log.i(TAG, parseResult.toString());
 					parseToList(object.optJSONArray("ProductLis"));
 				}
 			}
@@ -139,7 +144,6 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 			@Override
 			public void onComplete(Object parseResult) {
 				if (parseResult != null) {
-					Log.i(TAG, parseResult.toString());
 					fillData();
 				}
 			}
@@ -150,7 +154,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 		double sum = 0;
 		for (int i = 0; i < products.size(); i++) {
 			Product pro = products.get(i);
-			sum += pro.ShopPrice;
+			sum += pro.ShopPrice * pro.BuyCount;
 		}
 		tv_total.setText("合计：￥" + sum);
 		if (adapter == null) {
@@ -219,7 +223,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 				tv_type.setText("项目：" + pro.Name);
 				tv_count.setText("数量：" + pro.BuyCount);
 				tv_sum.setText(pro.Name + "x" + pro.BuyCount);
-				tv_money.setText("￥" + pro.ShopPrice);
+				tv_money.setText("￥" + pro.ShopPrice * pro.BuyCount);
 				tv_time.setText("预约时间：" + pro.ServiceDate.split("T")[0] + " " + pro.ServiceTime);
 				String uri = Utils.assembleImageUri(pro.ShowImg, "5");
 				ImageLoader.getInstance().displayImage(uri, imageView1);

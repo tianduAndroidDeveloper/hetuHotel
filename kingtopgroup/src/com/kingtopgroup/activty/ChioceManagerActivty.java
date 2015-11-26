@@ -41,6 +41,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 	private View headerView;
 	private View progress;
 	private Button btn;
+	private TextView tv_warning;
 	String opid;
 	int buyCount = 0;
 
@@ -55,6 +56,7 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 
 		progress = findViewById(R.id.progress);
 		manager_listview = (ListView) findViewById(R.id.manager_listview);
+		tv_warning = (TextView) findViewById(R.id.tv_warning);
 
 		headerView = View.inflate(this, R.layout.header_massager, null);
 		orderDate = (TextView) headerView.findViewById(R.id.orderDate);
@@ -74,9 +76,10 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 
 	void requestData() {
 		progress.setVisibility(View.VISIBLE);
-		RequestParams params = AsyncHttpCilentUtil.getParams();
+		RequestParams params = new RequestParams();
 		params.put("uid", UserBean.getUSerBean().getUid());
 		params.put("opid", opid);
+		Log.i(TAG, params.toString());
 		AsyncHttpCilentUtil.getInstance().get(ConstanceUtil.get_manager_list_url, params, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -98,9 +101,9 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 							manager.Logo = Logo;
 							String StoreId = array.getJSONObject(i).getString("StoreId");
 							manager.StoreId = StoreId;
-							String Point_X = array.getJSONObject(i).getString("Point_X");
+							double Point_X = array.optJSONObject(i).optDouble("Point_X");
 							manager.point_x = Point_X;
-							String Point_Y = array.getJSONObject(i).getString("Point_Y");
+							double Point_Y = array.optJSONObject(i).optDouble("Point_Y");
 							manager.point_y = Point_Y;
 							String Address = array.getJSONObject(i).getString("Address");
 							manager.address = Address;
@@ -167,7 +170,6 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 					return;
 				}
 				String checked = adapter.getCheckedIds();
-				
 				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(ChioceManagerActivty.this, "你选择推拿师的数量与购买项目的数量不等！");
 
@@ -218,9 +220,16 @@ public class ChioceManagerActivty extends MainActionBarActivity {
 	private ManagerAdapter2 adapter;
 
 	private void setAdapter(List<ManagerBean> list) {
-		int showCount = list.size() > 5 ? 5 : list.size();
-		adapter = new ManagerAdapter2(this, list, showCount);
-		manager_listview.setAdapter(adapter);
+		if (list.size() == 0) {
+			tv_warning.setVisibility(View.VISIBLE);
+			manager_listview.setVisibility(View.GONE);
+		} else {
+			tv_warning.setVisibility(View.GONE);
+			manager_listview.setVisibility(View.VISIBLE);
+			int showCount = list.size() > 5 ? 5 : list.size();
+			adapter = new ManagerAdapter2(this, list, showCount);
+			manager_listview.setAdapter(adapter);
+		}
 	}
 
 	@Override

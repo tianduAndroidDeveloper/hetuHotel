@@ -76,7 +76,7 @@ public class loginActivty extends Activity implements OnClickListener {
 				public void run() {
 					requestLogin();
 				}
-			}, 1000);
+			}, 100);
 		}
 
 		register_button.setOnClickListener(this);

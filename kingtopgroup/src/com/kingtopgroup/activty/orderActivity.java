@@ -1,12 +1,14 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,8 +25,7 @@ import com.kingtopgroup.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class orderActivity extends TabActivity implements
-		OnCheckedChangeListener {
+public class orderActivity extends TabActivity implements OnCheckedChangeListener {
 
 	private ImageView imgaeview;
 	private RadioGroup radiogroup;
@@ -32,18 +33,19 @@ public class orderActivity extends TabActivity implements
 	private TextView location;
 	private TabHost tabhost;
 	private TabWidget tabs;
+	private View progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlistview);
-		getDate();
 		manipulation = (RadioButton) findViewById(R.id.manipulation);
 		pedicure = (RadioButton) findViewById(R.id.pedicure);
 		message = (RadioButton) findViewById(R.id.message);
 		orders = (RadioButton) findViewById(R.id.orders);
 		location = (TextView) findViewById(R.id.order);
-		//字体设置
+		progress = findViewById(R.id.progress);
+		// 字体设置
 		Typeface mTypeface = Typeface.createFromAsset(getAssets(), "fonts/kaiti.ttf");
 		manipulation.setTypeface(mTypeface);
 		pedicure.setTypeface(mTypeface);
@@ -62,6 +64,8 @@ public class orderActivity extends TabActivity implements
 		RadioButton radioButton = (RadioButton) radiogroup.getChildAt(0);
 		radioButton.setChecked(true);
 
+		getDate();
+
 	}
 
 	private void initLocation() {
@@ -77,6 +81,16 @@ public class orderActivity extends TabActivity implements
 
 	}
 
+	String extraMassageAttribute(JSONArray ItemAttributeList) {
+		JSONArray array = new JSONArray();
+		for (int i = 0; i < ItemAttributeList.length(); i++) {
+			JSONObject object = ItemAttributeList.optJSONObject(i);
+			if (object.optString("attrgroupname").contains("推拿姿势"))
+				array.put(object);
+		}
+		return array.toString();
+	}
+
 	private void initTabs(JSONObject object) {
 		Intent intent1 = new Intent();
 		// 推拿
@@ -84,6 +98,7 @@ public class orderActivity extends TabActivity implements
 		tabSpec0.setIndicator("推拿");
 		intent1.setClass(this, manipulationActivty.class);
 		intent1.putExtra("json", object.optJSONArray("MassagesList").toString());
+		intent1.putExtra("attributes", extraMassageAttribute(object.optJSONArray("ItemAttributeList")));
 		intent1.putExtra("lubo", true);
 		// object.optJSONArray("MassagesList").toString());
 		tabSpec0.setContent(intent1);
@@ -101,8 +116,7 @@ public class orderActivity extends TabActivity implements
 		// 推拿师
 		TabHost.TabSpec tabSpec2 = tabhost.newTabSpec("订制");
 		tabSpec2.setIndicator("订制");
-		tabSpec2.setContent(new Intent(orderActivity.this,
-				OrderForCustomerActivty.class));
+		tabSpec2.setContent(new Intent(orderActivity.this, OrderForCustomerActivty.class));
 		tabhost.addTab(tabSpec2);
 		tabhost.setCurrentTab(0);
 
@@ -118,36 +132,33 @@ public class orderActivity extends TabActivity implements
 	}
 
 	public void getDate() {
+		progress.setVisibility(View.VISIBLE);
 		// 服务器端传来数据
 
-		new AsyncHttpClient().get(
-				getResources().getString(R.string.url_getItemList), null,
-				new AsyncHttpResponseHandler() {
+		new AsyncHttpClient().get(getResources().getString(R.string.url_getItemList), null, new AsyncHttpResponseHandler() {
 
-					@Override
-					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-						if (arg0 == 200) {
-							try {
-								String date = new String(arg2);
-								JSONObject jObject = new JSONObject(date);
-								initTabs(jObject);
-							} catch (Exception e) {
-								e.printStackTrace();
-								
-								Toast.makeText(orderActivity.this, "请求失败，请重试",
-										Toast.LENGTH_LONG).show();
-							}
-						}
-
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				if (arg0 == 200) {
+					try {
+						String date = new String(arg2);
+						JSONObject jObject = new JSONObject(date);
+						initTabs(jObject);
+					} catch (Exception e) {
+						e.printStackTrace();
+						Toast.makeText(orderActivity.this, "出现异常，请重试", Toast.LENGTH_LONG).show();
 					}
+					progress.setVisibility(View.GONE);
+				}
 
-					@Override
-					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-							Throwable arg3) {
-						Toast.makeText(orderActivity.this, "请求失败，请重试",
-								Toast.LENGTH_LONG).show();
-					}
-				});
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				progress.setVisibility(View.GONE);
+				Toast.makeText(orderActivity.this, "请求失败，请重试", Toast.LENGTH_LONG).show();
+			}
+		});
 
 	}
 

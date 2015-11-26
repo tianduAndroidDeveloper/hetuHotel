@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -56,6 +56,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 	TextView tv_commit;
 	TextView tv_total;
 	String opid;
+	String couponId = "";
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -223,7 +224,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		}
 		for (int i = 0; i < services.size(); i++) {
 			ServiceEntity service = services.get(i);
-			sum += service.ShopPrice;
+			sum += service.ShopPrice * service.BuyCount;
 		}
 		tv_total.setText("合计：￥" + sum);
 	}
@@ -280,7 +281,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			holder.tv_sum.setText(service.Name + "x" + service.BuyCount);
 			holder.tv_name.setText("联系人：" + service.Consignee);
 			holder.tv_address.setText("通讯地址：" + service.Address);
-			holder.tv_money.setText("￥" + service.ShopPrice);
+			holder.tv_money.setText("￥" + service.ShopPrice * service.BuyCount);
 			holder.ll_massagers.removeAllViews();
 			initMassageData(holder.ll_massagers, service);
 			spanTextColor(holder);
@@ -356,7 +357,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		switch (arg0.getId()) {
 		case R.id.tv_prefer:
 			Intent intent = new Intent(CommitActivity.this, CheckPreferActivity.class);
-			CommitActivity.this.startActivity(intent);
+			CommitActivity.this.startActivityForResult(intent, 100);
 			break;
 		case R.id.tv_commit:
 			confirmOrder();
@@ -367,7 +368,16 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		if (arg1 == RESULT_OK) {
+			couponId += String.valueOf(arg2.getIntExtra("couponId", 0)) + ",";
+		}
+	}
+
 	void confirmOrder() {
+		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
 		StringBuilder sb = new StringBuilder();
@@ -378,7 +388,9 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		if (sb.length() < 1)
 			return;
 		sb.deleteCharAt(sb.length() - 1);
-		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=0";
+		String couponList = couponId.isEmpty() ? "0" : couponId.substring(0, couponId.length() - 1);
+		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=" + couponList;
+
 		client.post(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -396,14 +408,17 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 							toastMsg(msg, 1);
 						}
 					} catch (JSONException e) {
+						Toast.makeText(CommitActivity.this, "出现异常，请联系客服", Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
 					}
+					progress.setVisibility(View.GONE);
 				}
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				Toast.makeText(CommitActivity.this, "请求错误，请重试", Toast.LENGTH_SHORT).show();
+				progress.setVisibility(View.GONE);
 			}
 		});
 	}
