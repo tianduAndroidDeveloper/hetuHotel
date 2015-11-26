@@ -77,9 +77,11 @@ public class MemberCardActivity extends MainActionBarActivity {
 							cards.add(new MemberCard(pId, price, weight));
 						}
 						fillData();
-						JSONObject account = object.getJSONObject("Account");
+						JSONObject account = object.optJSONObject("Account");
+						if(account != null){
 						tv_money.setText(account.getInt("CurrentAmount") + "元");
 						spanTextSize(tv_money);
+						}
 					} catch (JSONException e) {
 						progress.setVisibility(View.GONE);
 						toastMsg("啊哦，出现错误了，重新试一次吧^^");
