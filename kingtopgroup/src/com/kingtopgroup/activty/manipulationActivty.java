@@ -27,7 +27,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class manipulationActivty extends Activity {
-	private static final String TAG = "manipulationActivty";
 	private CycleViewPager cycleViewPager;
 	private ListView orderListview;
 	private List<Map<String, Object>> list = null;
@@ -50,9 +49,12 @@ public class manipulationActivty extends Activity {
 			LunboImageUtil lb = new LunboImageUtil();
 			lb.initialize(this, imageUrls, cycleViewPager);
 		}
+
+		String attrs = getIntent().getStringExtra("attributes");
+
 		try {
-			attributeArray = new JSONArray(getIntent().getStringExtra("attributes"));
-			Log.i(TAG, attributeArray.toString());
+			if (attrs != null)
+				attributeArray = new JSONArray(attrs);
 			setstatus(JsonObjectToListMap(new JSONArray(getIntent().getStringExtra("json"))));
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -118,11 +120,12 @@ public class manipulationActivty extends Activity {
 				map.put("pid", pid);
 				map.put("storeid", storeid);
 				map.put("order_item_image1", "http://kingtopgroup.com/upload/store/5/product/show/thumb190_190/" + showimg);
-				for (int j = 0; j < attributeArray.length(); j++) {
-					JSONObject attributeObject = attributeArray.optJSONObject(j);
-					Log.i(TAG, "attrPid = " + attributeObject.optString("pid"));
-					if (attributeObject.optString("pid").equals(pid)) {
-						map.put("attrvalue", attributeObject.optString("attrvalue"));
+				if (attributeArray != null) {
+					for (int j = 0; j < attributeArray.length(); j++) {
+						JSONObject attributeObject = attributeArray.optJSONObject(j);
+						if (attributeObject.optString("pid").equals(pid)) {
+							map.put("attrvalue", attributeObject.optString("attrvalue"));
+						}
 					}
 				}
 				list.add(map);

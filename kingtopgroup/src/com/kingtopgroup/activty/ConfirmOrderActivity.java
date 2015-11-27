@@ -79,7 +79,9 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				try {
 					object = new JSONObject(new String(arg2));
-					parseToEntity(object.optJSONObject("OrderInfo"));
+					JSONObject orderInfoObj = object.optJSONObject("OrderInfo");
+					if(orderInfoObj != null)
+						parseToEntity(orderInfoObj);
 				} catch (JSONException e) {
 					Toast.makeText(ConfirmOrderActivity.this, "出现异常，请联系客服", Toast.LENGTH_SHORT).show();
 					e.printStackTrace();

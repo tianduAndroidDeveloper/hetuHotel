@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 	TextView tv_total;
 	String opid;
 	String couponId = "";
+	int payType = 0;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -81,7 +83,8 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 	void addHeader() {
 		View v = View.inflate(this, R.layout.header_commit, null);
-		final CheckBox cb_shipcard = (CheckBox) v.findViewById(R.id.cb);
+		final CheckBox cb_shipcard = (CheckBox) v.findViewById(R.id.cb_shipcard);
+		final CheckBox cb_wechat = (CheckBox) v.findViewById(R.id.cb_wechat);
 		lv.addHeaderView(v);
 		TextView tv_prefer = (TextView) v.findViewById(R.id.tv_prefer);
 		tv_prefer.setOnClickListener(this);
@@ -92,6 +95,29 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				if (balance < sum) {
 					toastMsg("ÄúµÄ»áÔ±¿¨Óà¶î²»×ã£¬Çë³äÖµ", 1);
 					cb_shipcard.setChecked(false);
+					payType = 0;
+				} else if (arg1) {
+					payType = 1;
+					cb_wechat.setChecked(false);
+				} else {
+					cb_wechat.setChecked(true);
+					payType = 0;
+				}
+			}
+		});
+
+		cb_wechat.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				if (balance < sum)
+					cb_wechat.setChecked(true);
+				else if (arg1) {
+					cb_shipcard.setChecked(false);
+					payType = 0;
+				} else {
+					cb_shipcard.setChecked(true);
+					payType = 1;
 				}
 			}
 		});
@@ -150,6 +176,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 						JSONArray array = object.optJSONArray("ServiceInfoList");
 						parseToEntity(array);
 					} catch (JSONException e) {
+						progress.setVisibility(View.GONE);
 						e.printStackTrace();
 					}
 
@@ -158,6 +185,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				progress.setVisibility(View.GONE);
 				toastMsg("ÇëÇóÊ§°Ü£¬ÇëÖØÊÔ£¡", 1);
 			}
 		});
@@ -389,8 +417,8 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			return;
 		sb.deleteCharAt(sb.length() - 1);
 		String couponList = couponId.isEmpty() ? "0" : couponId.substring(0, couponId.length() - 1);
-		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=" + couponList;
-
+		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=" + couponList + "&paytype=0";
+		Log.i("CommitActivity", url);
 		client.post(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -398,6 +426,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				if (arg0 == 200) {
 					try {
 						JSONObject orderObject = new JSONObject(new String(arg2));
+						Log.i("CommitActivity", orderObject.toString());
 						int returnValue = orderObject.optInt("ReturnValue");
 						String msg = orderObject.optString("ActionMessage");
 						if (returnValue != 0) {

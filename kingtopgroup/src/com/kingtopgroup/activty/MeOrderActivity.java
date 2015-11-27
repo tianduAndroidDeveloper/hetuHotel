@@ -56,7 +56,7 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 		// TODO Auto-generated method stub
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg0 == 111 && arg1 == 200) {
-			//requestData();
+			// requestData();
 		}
 	}
 
@@ -109,7 +109,8 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 					try {
 						object = new JSONObject(new String(arg2));
 						JSONArray array = object.getJSONArray("OrderList");
-						parseToEntity(array);
+						if (array != null)
+							parseToEntity(array);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
