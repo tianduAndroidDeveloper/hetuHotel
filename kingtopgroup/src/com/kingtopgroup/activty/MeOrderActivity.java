@@ -436,7 +436,6 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 				@Override
 				public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 					order.checked = isChecked;
-
 					tv_total.setText("ºÏ¼Æ£º£¤" + calcSum());
 				}
 			});
