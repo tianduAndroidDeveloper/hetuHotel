@@ -96,7 +96,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		});
 	}
 
-	double balance = -1;
+	double balance = 0;
 
 	double checkCardBalance() {
 		progress.setVisibility(View.VISIBLE);
@@ -111,6 +111,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 					try {
 						JSONObject memberObject = new JSONObject(new String(arg2));
 						JSONObject account = memberObject.optJSONObject("Account");
+						if(account !=null)
 						balance = account.optDouble("CurrentAmount");
 					} catch (JSONException e) {
 						toastMsg("会员卡余额查询失败，请联系客服", 1);
