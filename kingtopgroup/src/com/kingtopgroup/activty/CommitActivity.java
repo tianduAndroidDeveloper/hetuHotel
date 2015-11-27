@@ -138,8 +138,9 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 					try {
 						JSONObject memberObject = new JSONObject(new String(arg2));
 						JSONObject account = memberObject.optJSONObject("Account");
-						if(account !=null)
-						balance = account.optDouble("CurrentAmount");
+						if (account != null) {
+							balance = account.optDouble("CurrentAmount");
+						}
 					} catch (JSONException e) {
 						toastMsg("会员卡余额查询失败，请联系客服", 1);
 						e.printStackTrace();
@@ -418,7 +419,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			return;
 		sb.deleteCharAt(sb.length() - 1);
 		String couponList = couponId.isEmpty() ? "0" : couponId.substring(0, couponId.length() - 1);
-		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=" + couponList + "&paytype=0";
+		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=0&coupList=" + couponList + "&paytype=0";
 		Log.i("CommitActivity", url);
 		client.post(url, new AsyncHttpResponseHandler() {
 

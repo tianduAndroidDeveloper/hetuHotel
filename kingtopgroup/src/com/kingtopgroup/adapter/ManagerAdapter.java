@@ -59,11 +59,6 @@ public class ManagerAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	/*
-	 * class people { public String name; String sex; String address; boolean
-	 * isChecked; }
-	 */
-
 	@Override
 	public View getView(final int position, View view, ViewGroup arg2) {
 		if (view == null)
@@ -97,7 +92,7 @@ public class ManagerAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		holder.sex.setText(sex);// http://kingtopgroup.com/upload/store/10/logo/thumb100_100/s_1509031744186077167.jpg
+		holder.sex.setText(sex);
 		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId + "/logo/thumb150_150/" + bean.Logo;
 		ImageLoader.getInstance().displayImage(uri, holder.logo);
 		holder.isChecked.setOnCheckedChangeListener(new OnCheckedChangeListener() {

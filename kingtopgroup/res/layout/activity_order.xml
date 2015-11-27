@@ -34,12 +34,12 @@
                 android:layout_centerVertical="true"/>
 
             <Button
+                android:clickable="false"
                 android:layout_alignParentRight="true"
                 android:id="@+id/btn_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/red_bg"
-                android:padding="10dp"
                 android:text="去支付"
                 android:textColor="@color/white" />
         </RelativeLayout>
