@@ -13,15 +13,25 @@
 	    android:text="下一步"
 	    android:textColor="@color/white"
 	    android:layout_marginTop="5dip"/>
+	
     <ListView
         android:id="@+id/manager_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/edittext_bg"
         android:cacheColorHint="#00000000"
         android:divider="@null"
         android:dividerHeight="1dp"
         android:layout_above="@id/next" />
+    <TextView 
+        android:id="@+id/tv_warning"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/sad"
+        android:text="推拿师很忙，\n请稍后再试"/>
 
     <include
         android:id="@+id/progress"

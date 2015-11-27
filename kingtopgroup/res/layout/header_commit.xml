@@ -93,7 +93,7 @@
         android:background="@drawable/edittext_bg"
         android:padding="10dp" >
         <CheckBox 
-            android:id="@+id/cb"
+            android:id="@+id/cb_shipcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -105,7 +105,7 @@
             android:text="会员卡"
             android:drawablePadding="5dp"/>
         <TextView 
-            android:layout_below="@+id/cb"
+            android:layout_below="@+id/cb_shipcard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="*去个人中心充值享有更多优惠哦！"
@@ -129,15 +129,12 @@
         
         <CheckBox 
             android:layout_below="@+id/tv"
-            android:id="@+id/cb"
+            android:id="@+id/cb_wechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:button="@drawable/checkbox_bg"
-            android:checked="true"
-            android:focusable="false"
-            android:clickable="false"
-            android:focusableInTouchMode="false"/>
+            android:checked="true"/>
         <TextView 
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"

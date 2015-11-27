@@ -8,10 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -50,8 +51,7 @@ public class PreferActivity extends MainActionBarActivity {
 			return;
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		String url = "http://kingtopgroup.com/api/ucenter/GetCouponListByUid?uid="
-				+ uid + "&type=" + "0";
+		String url = "http://kingtopgroup.com/api/ucenter/GetCouponListByUid?uid=" + uid + "&type=" + "0";
 		client.get(url, null, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -65,8 +65,7 @@ public class PreferActivity extends MainActionBarActivity {
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				toastMsg("请求失败，请重试");
 			}
 		});
@@ -77,8 +76,7 @@ public class PreferActivity extends MainActionBarActivity {
 
 			@Override
 			public void run() {
-				Toast.makeText(PreferActivity.this, msg, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(PreferActivity.this, msg, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -139,32 +137,42 @@ public class PreferActivity extends MainActionBarActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			if (convertView == null)
-				convertView = View.inflate(PreferActivity.this,
-						R.layout.item_coupon, null);
+				convertView = View.inflate(PreferActivity.this, R.layout.item_coupon, null);
 			ViewHolder holder = (ViewHolder) convertView.getTag();
 			if (holder == null) {
 				holder = new ViewHolder();
-				holder.tv_deadline = (TextView) convertView
-						.findViewById(R.id.tv_deadline);
-				holder.tv_points = (TextView) convertView
-						.findViewById(R.id.tv_points);
-				holder.tv_type = (TextView) convertView
-						.findViewById(R.id.tv_type);
+				holder.tv_deadline = (TextView) convertView.findViewById(R.id.tv_deadline);
+				holder.tv_points = (TextView) convertView.findViewById(R.id.tv_points);
+				holder.tv_type = (TextView) convertView.findViewById(R.id.tv_type);
 				holder.rl = (RelativeLayout) convertView.findViewById(R.id.rl);
 				convertView.setTag(holder);
 			}
-			CouponEntity couponEntity = coupons.get(position);
+			final CouponEntity couponEntity = coupons.get(position);
 			switch (couponEntity.getState()) {
 			case 1:
 			case 2:
 				holder.rl.setBackgroundResource(R.drawable.coupon_b);
+				holder.rl.setTag(false);
 				break;
 			case 3:
 				holder.rl.setBackgroundResource(R.drawable.coupon);
+				holder.rl.setTag(true);
 				break;
 			}
-			holder.tv_deadline.setText("有效期剩余"
-					+ couponEntity.getUseExpireTime() + "天");
+			holder.rl.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					boolean usable = (Boolean) arg0.getTag();
+					if (usable) {
+						Intent intent = new Intent();
+						intent.putExtra("couponId", couponEntity.getCouponId());
+						setResult(RESULT_OK, intent);
+						finish();
+					}
+				}
+			});
+			holder.tv_deadline.setText("有效期剩余" + couponEntity.getUseExpireTime() + "天");
 			holder.tv_type.setText(couponEntity.getName());
 			holder.tv_points.setText(couponEntity.getMoney() + "");
 
@@ -180,12 +188,12 @@ public class PreferActivity extends MainActionBarActivity {
 
 	@Override
 	public void titleButtonClick(View v) {
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
-		
+
 	}
 
 	@Override

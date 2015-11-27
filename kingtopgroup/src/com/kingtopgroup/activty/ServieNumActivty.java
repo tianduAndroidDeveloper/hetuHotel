@@ -3,6 +3,7 @@ package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +23,6 @@ import com.stevenhu.android.phone.utils.ToastUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +33,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class ServieNumActivty extends MainActionBarActivity implements OnClickListener {
-	private static final String TAG = "ServieNumActivty";
 	private CycleViewPager cycleViewPager;
 	private RadioButton service_content, service_scope, you_must_know;
 	private TextView product_item_name, product_item_price, product_item_time, product_item_begin_num;
@@ -52,7 +51,6 @@ public class ServieNumActivty extends MainActionBarActivity implements OnClickLi
 	String pid;
 
 	LinearLayout manipulations;
-	// private ProgressBar service_progressbar;
 	private TextView service_num_button, service_add_button, service_reduce_button, service_num_next_button;
 
 	@Override
@@ -60,7 +58,6 @@ public class ServieNumActivty extends MainActionBarActivity implements OnClickLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.service_num);
 		titleButton.setText("选择数量");
-		// acache = ACache.get(this);
 		pb = (ProgressBar) findViewById(R.id.progressBar);
 		main = (LinearLayout) findViewById(R.id.main);
 		Intent inten = this.getIntent();
@@ -109,7 +106,7 @@ public class ServieNumActivty extends MainActionBarActivity implements OnClickLi
 		product_item_begin_num.setText("（" + num + "人起订）");
 		product_item_image = (ImageView) findViewById(R.id.product_item_image);
 		service_sub_price = (TextView) findViewById(R.id.service_sub_price);
-		service_sub_price.setText("合计：￥" + price);
+		service_sub_price.setText("合计：￥" + Double.parseDouble(price) * Integer.parseInt(num));
 		ImageLoader.getInstance().displayImage(image, product_item_image);
 		//finalBitmapUtil.getFinalBitmap(this).display(product_item_image, image);
 
@@ -157,7 +154,6 @@ public class ServieNumActivty extends MainActionBarActivity implements OnClickLi
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				try {
 					String date = new String(arg2);
-					Log.i(TAG, date);
 					obj = new JSONObject(date);
 					JSONObject obj1 = (JSONObject) obj.get("ProductInfo");
 					ApplyDescriptio = obj1.getString("ApplyDescription");

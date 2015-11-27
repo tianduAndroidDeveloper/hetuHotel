@@ -150,25 +150,25 @@ public class AddAddressActivty extends MainActionBarActivity implements OnClickL
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				if (arg0 == 200) {
 					try {
-						JSONObject obj;
-						String date = new String(arg2);
-						obj = new JSONObject(date);
-						JSONArray array = obj.getJSONArray("ShipAddressList");
-						addressList = new ArrayList<Map<String, Object>>();
-						for (int i = 0; i < array.length(); i++) {
-							String IsDefault = array.getJSONObject(i).getString("IsDefault");
-							String phone = array.getJSONObject(i).getString("Mobile");
-							String street = array.getJSONObject(i).getString("Address");
-							String person = array.getJSONObject(i).getString("Consignee");
-							map = new HashMap<String, Object>();
-							map.put("phone", phone);
-							map.put("street", street);
-							map.put("person", person);
-							map.put("isDefault", IsDefault);
+						if (arg2 != null) {
+							JSONObject obj = new JSONObject(new String(arg2));
+							JSONArray array = obj.getJSONArray("ShipAddressList");
+							addressList = new ArrayList<Map<String, Object>>();
+							for (int i = 0; i < array.length(); i++) {
+								String IsDefault = array.getJSONObject(i).getString("IsDefault");
+								String phone = array.getJSONObject(i).getString("Mobile");
+								String street = array.getJSONObject(i).getString("Address");
+								String person = array.getJSONObject(i).getString("Consignee");
+								map = new HashMap<String, Object>();
+								map.put("phone", phone);
+								map.put("street", street);
+								map.put("person", person);
+								map.put("isDefault", IsDefault);
 
-							addressList.add(map);
+								addressList.add(map);
+							}
+							setdate(addressList);
 						}
-						setdate(addressList);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

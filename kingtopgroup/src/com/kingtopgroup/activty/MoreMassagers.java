@@ -82,9 +82,9 @@ public class MoreMassagers extends MainActionBarActivity {
 							manager.Logo = Logo;
 							String StoreId = array.getJSONObject(i).getString("StoreId");
 							manager.StoreId = StoreId;
-							String Point_X = array.getJSONObject(i).getString("Point_X");
+							double Point_X = array.optJSONObject(i).optDouble("Point_X");
 							manager.point_x = Point_X;
-							String Point_Y = array.getJSONObject(i).getString("Point_Y");
+							double Point_Y = array.optJSONObject(i).optDouble("Point_Y");
 							manager.point_y = Point_Y;
 							String Address = array.getJSONObject(i).getString("Address");
 							manager.address = Address;
@@ -140,19 +140,19 @@ public class MoreMassagers extends MainActionBarActivity {
 					return;
 				}
 				String checked = adapter.getCheckedIds();
-				String getChecked;
-				if (checked.indexOf(",") != -1) {
-					getChecked = checked.substring(0, checked.indexOf(","));
-				} else {
-					getChecked = checked;
-				}
 				if (buyCount < adapter.getCheckedCount()) {
 					ToastUtils.show(MoreMassagers.this, "你选择推拿师的数量与购买项目的数量不等！");
+
 				} else {
-					RequestParams params = AsyncHttpCilentUtil.getParams();
+					if (buyCount != adapter.getCheckedCount() && !adapter.isAnyChecked()) {
+						ToastUtils.show(MoreMassagers.this, "你选择推拿师的数量与购买项目的数量不等！");
+						return;
+					}
+					RequestParams params = new RequestParams();
 					params.put("Uid", UserBean.getUSerBean().getUid());
 					params.put("Opid", opid);
-					params.put("StoreId", getChecked);
+					String MassagerId = checked.contains(",") ? checked.split(",")[0] : checked;
+					params.put("MassagerId", MassagerId);
 					params.put("MasagerIdList", checked);
 					AsyncHttpCilentUtil.getInstance().post(ConstanceUtil.set_manager_list, params, new AsyncHttpResponseHandler() {
 

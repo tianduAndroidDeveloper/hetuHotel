@@ -1,6 +1,7 @@
 package com.kingtopgroup.activty;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,8 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 	TextView tv_commit;
 	TextView tv_total;
 	String opid;
+	String couponId = "";
+	int payType = 0;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -80,7 +83,8 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 	void addHeader() {
 		View v = View.inflate(this, R.layout.header_commit, null);
-		final CheckBox cb_shipcard = (CheckBox) v.findViewById(R.id.cb);
+		final CheckBox cb_shipcard = (CheckBox) v.findViewById(R.id.cb_shipcard);
+		final CheckBox cb_wechat = (CheckBox) v.findViewById(R.id.cb_wechat);
 		lv.addHeaderView(v);
 		TextView tv_prefer = (TextView) v.findViewById(R.id.tv_prefer);
 		tv_prefer.setOnClickListener(this);
@@ -91,6 +95,29 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				if (balance < sum) {
 					toastMsg("您的会员卡余额不足，请充值", 1);
 					cb_shipcard.setChecked(false);
+					payType = 0;
+				} else if (arg1) {
+					payType = 1;
+					cb_wechat.setChecked(false);
+				} else {
+					cb_wechat.setChecked(true);
+					payType = 0;
+				}
+			}
+		});
+
+		cb_wechat.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				if (balance < sum)
+					cb_wechat.setChecked(true);
+				else if (arg1) {
+					cb_shipcard.setChecked(false);
+					payType = 0;
+				} else {
+					cb_shipcard.setChecked(true);
+					payType = 1;
 				}
 			}
 		});
@@ -150,6 +177,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 						JSONArray array = object.optJSONArray("ServiceInfoList");
 						parseToEntity(array);
 					} catch (JSONException e) {
+						progress.setVisibility(View.GONE);
 						e.printStackTrace();
 					}
 
@@ -158,6 +186,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				progress.setVisibility(View.GONE);
 				toastMsg("请求失败，请重试！", 1);
 			}
 		});
@@ -224,7 +253,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		}
 		for (int i = 0; i < services.size(); i++) {
 			ServiceEntity service = services.get(i);
-			sum += service.ShopPrice;
+			sum += service.ShopPrice * service.BuyCount;
 		}
 		tv_total.setText("合计：￥" + sum);
 	}
@@ -281,7 +310,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 			holder.tv_sum.setText(service.Name + "x" + service.BuyCount);
 			holder.tv_name.setText("联系人：" + service.Consignee);
 			holder.tv_address.setText("通讯地址：" + service.Address);
-			holder.tv_money.setText("￥" + service.ShopPrice);
+			holder.tv_money.setText("￥" + service.ShopPrice * service.BuyCount);
 			holder.ll_massagers.removeAllViews();
 			initMassageData(holder.ll_massagers, service);
 			spanTextColor(holder);
@@ -357,7 +386,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		switch (arg0.getId()) {
 		case R.id.tv_prefer:
 			Intent intent = new Intent(CommitActivity.this, CheckPreferActivity.class);
-			CommitActivity.this.startActivity(intent);
+			CommitActivity.this.startActivityForResult(intent, 100);
 			break;
 		case R.id.tv_commit:
 			confirmOrder();
@@ -368,7 +397,16 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		if (arg1 == RESULT_OK) {
+			couponId += String.valueOf(arg2.getIntExtra("couponId", 0)) + ",";
+		}
+	}
+
 	void confirmOrder() {
+		progress.setVisibility(View.VISIBLE);
 		AsyncHttpClient client = new AsyncHttpClient();
 		String uid = UserBean.getUSerBean().getUid();
 		StringBuilder sb = new StringBuilder();
@@ -379,7 +417,9 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 		if (sb.length() < 1)
 			return;
 		sb.deleteCharAt(sb.length() - 1);
-		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=0";
+		String couponList = couponId.isEmpty() ? "0" : couponId.substring(0, couponId.length() - 1);
+		String url = "http://kingtopgroup.com/api/order/SubmitOrder?uid=" + uid + "&orderProductKeyList=" + sb.toString() + "&payCreditCount=1&coupList=" + couponList + "&paytype=0";
+		Log.i("CommitActivity", url);
 		client.post(url, new AsyncHttpResponseHandler() {
 
 			@Override
@@ -387,6 +427,7 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 				if (arg0 == 200) {
 					try {
 						JSONObject orderObject = new JSONObject(new String(arg2));
+						Log.i("CommitActivity", orderObject.toString());
 						int returnValue = orderObject.optInt("ReturnValue");
 						String msg = orderObject.optString("ActionMessage");
 						if (returnValue != 0) {
@@ -397,14 +438,17 @@ public class CommitActivity extends MainActionBarActivity implements OnClickList
 							toastMsg(msg, 1);
 						}
 					} catch (JSONException e) {
+						Toast.makeText(CommitActivity.this, "出现异常，请联系客服", Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
 					}
+					progress.setVisibility(View.GONE);
 				}
 			}
 
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				Toast.makeText(CommitActivity.this, "请求错误，请重试", Toast.LENGTH_SHORT).show();
+				progress.setVisibility(View.GONE);
 			}
 		});
 	}

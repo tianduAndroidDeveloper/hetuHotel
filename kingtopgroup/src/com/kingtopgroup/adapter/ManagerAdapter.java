@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kingtogroup.location.DistanceUtils;
+import com.kingtogroup.location.LastLocation;
 import com.kingtopgroup.R;
 import com.kingtopgroup.constant.finalBitmapUtil;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ManagerBean;
@@ -86,6 +88,15 @@ public class ManagerAdapter extends BaseAdapter {
 		} else {
 			sex = "Å®";
 		}
+		try {
+			double lat = bean.point_x;
+			double lgn = bean.point_y;
+			double distance = DistanceUtils.GetDistance(lat, lgn, LastLocation.initInstance().getLatitude(), LastLocation.initInstance().getLongitude());
+
+			holder.distance.setText(distance + "¹«Àï");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		holder.sex.setText(sex);// http://kingtopgroup.com/upload/store/10/logo/thumb100_100/s_1509031744186077167.jpg
 		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId + "/logo/thumb150_150/" + bean.Logo;
 		ImageLoader.getInstance().displayImage(uri, holder.logo);
@@ -131,4 +142,8 @@ public class ManagerAdapter extends BaseAdapter {
 		return sb.toString();
 	}
 
+	public boolean isAnyChecked() {
+		ManagerBean bean = managerList.get(0);
+		return bean.isChecked;
+	}
 }

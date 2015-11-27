@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kingtogroup.location.DistanceUtils;
+import com.kingtogroup.location.LastLocation;
 import com.kingtopgroup.R;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.ManagerBean;
 import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
@@ -92,6 +94,14 @@ public class ManagerAdapter2 extends BaseAdapter {
 		holder.sex.setText(sex);
 		String uri = "http://kingtopgroup.com/upload/store/" + bean.StoreId + "/logo/thumb150_150/" + bean.Logo;
 		ImageLoader.getInstance().displayImage(uri.trim(), holder.logo);
+		try {
+			double lat = bean.point_x;
+			double lgn = bean.point_y;
+			double distance = DistanceUtils.GetDistance(lat, lgn, LastLocation.initInstance().getLatitude(), LastLocation.initInstance().getLongitude());
+			holder.distance.setText(distance + "¹«Àï");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		holder.isChecked.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
