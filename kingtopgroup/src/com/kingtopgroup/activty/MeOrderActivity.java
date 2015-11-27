@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -60,7 +61,6 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 		}
 	}
 
-	private static final String TAG = "MeOrderActivity";
 	ListView lv;
 	View progress;
 	Button btn_pay;
@@ -205,26 +205,22 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 
 	void fillData() {
 		progress.setVisibility(View.VISIBLE);
+
 		tv_total.setText("合计：￥0");
-		boolean flag = false;
-		for (int i = 0; i < orders.size(); i++) {
-			Order order = orders.get(i);
-			if (order.checked) {
-				tv_total.setText("合计：￥" + order.orderamount);
-				checkedPosition = i;
-				flag = true;
-				break;
-			}
-		}
-		if (!flag) {
-			checkedPosition = -1;
-		}
 		if (adapter == null) {
 			adapter = new MyListViewAdapter();
 			lv.setAdapter(adapter);
 		} else {
 			adapter.notifyDataSetChanged();
 		}
+		double sum = 0;
+		for (int i = 0; i < orders.size(); i++) {
+			Order order = orders.get(i);
+			if (order.checked)
+				sum += order.orderamount;
+		}
+		tv_total.setText("合计：￥" + sum);
+
 		progress.setVisibility(View.GONE);
 	}
 
@@ -404,7 +400,6 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 				tv_sum.setText(product.Name + "x" + product.RealCount);
 				tv_money.setText("￥" + product.ShopPrice * product.RealCount);
 				String uri = Utils.assembleImageUri(product.ShowImg, "5");
-				Log.i(TAG, uri);
 				ImageLoader.getInstance().displayImage(uri, imageView1);
 
 				changeTextColor(tv_type, 3);
@@ -436,32 +431,32 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 				}
 			}
 
-			holder.cb.setChecked(order.checked);
-
 			holder.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 				@Override
 				public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-					if (isChecked) {
-						for (int i = 0; i < orders.size(); i++) {
-							Order order = orders.get(i);
-							if (order.checked) {
-								order.checked = false;
-								break;
-							}
-						}
-					}
-
 					order.checked = isChecked;
-					fillData();
+
+					tv_total.setText("合计：￥" + calcSum());
 				}
 			});
+			holder.cb.setChecked(holder.cb.getVisibility() == View.GONE ? false : order.checked);
 
 			changeTextColor(holder.tv_name, 4);
 			changeTextColor(holder.tv_address, 3);
 			changeTextColor(holder.tv_phone, 3);
 			return convertView;
 		}
+	}
+
+	double calcSum() {
+		double sum = 0;
+		for (int i = 0; i < orders.size(); i++) {
+			Order order = orders.get(i);
+			if (order.checked)
+				sum += order.orderamount;
+		}
+		return sum;
 	}
 
 	void changeTextColor(TextView textView, int count) {
@@ -502,12 +497,18 @@ public class MeOrderActivity extends MainActionBarActivity implements OnClickLis
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_pay:
-			if (checkedPosition == -1) {
+			List<Order> payOrders = new ArrayList<Order>();
+			for (int i = 0; i < orders.size(); i++) {
+				Order order = orders.get(i);
+				if (order.checked)
+					payOrders.add(order);
+			}
+			if (payOrders.size() == 0) {
 				toastMsg("您还没有选择任何订单哦", 1);
 				return;
 			}
-			Intent intent = new Intent(MeOrderActivity.this, PayInfoActivity.class);
-			intent.putExtra("order", orders.get(checkedPosition));
+			Intent intent = new Intent(this, ConfirmOrderActivity.class);
+			intent.putExtra("oid", payOrders.get(0).oid);
 			this.startActivity(intent);
 			break;
 

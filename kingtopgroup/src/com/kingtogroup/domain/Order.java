@@ -1,12 +1,13 @@
 package com.kingtogroup.domain;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements Serializable{
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	public int oid;
 	public String osn;
 	public int uid;
@@ -31,15 +32,9 @@ public class Order implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Order [oid=" + oid + ", osn=" + osn + ", uid=" + uid
-				+ ", orderstate=" + orderstate + ", orderamount=" + orderamount
-				+ ", surplusmoney=" + surplusmoney + ", parentid=" + parentid
-				+ ", isreview=" + isreview + ", addtime=" + addtime
-				+ ", storeid=" + storeid + ", shipcoid=" + shipcoid
-				+ ", shipconame=" + shipconame + ", payfriendname="
-				+ payfriendname + ", paymode=" + paymode + ", couponmoney="
-				+ couponmoney + ", paysystemname=" + paysystemname
-				+ ", consignee=" + consignee + ", mobile=" + mobile
-				+ ", address=" + address + "]";
+		return "Order [oid=" + oid + ", osn=" + osn + ", uid=" + uid + ", orderstate=" + orderstate + ", orderamount=" + orderamount + ", surplusmoney=" + surplusmoney + ", parentid=" + parentid
+				+ ", isreview=" + isreview + ", addtime=" + addtime + ", storeid=" + storeid + ", shipcoid=" + shipcoid + ", shipconame=" + shipconame + ", payfriendname=" + payfriendname
+				+ ", paymode=" + paymode + ", couponmoney=" + couponmoney + ", paysystemname=" + paysystemname + ", consignee=" + consignee + ", mobile=" + mobile + ", address=" + address + "]";
 	}
+
 }
