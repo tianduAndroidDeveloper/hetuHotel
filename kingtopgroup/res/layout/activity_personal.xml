@@ -18,8 +18,8 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/banner02" >
             <com.makeramen.RoundedImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/scope_title"
                 makeramen:corner_radius="100dp"/>
