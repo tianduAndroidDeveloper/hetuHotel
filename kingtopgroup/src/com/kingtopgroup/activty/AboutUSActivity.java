@@ -81,7 +81,7 @@ public class AboutUSActivity extends MainActionBarActivity {
                     drawable.getIntrinsicHeight());
 			return drawable;
 		}
-	};
+	};  
 
 	@Override
 	public void backButtonClick(View v) {

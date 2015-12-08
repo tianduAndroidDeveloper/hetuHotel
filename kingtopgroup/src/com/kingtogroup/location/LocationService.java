@@ -1,6 +1,7 @@
 package com.kingtogroup.location;
 
 import com.amap.api.location.AMapLocation;
+
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;

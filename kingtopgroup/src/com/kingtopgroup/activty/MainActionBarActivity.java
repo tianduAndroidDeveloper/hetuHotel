@@ -1,9 +1,10 @@
 package com.kingtopgroup.activty;
 
 import android.annotation.SuppressLint;
+
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar;  
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;

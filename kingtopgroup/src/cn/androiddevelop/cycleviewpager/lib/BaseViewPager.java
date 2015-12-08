@@ -1,13 +1,12 @@
 package cn.androiddevelop.cycleviewpager.lib;
 
 import android.content.Context;
+
+
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * 自定义高度的viewpapger
- */
 public class BaseViewPager extends ViewPager {
 	private boolean scrollable = true;
 
@@ -19,11 +18,6 @@ public class BaseViewPager extends ViewPager {
 		super(context, attrs);
 	}
 
-	/**
-	 * 设置viewpager是否可以滚动
-	 * 
-	 * @param enable
-	 */
 	public void setScrollable(boolean enable) {
 		scrollable = enable;
 	}

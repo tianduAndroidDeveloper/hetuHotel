@@ -45,7 +45,7 @@ public class ConfirmOrderActivity extends MainActionBarActivity {
 	OrderInfo info;
 	String oid;
 	MyListViewAdapter adapter;
-	JSONObject object;
+	JSONObject object;  
 	List<Product> products = new ArrayList<Product>();
 	TextView tv_total;
 	View progress;
