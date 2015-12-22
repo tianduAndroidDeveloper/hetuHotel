@@ -1,5 +1,19 @@
 package com.kingtogroup.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.Header;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.kingtopgroup.R;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 public class OrderInfo {
 
 	public int Oid;
@@ -41,6 +55,9 @@ public class OrderInfo {
 	public int Weight = 45;
 	public String BuyerRemark = "0";
 	public String IP = "220.165.243.133";
+	public List<Product> products = new ArrayList<Product>();
+	public boolean isReceive = false;
+	public String imgUrl = "";
 
 	@Override
 	public String toString() {
@@ -50,7 +67,7 @@ public class OrderInfo {
 				+ ", PayMode=" + PayMode + ", PayTime=" + PayTime + ", RegionId=" + RegionId + ", Consignee=" + Consignee + ", Mobile=" + Mobile + ", Phone=" + Phone + ", Email=" + Email
 				+ ", ZipCode=" + ZipCode + ", Address=" + Address + ", BestTime=" + BestTime + ", ShipFee=" + ShipFee + ", PayFee=" + PayFee + ", FullCut=" + FullCut + ", Discount=" + Discount
 				+ ", PayCreditCount=" + PayCreditCount + ", PayCreditMoney=" + PayCreditMoney + ", CouponMoney=" + CouponMoney + ", Weight=" + Weight + ", BuyerRemark=" + BuyerRemark + ", IP=" + IP
-				+ "]";
+				+ ", products=" + products + ", isReceive=" + isReceive + ", imgUrl=" + imgUrl + "]";
 	}
 
 }

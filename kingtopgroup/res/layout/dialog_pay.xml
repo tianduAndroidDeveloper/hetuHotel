@@ -8,18 +8,18 @@
     android:padding="10dp" >
 
     <TextView
-        android:id="@+id/tv_add_title"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="操作成功"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:text="支付结果" />
 
     <TextView
+        android:id="@+id/tv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="您的信息已加入点下下，我们会尽快与您取得联系！"
         android:textColor="@color/gray_text" />
 
     <RelativeLayout

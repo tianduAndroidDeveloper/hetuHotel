@@ -81,8 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/cb_auto"
             android:layout_alignParentRight="true"
-            android:text="忘记密码？"
-            android:visibility="gone" />
+            android:text="忘记密码？" />
 
         <Button
             android:id="@+id/loginsubmit"

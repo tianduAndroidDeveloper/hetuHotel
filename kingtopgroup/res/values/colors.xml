@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="gray_light">#ededed</color>
     <color name="red">#e43a3d</color>
     <color name="red_light">#e4643d</color>
     <color name="gray_text">#848484</color>
-    <color name="blue">#2479c0</color>
     <color name="gray_disable">#c7c7c7</color>
+    <color name="blue">#2fa4f2</color>
+    <color name="green">#42bd56</color>
+    <color name="green_dark">#3ba94d</color>
+
 </resources>

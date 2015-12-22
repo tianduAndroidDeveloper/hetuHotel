@@ -1,16 +1,8 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.kingtopgroup.R;
-import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,6 +19,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kingtopgroup.R;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class loginActivty extends Activity implements OnClickListener {
 	private EditText username, password;
@@ -96,9 +95,8 @@ public class loginActivty extends Activity implements OnClickListener {
 			startActivity(inten);
 			break;
 		case R.id.textView1:
-			// Intent intent = new Intent(this, FindPswActivity.class);
-			/*Intent intent = new Intent(this, QuickLoginActivity.class);
-			startActivity(intent);*/
+			Intent intent = new Intent(this, FindPswActivity.class);
+			startActivity(intent);
 			break;
 		}
 
@@ -132,14 +130,17 @@ public class loginActivty extends Activity implements OnClickListener {
 						JSONObject obj = new JSONObject(date);
 						String Password = obj.getString("Password");
 						String Uid = obj.getString("Uid");
+						int MassagerId = obj.optInt("MassagerId");
 						if (Password.equals("vaild")) {
 							UserBean.getUSerBean().setUid(Uid);
 							UserBean.getUSerBean().setAccount(mobile);
+							UserBean.getUSerBean().setMassagerId(MassagerId);
 							if (auto_login.isChecked()) {
 								Editor editor = sp.edit();
 								editor.putBoolean("auto_login", true);
 								editor.putString("username", mobile);
 								editor.putString("password", passwords);
+								editor.putInt("MassagerId", MassagerId);
 								editor.commit();
 							}
 							Intent intens = new Intent(loginActivty.this, indexActivity.class);
@@ -209,6 +210,5 @@ public class loginActivty extends Activity implements OnClickListener {
 		}
 		return true;
 	}
-
 
 }

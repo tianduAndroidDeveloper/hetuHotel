@@ -35,6 +35,7 @@ public class JoinActivity extends MainActionBarActivity implements OnClickListen
 	EditText et_experience;
 	Button btn_ok;
 	ImageView iv;
+	View progress;
 
 	@Override
 	@SuppressLint("InflateParams")
@@ -46,6 +47,7 @@ public class JoinActivity extends MainActionBarActivity implements OnClickListen
 	}
 
 	void init() {
+		progress = findViewById(R.id.progress);
 		iv = (ImageView) findViewById(R.id.iv);
 		et_experience = (EditText) findViewById(R.id.et_experience);
 		et_name = (EditText) findViewById(R.id.et_name);
@@ -78,6 +80,7 @@ public class JoinActivity extends MainActionBarActivity implements OnClickListen
 	}
 
 	void commit() {
+		progress.setVisibility(View.VISIBLE);
 		String name = et_name.getText().toString();
 		if (TextUtils.isEmpty(name)) {
 			toastMsg("«Î ‰»Î–’√˚", 0);
@@ -127,13 +130,14 @@ public class JoinActivity extends MainActionBarActivity implements OnClickListen
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					progress.setVisibility(View.GONE);
 				}
 			}
 
 			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-					Throwable arg3) {
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				toastMsg("«Î«Û¥ÌŒÛ£¨«Î÷ÿ ‘", 1);
+				progress.setVisibility(View.GONE);
 			}
 		});
 
@@ -180,13 +184,13 @@ public class JoinActivity extends MainActionBarActivity implements OnClickListen
 	@Override
 	public void titleButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void rightButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

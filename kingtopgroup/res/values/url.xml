@@ -4,4 +4,10 @@
     <string name="url_getItemList">http://kingtopgroup.com/api/item/GetItemList</string>
     <string name="url_imgHost">http://kingtopgroup.com/upload/store/5/product/show/thumb190_190/</string>
     <string name="url_logoHost">http://kingtopgroup.com/upload/store/%d/logo/thumb150_150/</string>
+    <string name="url_order_confirming">http://kingtopgroup.com/api/massager/MassagerConfirmingOrderList</string>
+    <string name="url_order_confirmed">http://kingtopgroup.com/api/massager/MassagerConfirmedOrderList</string>
+    <string name="url_receive_order">http://kingtopgroup.com/api/massager/MassagerConfirmedOrder</string>
+    <string name="url_upload">http://kingtopgroup.com/home/MassagerCompeletOrder</string>
+    <string name="url_findpsw">http://kingtopgroup.com/api/account/ResetPwdMobile</string>
+    <string name="url_getcode">http://kingtopgroup.com/api/account/GetVerifyMobile?mobile=</string>
 </resources>

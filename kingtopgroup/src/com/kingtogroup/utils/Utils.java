@@ -1,5 +1,6 @@
 package com.kingtogroup.utils;
 
+import java.io.File;
 import java.math.BigDecimal;
 
 import android.app.Activity;
@@ -18,14 +19,12 @@ import android.widget.Toast;
 
 public class Utils {
 	public static final String TAG = "Utils";
+	private static String[] pics = { "bmp", "gif", "jpeg", "psd", "png", "jpg" };
 
 	public static void hiddenSoftBorad(Context context) {
 		try {
-			((InputMethodManager) context
-					.getSystemService(Context.INPUT_METHOD_SERVICE))
-					.hideSoftInputFromWindow(((Activity) context)
-							.getCurrentFocus().getWindowToken(),
-							InputMethodManager.HIDE_NOT_ALWAYS);
+			((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(((Activity) context).getCurrentFocus().getWindowToken(),
+					InputMethodManager.HIDE_NOT_ALWAYS);
 		} catch (Exception e) {
 
 		}
@@ -39,14 +38,12 @@ public class Utils {
 		ForegroundColorSpan blackSpan = new ForegroundColorSpan(Color.BLACK);
 
 		builder.setSpan(blackSpan, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		builder.setSpan(redSpan, 3, text.length(),
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		builder.setSpan(redSpan, 3, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 		textView.setText(builder);
 	}
 
-	public static void spanTextSize(TextView textView, String split,
-			boolean former, int[] nums) {
+	public static void spanTextSize(TextView textView, String split, boolean former, int[] nums) {
 		String text = textView.getText().toString();
 		SpannableStringBuilder builder = new SpannableStringBuilder(text);
 
@@ -55,15 +52,11 @@ public class Utils {
 		AbsoluteSizeSpan smallSizeSpan = new AbsoluteSizeSpan(nums[1]);
 
 		if (former) {
-			builder.setSpan(largeSizeSpan, 0, price[0].length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			builder.setSpan(smallSizeSpan, price[0].length(), text.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			builder.setSpan(largeSizeSpan, 0, price[0].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			builder.setSpan(smallSizeSpan, price[0].length(), text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else {
-			builder.setSpan(smallSizeSpan, 0, price[0].length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			builder.setSpan(largeSizeSpan, price[0].length(), text.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			builder.setSpan(smallSizeSpan, 0, price[0].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			builder.setSpan(largeSizeSpan, price[0].length(), text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 		textView.setText(builder);
 
@@ -84,29 +77,43 @@ public class Utils {
 		intent.setData(Uri.parse(("tel:" + phone)));
 		context.startActivity(intent);
 	}
-	
-	public static String assembleImageUri(String name, String id){
+
+	public static String assembleImageUri(String name, String id) {
 		return "http://kingtopgroup.com/upload/store/" + id + "/product/show/thumb190_190/" + name;
 	}
-	
-	public static void showToast(Context context,String msg){
+
+	public static void showToast(Context context, String msg) {
 		Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
-	
-	public static String stringToFloat(float f){
+
+	public static String stringToFloat(float f) {
 		BigDecimal b = new BigDecimal(f);
 		float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 		String str = String.valueOf(f1);
-		while(str.contains(".")){
-			if(str.endsWith("0") || str.endsWith(".")){
-				str = str.substring(0, str.length()-1);
-			}else {
+		while (str.contains(".")) {
+			if (str.endsWith("0") || str.endsWith(".")) {
+				str = str.substring(0, str.length() - 1);
+			} else {
 				break;
 			}
 		}
-	return str;
+		return str;
+	}
+
+	public static String trim(String text) {
+		return text.replaceAll(" ", "");
+	}
+
+	public static boolean isPicFile(File file) {
+		String name = file.getName();
+		for (String pic : pics) {
+			if (name.endsWith(pic))
+				return true;
+		}
+
+		return false;
 	}
 
 }

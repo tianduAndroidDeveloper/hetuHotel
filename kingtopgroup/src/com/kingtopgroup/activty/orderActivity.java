@@ -1,15 +1,14 @@
 package com.kingtopgroup.activty;
 
 import org.apache.http.Header;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -27,9 +26,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class orderActivity extends TabActivity implements OnCheckedChangeListener {
 
-	private ImageView imgaeview;
 	private RadioGroup radiogroup;
-	private RadioButton manipulation, message, orders, pedicure;
 	private TextView location;
 	private TabHost tabhost;
 	private TabWidget tabs;
@@ -39,19 +36,8 @@ public class orderActivity extends TabActivity implements OnCheckedChangeListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderlistview);
-		manipulation = (RadioButton) findViewById(R.id.manipulation);
-		pedicure = (RadioButton) findViewById(R.id.pedicure);
-		message = (RadioButton) findViewById(R.id.message);
-		orders = (RadioButton) findViewById(R.id.orders);
 		location = (TextView) findViewById(R.id.order);
 		progress = findViewById(R.id.progress);
-		// 字体设置
-		Typeface mTypeface = Typeface.createFromAsset(getAssets(), "fonts/kaiti.ttf");
-		manipulation.setTypeface(mTypeface);
-		pedicure.setTypeface(mTypeface);
-		message.setTypeface(mTypeface);
-		orders.setTypeface(mTypeface);
-		location.setTypeface(mTypeface);
 		initLocation();
 
 		tabs = (TabWidget) findViewById(android.R.id.tabs);

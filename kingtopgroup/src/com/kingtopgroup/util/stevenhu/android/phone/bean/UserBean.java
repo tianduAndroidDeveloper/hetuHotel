@@ -18,6 +18,7 @@ public class UserBean implements Serializable {
 	private String uid;
 	private String account;
 	private String password;
+	private int massagerId;
 
 	public String getAccount() {
 		return account;
@@ -41,6 +42,14 @@ public class UserBean implements Serializable {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public int getMassagerId() {
+		return massagerId;
+	}
+
+	public void setMassagerId(int massagerId) {
+		this.massagerId = massagerId;
 	}
 
 

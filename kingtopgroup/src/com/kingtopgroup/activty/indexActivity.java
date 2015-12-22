@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.kingtopgroup.R;
+import com.kingtopgroup.util.stevenhu.android.phone.bean.UserBean;
+
 import android.app.ActionBar.LayoutParams;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -26,8 +28,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 
 @SuppressWarnings("deprecation")
-public class indexActivity extends TabActivity implements
-		OnCheckedChangeListener, OnClickListener {
+public class indexActivity extends TabActivity implements OnCheckedChangeListener, OnClickListener {
 	private RadioButton personal, cooperate, order, more;
 	private RadioGroup indexGroup;
 	private TabHost tabhost;
@@ -44,8 +45,7 @@ public class indexActivity extends TabActivity implements
 	private List<Map<String, String>> listRight;
 
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
 
@@ -79,8 +79,10 @@ public class indexActivity extends TabActivity implements
 		// 个人跳转
 		TabHost.TabSpec tabSpec4 = tabhost.newTabSpec("个人");
 		tabSpec4.setIndicator("个人");
-		tabSpec4.setContent(new Intent(indexActivity.this,
-				PersonalActivity.class));
+		if (UserBean.getUSerBean().getMassagerId() > 0)
+			tabSpec4.setContent(new Intent(indexActivity.this, MassagerActivity.class));
+		else
+			tabSpec4.setContent(new Intent(indexActivity.this, PersonalActivity.class));
 		tabhost.addTab(tabSpec4);
 
 		// 合作
@@ -163,41 +165,32 @@ public class indexActivity extends TabActivity implements
 		if (cooper_window != null && cooper_window.isShowing()) {
 			cooper_window.dismiss();
 		} else {
-			cooper_view = getLayoutInflater().inflate(
-					R.layout.person_menu_listview, null);
-			cooper_listview = (ListView) cooper_view
-					.findViewById(R.id.menulist);
-			SimpleAdapter listAdapter = new SimpleAdapter(indexActivity.this,
-					listLeft, R.layout.person_menu_item,
-					new String[] { "item" }, new int[] { R.id.menuitem });
+			cooper_view = getLayoutInflater().inflate(R.layout.person_menu_listview, null);
+			cooper_listview = (ListView) cooper_view.findViewById(R.id.menulist);
+			SimpleAdapter listAdapter = new SimpleAdapter(indexActivity.this, listLeft, R.layout.person_menu_item, new String[] { "item" }, new int[] { R.id.menuitem });
 			cooper_listview.setAdapter(listAdapter);
 
 			// 点击listview中item的处理
-			cooper_listview
-					.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			cooper_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-						@Override
-						public void onItemClick(AdapterView<?> arg0, View arg1,
-								int arg2, long arg3) {
-							// 改变顶部对应TextView值
-							if (arg2 == 1) {
-								Intent intent = new Intent(indexActivity.this,
-										AddKingTopGroupActivty.class);
-								startActivity(intent);
-							}
-							// 隐藏弹出窗口
-							if (cooper_window != null
-									&& cooper_window.isShowing()) {
-								cooper_window.dismiss();
-							}
-						}
-					});
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					// 改变顶部对应TextView值
+					if (arg2 == 1) {
+						Intent intent = new Intent(indexActivity.this, AddKingTopGroupActivty.class);
+						startActivity(intent);
+					}
+					// 隐藏弹出窗口
+					if (cooper_window != null && cooper_window.isShowing()) {
+						cooper_window.dismiss();
+					}
+				}
+			});
 
 			// 创建弹出窗口
 			// 窗口内容为layoutLeft，里面包含一个ListView
 			// 窗口宽度跟tvLeft一样
-			cooper_window = new PopupWindow(cooper_view, cooperate.getWidth(),
-					LayoutParams.WRAP_CONTENT);
+			cooper_window = new PopupWindow(cooper_view, cooperate.getWidth(), LayoutParams.WRAP_CONTENT);
 
 			ColorDrawable cd = new ColorDrawable(-0000);
 			cooper_window.setBackgroundDrawable(cd);
@@ -210,8 +203,7 @@ public class indexActivity extends TabActivity implements
 
 			// 设置popupwindow的位置（相对tvLeft的位置）
 			// int topBarHeight = rlTopBar.getBottom();
-			cooper_window.showAsDropDown(cooperate, 0,
-					(180 - cooperate.getHeight()) / 2);
+			cooper_window.showAsDropDown(cooperate, 0, (180 - cooperate.getHeight()) / 2);
 
 			cooper_window.setTouchInterceptor(new View.OnTouchListener() {
 
@@ -233,50 +225,41 @@ public class indexActivity extends TabActivity implements
 		if (more_window != null && more_window.isShowing()) {
 			more_window.dismiss();
 		} else {
-			more_view = getLayoutInflater().inflate(
-					R.layout.person_menu_listview, null);
+			more_view = getLayoutInflater().inflate(R.layout.person_menu_listview, null);
 			more_listview = (ListView) more_view.findViewById(R.id.menulist);
-			SimpleAdapter listAdapter = new SimpleAdapter(indexActivity.this,
-					setmoreMenu(), R.layout.person_menu_item,
-					new String[] { "item" }, new int[] { R.id.menuitem });
+			SimpleAdapter listAdapter = new SimpleAdapter(indexActivity.this, setmoreMenu(), R.layout.person_menu_item, new String[] { "item" }, new int[] { R.id.menuitem });
 			more_listview.setAdapter(listAdapter);
 
 			// 点击listview中item的处理
-			more_listview
-					.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			more_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-						@Override
-						public void onItemClick(AdapterView<?> arg0, View arg1,
-								int arg2, long arg3) {
-							// 改变顶部对应TextView值
-							// String strItem = listRight.get(arg2).get(
-							// "item");
-							if (arg2 == 1) {
-								Intent intent = new Intent(indexActivity.this,
-										ServiceScopeActivty.class);
-								startActivity(intent);
-							} else if (arg2 == 2) {
-								Intent intent1 = new Intent(indexActivity.this,
-										SomeQuestionActivty.class);
-								startActivity(intent1);
-							} else if (arg2 == 3) {
-								Intent inten2 = new Intent(indexActivity.this,
-										AboutKingTopGroup.class);
-								startActivity(inten2);
-							}
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					// 改变顶部对应TextView值
+					// String strItem = listRight.get(arg2).get(
+					// "item");
+					if (arg2 == 1) {
+						Intent intent = new Intent(indexActivity.this, ServiceScopeActivty.class);
+						startActivity(intent);
+					} else if (arg2 == 2) {
+						Intent intent1 = new Intent(indexActivity.this, SomeQuestionActivty.class);
+						startActivity(intent1);
+					} else if (arg2 == 3) {
+						Intent inten2 = new Intent(indexActivity.this, AboutKingTopGroup.class);
+						startActivity(inten2);
+					}
 
-							// 隐藏弹出窗口
-							if (more_window != null && more_window.isShowing()) {
-								more_window.dismiss();
-							}
-						}
-					});
+					// 隐藏弹出窗口
+					if (more_window != null && more_window.isShowing()) {
+						more_window.dismiss();
+					}
+				}
+			});
 
 			// 创建弹出窗口
 			// 窗口内容为layoutLeft，里面包含一个ListView
 			// 窗口宽度跟tvLeft一样
-			more_window = new PopupWindow(more_view, more.getWidth(),
-					LayoutParams.WRAP_CONTENT);
+			more_window = new PopupWindow(more_view, more.getWidth(), LayoutParams.WRAP_CONTENT);
 
 			ColorDrawable cd = new ColorDrawable(-0000);
 			more_window.setBackgroundDrawable(cd);
